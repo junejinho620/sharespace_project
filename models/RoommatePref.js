@@ -1,18 +1,43 @@
 const { DataTypes } = require('sequelize');
 const db = require('../config/database');
 
+/** @type {import('sequelize').Model} */
+
 const RoommatePref = db.define('RoommatePref', {
-  id: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  user_id: { type: DataTypes.INTEGER, allowNull: false },
-  gender_pref: { type: DataTypes.STRING, allowNull: true },
-  age_range: { type: DataTypes.STRING, allowNull: true },
+  user_id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    references: {
+      model: 'users',
+      key: 'id',
+    },
+    onDelete: 'CASCADE',
+  },
+  budget_range: { type: DataTypes.STRING(50) },
+  cleanliness: { type: DataTypes.INTEGER },
+  noise_tolerance: { type: DataTypes.INTEGER },
+  sleep_schedule: { type: DataTypes.STRING(50) },
+  age_range: { type: DataTypes.STRING(50) },
+  gender_pref: {
+    type: DataTypes.ENUM('Male', 'Female', 'Any'),
+    defaultValue: 'Any',
+  },
+  smoking: { type: DataTypes.BOOLEAN, defaultValue: false },
+  introvert: { type: DataTypes.BOOLEAN, defaultValue: false },
   pet_friendly: { type: DataTypes.BOOLEAN, defaultValue: false },
-  smoking_allowed: { type: DataTypes.BOOLEAN, defaultValue: false },
-  interests: { type: DataTypes.STRING, allowNull: true },
-  budget_range: { type: DataTypes.STRING, allowNull: true },
+  hobbies: { type: DataTypes.TEXT },
 }, {
-  timestamps: false,
   tableName: 'roommate_prefs',
+  timestamps: false,
 });
+
+// Associations
+RoommatePref.associate = (models) => {
+  RoommatePref.belongsTo(models.User, {
+    foreignKey: 'user_id',
+    as: 'user',
+    onDelete: 'CASCADE',
+  });
+};
 
 module.exports = RoommatePref;
