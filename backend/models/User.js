@@ -68,10 +68,10 @@ User.beforeUpdate(async (user) => {
   }
 });
 
-// // Instance method
-// User.prototype.comparePassword = async function (input) {
-//   return await bcrypt.compare(input, this.password);
-// };
+// Instance method
+User.prototype.comparePassword = async function (input) {
+  return await bcrypt.compare(input, this.password);
+};
 
 // Associations
 User.associate = (models) => {

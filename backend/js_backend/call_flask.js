@@ -23,7 +23,7 @@ const db = require('../models');
       });
   
       // Send to Flask API
-      const response = await axios.post('http://localhost:5000/match_profiles', { profiles });
+      const response = await axios.post('http://localhost:5001/match_profiles', { profiles });
   
       console.log("Matching Results:");
       console.log(response.data);

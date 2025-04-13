@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (res.ok) {
         localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("username", data.user.name || email.split('@')[0]);
+        localStorage.setItem("username", data.user.username || data.user.name || email.split('@')[0]);
         localStorage.setItem("userId", data.user.id);
         window.location.href = 'index.html';
       } else {
