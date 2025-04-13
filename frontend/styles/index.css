@@ -1,0 +1,442 @@
+/* Hero Section */
+.hero {
+  background-image: url('/img/hero-banner2.jpg'); /* Add a background image */
+  background-size: cover; /*Ensure the image covers the entire section */
+  background-position: center; /* Center the background image */
+  color: white; /* White text for contrast */
+  padding: 80px 20px 150px 20px; /* Add padding for spacing */
+  text-align: center; /* Center the content */
+  position: relative; /* For overlay */
+  display: flex; /* Use Flexbox for layout */
+  justify-content: center; /* Center content horizontally */
+  align-items: center; /* Center content vertically */
+  min-height: 80vh; /* Make the hero section take up the full viewport height */
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+  z-index: 1;
+}
+
+.hero-content,
+.hero-btn {
+  position: relative; /* Ensure content is above the overlay */
+  z-index: 2;
+  max-width: 1000px; /* Limit the width of the content */
+  margin: 0 auto;
+   /* Center the content */
+}
+
+.hero h1 {
+  font-size: 48px; /* Large font size for the tagline */
+  margin-bottom: 50px; /* Add spacing below the heading */
+}
+
+.hero p {
+  font-size: 24px; /* Medium font size for the description */
+  margin-bottom: 10px; /* Add spacing below the paragraph */
+}
+
+.hero-btn {
+  background-color: white; /* Soft brown */
+  color: #543310 ;
+  padding: 15px 30px; /* Larger padding for the CTA button */
+  font-size: 18px; /* Larger font size for the button */
+  border-radius: 50px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  transition: background-color 0.3s ease; /* Smooth hover effect */
+  margin-top: 50px;
+}
+
+.hero-btn:hover {
+  background-color: #f1f1f1; /* Darker brown on hover */
+}
+
+
+      
+/* Username Dropdown Styling */
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.username {
+  cursor: pointer;
+  padding: 10px 15px;
+  color: #543310;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Dropdown menu positioning fixed to ensure hover */
+.dropdown-content {
+  position: absolute;
+  top: 100%;  /* Ensure it touches the username */
+  right: 0;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  padding: 5px 0;
+  margin: 0;
+  width: 160px;
+  display: none; /* Hidden initially */
+}
+
+.dropdown-content li {
+  list-style: none;
+}
+
+.dropdown-content li a {
+  display: block;
+  text-decoration: none;
+  color: #543310;
+  padding: 8px 12px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-content li a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover of entire li.user-dropdown element */
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Small responsive adjustment */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dropdown-content {
+    width: 100%;
+    right: auto;
+    left: 0;
+  }
+}
+
+
+
+/* About Section */
+.about {
+  padding: 80px 20px;
+  background-color: white; /* Creamy background */
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 36px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+.feature-item {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.feature-image {
+  height: 200px;
+  background-color: #AF8F6F30; /* Temporary placeholder color */
+  border-radius: 8px;
+  margin-bottom: 25px;
+}
+
+.feature-item h3 {
+  color: #543310;
+  margin-bottom: 15px;
+  font-size: 22px;
+}
+
+.feature-item p {
+  color: #74512D;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .feature-grid {
+      grid-template-columns: 1fr;
+  }
+  
+  .feature-image {
+      height: 150px;
+  }
+}
+
+.how-it-works {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  
+  text-align: center;
+  perspective: 1000px; /* Added for depth effect */
+}
+.how-it-works-title{
+  margin-bottom: 100px;
+}
+
+.how-it-works h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 5s ease, transform 5s ease;
+}
+
+.how-it-works h2.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Steps grid styling */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  transition: all 0.5s ease;
+  
+}
+
+/* Step item styling with zoom effect */
+.step-item {
+  background-color: white;
+  border-radius: 0.5rem;
+  
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.5s ease;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+}
+
+/* Hover effect for step items */
+.step-item:hover {
+  transform: scale(1.3);
+  z-index: 10;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Effect for other items when one is hovered */
+.steps-grid:has(.step-item:hover) .step-item:not(:hover) {
+  transform: scale(0.8);
+  opacity: 0.5;
+}
+
+/* Icon styling */
+.step-icon {
+  width: 60px;
+  height: 60px;
+  background-color: #e3f2fd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.step-item:hover .step-icon {
+  background-color: #1976d2;
+}
+
+/* Title and paragraph styling */
+.step-item h3 {
+  margin-bottom: 0.75rem;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.step-item p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Optional: enhance title on hover */
+.step-item:hover h3 {
+  color: #1976d2;
+}
+@media (max-width: 768px) {
+  .steps-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .step-item {
+    padding: 20px;
+  }
+
+  .step-icon {
+    height: 80px;
+    width: 80px;
+  }
+}
+
+/* Testimonials Section */
+.testimonials {
+  padding: 80px 20px;
+  background-color: white; /* Creamy background */
+  color: #543310; /* Deep chocolate text */
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.testimonials h2 {
+  font-size: 36px;
+  margin-bottom: 50px;
+  color: #543310; /* Deep chocolate text */
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonial-item {
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.testimonial-item:hover {
+  transform: translateY(-10px); /* Slight lift on hover */
+}
+
+.testimonial-content {
+  text-align: left;
+}
+
+.testimonial-text {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #543310; /* Deep chocolate text */
+  font-family: "Times New Roman", serif;
+}
+
+.testimonial-author {
+  font-size: 16px;
+  font-weight: bold;
+  color: #201405; /* Deep chocolate text */
+}
+
+@media (max-width: 768px) {
+  .testimonial-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Footer */
+.footer {
+  background-color: #543310; /* Dark chocolate background */
+  color: white; /* White text */
+  padding: 40px 20px 20px 20px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 30px;
+}
+
+.footer-section h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #F8F4E1; /* Light cream color */
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: white;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+  color: #AF8F6F; /* Soft brown on hover */
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Update social icons to use white color */
+.social-icons a {
+  color: white; /* Set icon color to white */
+  text-decoration: none;
+  font-size: 24px; /* Adjust icon size */
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2); /* Slight zoom on hover */
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  border-top: 1px solid #AF8F6F; /* Soft brown border */
+  padding-top: 20px;
+}
+
+.footer-bottom p {
+  font-size: 14px;
+  color: #F8F4E1; /* Light cream color */
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+}

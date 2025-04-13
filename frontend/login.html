@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In - ShareSpace</title>
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/login.css">
+  <script defer src="scripts/login.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="company">
+      <a href="index.html" class="company-name">ShareSpace</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Login Section -->
+  <section class="login">
+    <h2>Log In</h2>
+    <form id="login-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-container">
+          <input type="password" id="password" name="password" required>
+          <button type="button" class="toggle-password">Show Password</button>
+        </div>
+      </div>
+
+      <!-- Forgot Password Link -->
+      <p class="forgot-password"><a href="#">Forgot password?</a></p>
+
+      <!-- Log In Button -->
+      <button type="submit" class="btn">Log In</button>
+
+      <div class="social-login">
+        <p>Or log in with:</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+
+      <!-- Link to Signup Page -->
+      <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Footer content from index.html -->
+  </footer>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html>

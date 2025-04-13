@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up - ShareSpace</title>
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/signup.css">
+  <script defer src="scripts/signup.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="company">
+      <a href="index.html" class="company-name">ShareSpace</a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Signup Section -->
+  <section class="signup">
+    <h2>Sign Up</h2>
+    <form id="signup-form">
+      <!-- Email Field -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="password-container">
+          <input type="password" id="password" name="password" required>
+          <button type="button" class="toggle-password">Show Password</button>
+        </div>
+      </div>
+
+      <!-- Sign Up Button -->
+      <button type="submit" class="btn">Sign Up</button>
+
+      <!-- Social Login -->
+      <div class="social-login">
+        <p>Or sign up with:</p>
+        <div class="social-icons">
+          <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
+          <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+        </div>
+      </div>
+
+      <!-- Link to Login Page -->
+      <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <!-- Footer content from index.html -->
+  </footer>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</body>
+</html>

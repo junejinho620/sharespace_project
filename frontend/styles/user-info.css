@@ -1,0 +1,81 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdfaf7;
+  color: #543310;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 30px;
+  margin-bottom: 30px;
+  color: #543310;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+  color: #543310;
+  font-size: 18px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="tel"],
+input[type="file"],
+select,
+textarea {
+  margin-top: 6px;
+  padding: 12px 14px;
+  font-size: 17px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+button[type="submit"] {
+  margin-top: 20px;
+  padding: 14px 20px;
+  background-color: #543310;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #3a240d;
+}
+
+footer.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f3e6d6;
+  color: #543310;
+  font-size: 15px;
+  margin-top: 60px;
+}

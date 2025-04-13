@@ -1,0 +1,91 @@
+/* Smooth Scrolling Effect */
+html {
+  scroll-behavior: smooth;
+}
+
+/* General Styling */
+body {
+  font-family: Arial, sans-serif; /* Sets the default font */
+  margin: 0; /* Removes default margin */
+  padding: 0; /* Removes default padding */
+  background-color: white; /* Soft creamy beige background */
+  text-align: center; /* Centers text */
+  color: #543310; /* Deep chocolate text */
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  padding: 15px 30px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+/* Fix class name to match UL element */
+.nav-links {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Make li a box but don’t handle hover/click here */
+.nav-links li {
+  border-radius: 6px;
+}
+
+/* Handle hover, padding, and full click area on the <a> */
+.nav-links a {
+  display: block;
+  padding: 10px 15px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: black;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+  cursor: pointer; /* ✅ Full hover area shows pointer */
+}
+
+/* Change background on hover */
+.nav-links a:hover {
+  background-color: lightgray;
+}
+
+.company {
+  color: #543310;; /* White text for contrast */
+  font-size: 24px; /* Increases font size */
+  font-weight: bold; /* Makes text bold */
+}
+
+.company-name {
+  text-decoration: none;
+  color: #543310;;
+} 
+
+.nav-links {
+  list-style: none; /* Removes default list styling */
+  display: flex; /* Arranges links horizontally */
+  align-items: center;
+  gap: 20px; /* Spaces out links */
+  margin-right: 50px; /* Adds spacing to the right */
+}
+
+.nav-links a {
+  text-decoration: none; /* Removes underline from links */
+  color:  #543310;; /* White text */
+  font-size: 18px; /* Sets font size */
+}
