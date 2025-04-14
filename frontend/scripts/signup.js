@@ -33,23 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
         const data = await res.json();
   
         if (res.ok) {
-          localStorage.setItem("isLoggedIn", "true");
           localStorage.setItem("userId", data.user.id); //Store the user's ID for future updates
-          alert("✅ Sign-up successful!");
-          window.location.href = "user-name.html";
+          alert("✅ Sign-up successful! Please check your email and verify before continuing.");
         } else {
           alert("❌ " + data.error);
         }
       } catch (err) {
         console.error("Signup error:", err);
         alert("An error occurred while signing up.");
-      }
-
-      // Simulate storing account and redirecting
-      // localStorage.setItem('email', email);
-      // localStorage.setItem('password', password);
-      // localStorage.setItem('isSignedUp', 'true');
-  
+      }  
     });
   
     // Email validation

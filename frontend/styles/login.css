@@ -1,14 +1,16 @@
 /* Login Section */
 .login {
-  padding: 50px 20px;
+  padding: 60px 30px;
   background-color: white;
   margin-top: 150px;
   max-width: 400px;
+  width: 90%; /* Responsive width for smaller screens */
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-bottom: 100px; /* So it's not crowded by the footer */
 }
 
 .login h2 {
@@ -103,33 +105,44 @@
   text-decoration: underline;
 }
 
-/* Password Container */
 .password-container {
   position: relative;
+  width: 100%;
 }
 
 .password-container input {
   width: 100%;
-  padding: 10px 100px 10px 10px; /* Add padding for the toggle button */
-  border: 1px solid #543310;
-  border-radius: 5px;
-  font-size: 16px;
-  box-sizing: border-box;
+  padding-right: 40px; /* make space for the icon */
 }
 
-.password-container .toggle-password {
+.password-container img {
   position: absolute;
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  background: none;
-  border: none;
-  color: #AF8F6F;
-  font-size: 14px;
+  width: 24px;
+  height: 24px;
   cursor: pointer;
-  padding: 0;
+  opacity: 0.7;
 }
 
-.password-container .toggle-password:hover {
-  text-decoration: underline;
+.password-container img:hover {
+  opacity: 1;
 }
+/* Let page take full height for footer positioning */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 122vh;
+}
+
+/* Push footer to the bottom */
+footer.footer {
+  margin-top: auto;
+}
+
+/* Add space under the login box */
+.login {
+  margin-bottom: 100px;
+}
+

@@ -1,61 +1,51 @@
-/* Hero Section */
 .hero {
-  background-image: url('/img/hero-banner2.jpg'); /* Add a background image */
-  background-size: cover; /*Ensure the image covers the entire section */
-  background-position: center; /* Center the background image */
-  color: white; /* White text for contrast */
-  padding: 80px 20px 150px 20px; /* Add padding for spacing */
-  text-align: center; /* Center the content */
-  position: relative; /* For overlay */
-  display: flex; /* Use Flexbox for layout */
-  justify-content: center; /* Center content horizontally */
-  align-items: center; /* Center content vertically */
-  min-height: 80vh; /* Make the hero section take up the full viewport height */
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5); /* Dark overlay for better text visibility */
+  position: relative;
+  min-height: 100vh; /* Fills the full screen height */
+  padding: 120px 20px 150px; /* top padding to offset fixed navbar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: white;
   z-index: 1;
 }
 
+/* Background Image Styling */
+.background-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: 0.8; /* Adjust this for darker/lighter background */
+  pointer-events: none;
+}
+
+/* Keep your content on top */
 .hero-content,
 .hero-btn {
-  position: relative; /* Ensure content is above the overlay */
+  position: relative;
   z-index: 2;
-  max-width: 1000px; /* Limit the width of the content */
-  margin: 0 auto;
-   /* Center the content */
+  font-size: 40px;
 }
 
-.hero h1 {
-  font-size: 48px; /* Large font size for the tagline */
-  margin-bottom: 50px; /* Add spacing below the heading */
-}
-
-.hero p {
-  font-size: 24px; /* Medium font size for the description */
-  margin-bottom: 10px; /* Add spacing below the paragraph */
-}
-
+/* Optional button styling (already in place) */
 .hero-btn {
-  background-color: white; /* Soft brown */
-  color: #543310 ;
-  padding: 15px 30px; /* Larger padding for the CTA button */
-  font-size: 18px; /* Larger font size for the button */
-  border-radius: 50px; /* Rounded corners */
-  text-decoration: none; /* Remove underline */
-  transition: background-color 0.3s ease; /* Smooth hover effect */
-  margin-top: 50px;
+  margin-top: 40px;
+  background-color: white;
+  color: #543310;
+  padding: 15px 30px;
+  font-size: 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
 }
 
 .hero-btn:hover {
-  background-color: #f1f1f1; /* Darker brown on hover */
+  background-color: #f1f1f1;
 }
 
 
@@ -129,7 +119,7 @@
 /* About Section */
 .about {
   padding: 80px 20px;
-  background-color: white; /* Creamy background */
+  background-color: #AF8F6F; /* Creamy background */
   text-align: center;
 }
 
@@ -146,7 +136,7 @@
 }
 
 .feature-item {
-  background: white;
+  background: #F8F4E1;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -154,9 +144,9 @@
 }
 
 .feature-image {
-  height: 200px;
+  height: 70px;
   background-color: #AF8F6F30; /* Temporary placeholder color */
-  border-radius: 8px;
+  border-radius: 20px;
   margin-bottom: 25px;
 }
 
@@ -353,90 +343,3 @@
   }
 }
 
-/* Footer */
-.footer {
-  background-color: #543310; /* Dark chocolate background */
-  color: white; /* White text */
-  padding: 40px 20px 20px 20px;
-  text-align: center;
-}
-
-.footer-content {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  max-width: 1200px;
-  margin: 0 auto;
-  gap: 30px;
-}
-
-.footer-section {
-  flex: 1;
-  min-width: 200px;
-  margin-bottom: 30px;
-}
-
-.footer-section h3 {
-  font-size: 20px;
-  margin-bottom: 15px;
-  color: #F8F4E1; /* Light cream color */
-}
-
-.footer-section ul {
-  list-style: none;
-  padding: 0;
-}
-
-.footer-section ul li {
-  margin-bottom: 10px;
-}
-
-.footer-section ul li a {
-  color: white;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-section ul li a:hover {
-  color: #AF8F6F; /* Soft brown on hover */
-}
-
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-}
-
-/* Update social icons to use white color */
-.social-icons a {
-  color: white; /* Set icon color to white */
-  text-decoration: none;
-  font-size: 24px; /* Adjust icon size */
-  transition: transform 0.3s ease;
-}
-
-.social-icons a:hover {
-  transform: scale(1.2); /* Slight zoom on hover */
-}
-
-.footer-bottom {
-  margin-top: 30px;
-  border-top: 1px solid #AF8F6F; /* Soft brown border */
-  padding-top: 20px;
-}
-
-.footer-bottom p {
-  font-size: 14px;
-  color: #F8F4E1; /* Light cream color */
-}
-
-@media (max-width: 768px) {
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-section {
-    text-align: center;
-  }
-}

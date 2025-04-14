@@ -6,6 +6,7 @@ const bodyParser = require("body-parser"); // Parses incoming JSON data
 const morgan = require("morgan"); // Logs HTTP requests for debugging
 const { sequelize } = require('./models');
 const userRoutes = require("./routes/userRoutes");
+const path = require("path");
 
 // Load environment variables from .env file
 dotenv.config();
@@ -17,8 +18,9 @@ const app = express();
 app.use(cors()); // Enable CORS for cross-origin requests
 app.use(bodyParser.json()); // Parse JSON request bodies
 app.use(morgan("dev")); // Log incoming HTTP requests
+app.use(express.static(path.join(__dirname, "..", "frontend"))); // Serve HTML/CSS/JS
 
-sequelize.sync({ alter: true })  // ✅ sequelize is correctly imported above
+sequelize.sync({ alter: true })  // sequelize is correctly imported above
   .then(() => {
     console.log("✅ All tables synced");
   })

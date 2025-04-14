@@ -13,6 +13,7 @@
   <!-- Navigation Bar -->
   <nav class="navbar">
     <div class="company">
+      <img src="styles/sharespace-logo.png" class="sharespace-logo">
       <a href="index.html" class="company-name">ShareSpace</a>
     </div>
     <ul class="nav-links">
@@ -35,14 +36,18 @@
       <!-- Password Field -->
       <div class="form-group">
         <label for="password">Password</label>
-        <div class="password-container">
-          <input type="password" id="password" name="password" required>
-          <button type="button" class="toggle-password">Show Password</button>
+        
+          <div class="password-container">
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <img src="styles/eye.png" id="togglePassword" alt="Toggle visibility">
+            
+          </div>
+          
         </div>
       </div>
 
       <!-- Forgot Password Link -->
-      <p class="forgot-password"><a href="#">Forgot password?</a></p>
+      <p class="forgot-password"><a href="forgot-password.html">Forgot password?</a></p>
 
       <!-- Log In Button -->
       <button type="submit" class="btn">Log In</button>
@@ -60,9 +65,58 @@
     </form>
   </section>
 
+
   <!-- Footer -->
   <footer class="footer">
-    <!-- Footer content from index.html -->
+    <div class="footer-content">
+      <!-- Navigation Links -->
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          -<li><a href="#about">About</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <!--<li><a href="browse.html">Browse</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="user-info.html" class="btn">User Info</a></li>-->
+        </ul>
+      </div>
+  
+      <!-- Contact Details -->
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul>
+          <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
+          <li>Phone: +82 (010) 6744-5288</li>
+          <li>Address: 123 Roommate St, Suite 456, City, Country</li>
+        </ul>
+      </div>
+  
+      <!-- Social Media Icons -->
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+  
+      <!-- Legal Information -->
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+  
+    <!-- Copyright Notice -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 ShareSpace. All rights reserved.</p>
+    </div>
   </footer>
 
   <!-- Font Awesome for Icons -->
