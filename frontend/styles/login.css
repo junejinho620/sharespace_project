@@ -49,7 +49,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 20px;
+  margin-top: 8px;
 }
 
 .login .btn:hover {
@@ -130,19 +130,18 @@
   opacity: 1;
 }
 /* Let page take full height for footer positioning */
-body {
+.body {
   display: flex;
   flex-direction: column;
-  min-height: 122vh;
+  min-height: 100vh;
 }
 
 /* Push footer to the bottom */
-footer.footer {
+.footer.footer {
   margin-top: auto;
 }
 
 /* Add space under the login box */
 .login {
-  margin-bottom: 100px;
+  margin-bottom: 200px;
 }
-

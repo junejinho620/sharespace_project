@@ -32,7 +32,7 @@ router.get("/verify", async (req, res) => {
     user.verification_token = null;
     await user.save();
 
-    // ✅ Instead of redirect(), return HTML with JS-based redirect
+    // Instead of redirect(), return HTML with JS-based redirect
     res.send(`
       <html>
         <head>

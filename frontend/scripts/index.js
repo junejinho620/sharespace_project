@@ -115,8 +115,6 @@ document.addEventListener('DOMContentLoaded', function () {
           loginLi.innerHTML = `<a href="login.html" class="login">Log in</a>`;
         }
       });
-      
-      
     }
 
     const dashboardExists = Array.from(navLinks.querySelectorAll('a')).some(link =>

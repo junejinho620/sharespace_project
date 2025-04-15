@@ -56,20 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
   
-  // Show/hide password
-  const togglePasswordButtons = document.querySelectorAll('.toggle-password');
-  togglePasswordButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const passwordInput = this.previousElementSibling;
-      if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        this.textContent = 'Hide Password';
-      } else {
-        passwordInput.type = 'password';
-        this.textContent = 'Show Password';
-      }
-    });
-  });
+// Show/hide password
+const togglePassword = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+
+togglePassword.addEventListener('click', function () {
+  const isPassword = passwordInput.type === 'password';
+  passwordInput.type = isPassword ? 'text' : 'password';
+  togglePassword.src = isPassword ? 'styles/hidden.png' : 'styles/eye.png';
+});
 
   document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('username-form');
