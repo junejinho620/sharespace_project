@@ -1,6 +1,6 @@
 
 const { DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs'); // On Windows, change to bcrypt
 const db = require('../config/database');
 
 /**

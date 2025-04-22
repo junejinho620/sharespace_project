@@ -10,8 +10,9 @@ if (queryUserId) {
 }
 
 document.addEventListener('DOMContentLoaded', async function () {
+  const token = localStorage.getItem("token");
   const userId = localStorage.getItem('userId');
-
+  
   if (!userId) {
     alert("⚠️ You're not logged in.");
     return window.location.href = "login.html";
@@ -19,7 +20,11 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   try {
     // 👉 Check if user is verified
-    const res = await fetch(`http://localhost:5000/api/users/${userId}`);
+    const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    });
     const data = await res.json();
 
     if (!data.user || !data.user.verified) {
@@ -32,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     return window.location.href = "index.html";
   }
 
-  // ✅ Only run username form logic if verified
+  // Only run username form logic if verified
   const usernameForm = document.getElementById('username-form');
 
   if (usernameForm) {
@@ -50,10 +55,12 @@ document.addEventListener('DOMContentLoaded', async function () {
       try {
         const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify({ username: username })
         });
-
         const data = await res.json();
 
         if (res.ok) {

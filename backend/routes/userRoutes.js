@@ -4,9 +4,10 @@ const jwt = require('jsonwebtoken'); // For generating JWT
 const crypto = require('crypto');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const { User } = require('../models');
+const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
 
-// POST /api/users/signup - handle user registration
+// POST /api/users/signup - handle user registration and send verification email
 router.post("/signup", async (req, res) => {
   try {
     const token = crypto.randomBytes(32).toString('hex');
@@ -21,7 +22,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// POST /api/users/verify - handle user verification
+// GET /api/users/verify - handle user verification
 router.get("/verify", async (req, res) => {
   const { token } = req.query;
   try {
@@ -40,7 +41,7 @@ router.get("/verify", async (req, res) => {
           <meta charset="UTF-8" />
           <script>
             setTimeout(() => {
-              window.location.href = "/user-name.html?verified=true&id=${user.id}";
+              window.location.href = "/login.html?verified=true";
             }, 1000);
           </script>
         </head>
@@ -56,7 +57,34 @@ router.get("/verify", async (req, res) => {
   }
 });
 
-// POST /api/users/login - handle user login & issue token
+// POST /api/users/resend-verification - resend token to unverified user
+router.post('/resend-verification', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    if (user.verified) return res.status(400).json({ error: 'User is already verified' });
+
+    // Create a new token
+    const crypto = require('crypto');
+    const token = crypto.randomBytes(32).toString('hex');
+
+    user.verification_token = token;
+    await user.save();
+
+    // Resend email
+    await sendVerificationEmail(user.email, token);
+
+    res.json({ message: 'Verification email resent!' });
+  } catch (error) {
+    console.error("Resend error:", error);
+    res.status(500).json({ error: 'Failed to resend verification email' });
+  }
+});
+
+// POST /api/users/login - handle user login & issue JWT token
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -103,10 +131,13 @@ router.post('/login', async (req, res) => {
 });
 
 // PUT /api/users/:id - update user info
-router.put('/:id', async (req, res) => {
-  console.log("Incoming PUT data:", req.body);
-
+router.put('/:id', verifyToken, async (req, res) => {
   try {
+    // Prevent updating other users
+    if (parseInt(req.params.id) !== req.user.id) {
+      return res.status(403).json({ error: 'Unauthorized access' });
+    }
+
     const user = await User.findByPk(req.params.id);
     if (!user) return res.status(404).json({ error: 'User not found' });
 
@@ -117,9 +148,32 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// GET /api/users/:id - get user info
-router.get('/:id', async (req, res) => {
+// GET /api/users/me - Get current user's profile (self)
+router.get('/me', verifyToken, async (req, res) => {
   try {
+    const user = await User.findByPk(req.user.id, {
+      attributes: { exclude: ['password'] }, // Hide password field
+    });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.json({ user });
+  } catch (error) {
+    console.error("GET /api/users/me error:", error);
+    res.status(500).json({ error: 'Failed to fetch user data' });
+  }
+});
+
+// GET /api/users/:id - get user info
+router.get('/:id', verifyToken, async (req, res) => {
+  try {
+    // Prevent viewing other users
+    if (parseInt(req.params.id) !== req.user.id) {
+      return res.status(403).json({ error: 'Unauthorized access' });
+    }
+    
     const user = await User.findByPk(req.params.id, {
       attributes: { exclude: ['password'] }, // avoid exposing password
     });

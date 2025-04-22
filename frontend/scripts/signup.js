@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       try {
-        // 👉 POST data to backend
+        // POST data to backend
         const res = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },

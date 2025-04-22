@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     userInfoForm.addEventListener('submit', async function(event) {
       event.preventDefault();
     
+      const token = localStorage.getItem("token");
       const userId = localStorage.getItem("userId");
       if (!userId) {
         alert("User not identified.");
@@ -23,7 +24,10 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
+          headers: { 
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
           body: JSON.stringify(userData)
         });
     

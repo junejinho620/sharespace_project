@@ -30,11 +30,38 @@ document.addEventListener('DOMContentLoaded', function () {
       if (res.ok) {
         localStorage.setItem("isLoggedIn", "true");
         localStorage.setItem("username", data.user.username || data.user.name || email.split('@')[0]);
+        localStorage.setItem("token", data.token);
         localStorage.setItem("userId", data.user.id);
-        window.location.href = 'index.html';
+      
+        // Check if user has completed onboarding
+        const userId = data.user.id;
+        const token = data.token;
+      
+        const userInfoResponse = await fetch(`http://localhost:5000/api/users/${userId}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+      
+        const userInfoData = await userInfoResponse.json();
+      
+        if (userInfoResponse.ok) {
+          const user = userInfoData.user;
+      
+          if (!user.username) {
+            window.location.href = "user-name.html";
+          } else if (!user.name || !user.age || !user.gender) {
+            window.location.href = "user-info.html";
+          } else {
+            window.location.href = "index.html";  // User has completed onboarding
+          }
+        } else {
+          alert("Could not verify user info. Redirecting to onboarding.");
+          window.location.href = "user-name.html";
+        }
+      
       } else {
         alert("❌ " + data.error);
       }
+      
     } catch (err) {
       console.error("Login error:", err);
       alert("Something went wrong during login.");
