@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Settings - ShareSpace</title>
+  <link rel="stylesheet" href="styles/shared/general.css" />
+  <link rel="stylesheet" href="styles/settings.css" />
+  <script src="scripts/navbar.js" defer></script>
+  <script src="scripts/settings.js" defer></script>
+</head>
+<body>
+    <nav class="navbar">
+    <div class="company">
+      <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
+      <a href="index.html" class="company-name">ShareSpace</a>
+    </div>
+
+  </nav>
+
+  <div class="settings-wrapper">
+    <!-- Sidebar -->
+    <aside class="settings-sidebar">
+      <h2>Settings</h2>
+      <ul>
+        <li data-section="account" class="active">Account Settings</li>
+        <li data-section="notifications">Notifications</li>
+        <li data-section="services">Connected Services</li>
+      </ul>
+    </aside>
+
+    <!-- Content Area -->
+    <main class="settings-content">
+      <!-- Account Settings -->
+      <section id="account" class="settings-section">
+        <h2>Account Settings</h2>
+      
+        <!-- Align all three buttons together -->
+        <div class="button-row">
+          <button class="toggle-form-btn" data-target="emailForm">Change Email</button>
+          <button class="toggle-form-btn" data-target="passwordForm">Change Password</button>
+          <button id="deleteAccountBtn" class="danger-btn">Delete Account</button>
+        </div>
+      
+        <form id="emailForm" class="settings-form hidden">
+          <label>New Email:
+            <input type="email" required />
+          </label>
+          <label>Password Confirmation:
+            <input type="password" required />
+          </label>
+          <button type="submit">Update Email</button>
+        </form>
+      
+        <form id="passwordForm" class="settings-form hidden">
+          <label>Current Password:
+            <input type="password" required />
+          </label>
+          <label>New Password:
+            <input type="password" required />
+          </label>
+          <label>Confirm New Password:
+            <input type="password" required />
+          </label>
+          <button type="submit">Update Password</button>
+        </form>
+      </section>
+      
+
+      <!-- Notification Settings -->
+      <section id="notifications" class="settings-section hidden">
+        <h2>Notifications</h2>
+        <div class="switch-row">
+          <label>Notify me when I get new matches
+            <input type="checkbox" class="switch" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <label>Notify me when someone sends a message
+            <input type="checkbox" class="switch">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="switch-row">
+          <label>Notify me about platform updates
+            <input type="checkbox" class="switch">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Connected Services -->
+      <section id="services" class="settings-section hidden">
+        <h2>Connected Services</h2>
+        <div class="connected-service">
+          <span>Google Account: <strong>Connected</strong></span>
+          <button class="disconnect-btn">Disconnect</button>
+        </div>
+        <div class="connected-service">
+          <span>Facebook Account: <strong>Not Connected</strong></span>
+          <button class="connect-btn">Connect</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Delete Modal -->
+  <div id="deleteModal" class="modal hidden">
+    <div class="modal-content">
+      <h3>Are you sure?</h3>
+      <p>This action is permanent and cannot be undone. All your data will be lost.</p>
+      <div class="modal-buttons">
+        <button id="cancelDelete">Cancel</button>
+        <button class="danger-btn" id="confirmDelete">Yes, Delete My Account</button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

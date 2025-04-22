@@ -1,0 +1,28 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfaf7;
+    color: #543310;
+    padding: 40px 20px;
+    line-height: 1.7;
+  }
+  .privacy-container {
+    max-width: 900px;
+    margin: auto;
+  }
+  h1, h2 {
+    color: #543310;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  h2 {
+    margin-top: 30px;
+  }
+  a {
+    color: #AF8F6F;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }

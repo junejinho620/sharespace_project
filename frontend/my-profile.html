@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Profile - ShareSpace</title>
+  <link rel="stylesheet" href="styles/shared/general.css" />
+  <link rel="stylesheet" href="styles/my-profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script src="scripts/my-profile.js"></script>
+  <script src="scripts/navbar.js" defer></script>
+
+</head>
+<body>
+  <nav class="navbar">
+    <div class="company">
+      <a href="index.html" class="company-name">ShareSpace</a>
+    </div>
+    <ul class="nav-links" id="nav-links">
+      <!-- Navigation items will be inserted by navbar.js -->
+    </ul>
+  </nav>
+
+  <div class="profile-container">
+    <div class="profile-header">
+      <img id="profilePic" class="profile-img" src="img/default-avatar.png" alt="Profile Picture" />
+      <div class="profile-info">
+        <h2 id="profileName">Jane Doe</h2>
+        <p id="profileCity">Toronto</p>
+        <div class="tags">
+          <span class="tag">🎓 Student</span>
+          <span class="tag">🧘 Yoga</span>
+          <span class="tag">🌱 Clean Living</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-bio">
+      <h3>About Me</h3>
+      <p id="profileBio">
+        I’m looking for a respectful and chill roommate. Prefer quiet spaces and good energy!
+      </p>
+    </div>
+
+    <div class="profile-stats">
+      <div>
+        <h4>Matches</h4>
+        <p>12</p>
+      </div>
+      <div>
+        <h4>Chats</h4>
+        <p>7</p>
+      </div>
+      <div>
+        <h4>Favorites</h4>
+        <p>5</p>
+      </div>
+    </div>
+
+    <div class="profile-contact">
+      <button class="message-btn" onclick="queueNewChat()">
+        <i class="fas fa-comment-alt"></i> Message
+      </button>
+      
+  
+    </div>
+  </div>
+
+  <footer class="footer">
+    
+  </footer>
+
+  
+</body>
+</html>

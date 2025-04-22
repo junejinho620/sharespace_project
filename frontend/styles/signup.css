@@ -4,15 +4,14 @@
   background-color: white;
   margin-top: 150px;
   max-width: 400px;
-  width: 90%; /* Responsive width for smaller screens */
+  width: 90%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-bottom: 100px; /* So it's not crowded by the footer */
+  margin-bottom: 100px;
 }
-
 
 .signup h2 {
   font-size: 28px;
@@ -57,6 +56,10 @@
   background-color: #74512D;
 }
 
+.confirm-password {
+  min-height: 44px;
+}
+
 .signup .social-login {
   margin-top: 20px;
 }
@@ -99,7 +102,7 @@
 
 .password-container input {
   width: 100%;
-  padding-right: 40px; /* make space for the icon */
+  padding-right: 40px;
 }
 
 .password-container .toggle-password {
@@ -134,6 +137,20 @@
 .password-container img:hover {
   opacity: 1;
 }
+
+.signup .form-group input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.signup .form-group label a {
+  color: #AF8F6F;
+  text-decoration: none;
+}
+
+.signup .form-group label a:hover {
+  text-decoration: underline;
+}
+
 /* Let page take full height for footer positioning */
 .body {
   display: flex;
@@ -144,7 +161,6 @@
 /* Push footer to the bottom */
 .footer.footer {
   margin-top: auto;
-  
 }
 
 /* Add space under the login box */

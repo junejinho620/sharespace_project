@@ -1,0 +1,39 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfaf7;
+    color: #543310;
+    padding: 40px 20px;
+    line-height: 1.7;
+  }
+  .terms-container {
+    max-width: 900px;
+    margin: auto;
+  }
+  h1, h2 {
+    color: #543310;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  h2 {
+    margin-top: 30px;
+  }
+  a {
+    color: #AF8F6F;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  .accept-terms {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #ccc;
+  }
+  .accept-terms input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  .accept-terms label {
+    font-size: 16px;
+  }

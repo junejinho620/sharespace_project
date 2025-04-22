@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css?family=Abel');
+
+body {
+  background: #fdfaf7;
+  
+  margin: 0;
+  padding: 0;
+  color: #543310;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 40px 20px;
+}
+
+.card {
+  width: 450px;
+  height: 250px;
+  background: linear-gradient(#f8f8f8, #fff);
+  box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  transition: 0.4s;
+}
+
+.card:hover .additional {
+  width: 100%;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
+}
+
+.card .additional {
+  position: absolute;
+  width: 150px;
+  height: 100%;
+  background: linear-gradient(#db9b60, #c8824d);
+  transition: width 0.4s;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.card .additional .user-card {
+  width: 150px;
+  height: 100%;
+  position: relative;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+.level, .points {
+  color: white;
+  background: rgba(0, 0, 0, 0.2);
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.card .additional .more-info {
+  width: 300px;
+  float: left;
+  position: absolute;
+  left: 150px;
+  height: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.more-info h1 {
+  margin: 0 0 10px;
+  font-size: 22px;
+  color: white;
+}
+
+.coords {
+  font-size: 0.95rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  color: white;
+}
+
+.stats .title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.stats .value {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+.stats .value.infinity {
+  font-size: 2rem;
+}
+
+.general {
+  width: 300px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.general h1 {
+  margin-top: 10px;
+  font-size: 22px;
+  color: #543310;
+}
+
+.general p {
+  font-size: 14px;
+  color: #7a5e41;
+}
+
+.more {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.85em;
+  color: #b07a4a;
+}

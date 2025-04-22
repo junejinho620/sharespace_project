@@ -48,78 +48,10 @@
   background-color: #f1f1f1;
 }
 
-
-      
-/* Username Dropdown Styling */
-.user-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.username {
-  cursor: pointer;
-  padding: 10px 15px;
-  color: #543310;
-  font-weight: bold;
-  display: inline-block;
-}
-
-/* Dropdown menu positioning fixed to ensure hover */
-.dropdown-content {
-  position: absolute;
-  top: 100%;  /* Ensure it touches the username */
-  right: 0;
-  background-color: white;
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  z-index: 9999;
-  padding: 5px 0;
-  margin: 0;
-  width: 160px;
-  display: none; /* Hidden initially */
-}
-
-.dropdown-content li {
-  list-style: none;
-}
-
-.dropdown-content li a {
-  display: block;
-  text-decoration: none;
-  color: #543310;
-  padding: 8px 12px;
-  transition: background-color 0.2s;
-}
-
-.dropdown-content li a:hover {
-  background-color: #f1f1f1;
-}
-
-/* Show dropdown on hover of entire li.user-dropdown element */
-.user-dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Small responsive adjustment */
-@media (max-width: 600px) {
-  .nav-links {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .dropdown-content {
-    width: 100%;
-    right: auto;
-    left: 0;
-  }
-}
-
-
-
 /* About Section */
 .about {
   padding: 80px 20px;
-  background-color: #AF8F6F; /* Creamy background */
+  background-color: #AF8F6F;
   text-align: center;
 }
 
@@ -139,7 +71,7 @@
   background: #F8F4E1;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
 }
 
@@ -163,11 +95,11 @@
 
 @media (max-width: 768px) {
   .feature-grid {
-      grid-template-columns: 1fr;
+    grid-template-columns: 1fr;
   }
-  
+
   .feature-image {
-      height: 150px;
+    height: 150px;
   }
 }
 
@@ -175,11 +107,12 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 60px 20px;
-  
+
   text-align: center;
   perspective: 1000px; /* Added for depth effect */
 }
-.how-it-works-title{
+
+.how-it-works-title {
   margin-bottom: 100px;
 }
 
@@ -202,14 +135,12 @@
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
   transition: all 0.5s ease;
-  
 }
 
 /* Step item styling with zoom effect */
 .step-item {
   background-color: white;
   border-radius: 0.5rem;
-  
   padding: 1.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -269,6 +200,7 @@
 .step-item:hover h3 {
   color: #1976d2;
 }
+
 @media (max-width: 768px) {
   .steps-grid {
     grid-template-columns: 1fr;
@@ -287,8 +219,8 @@
 /* Testimonials Section */
 .testimonials {
   padding: 80px 20px;
-  background-color: white; /* Creamy background */
-  color: #543310; /* Deep chocolate text */
+  background-color: white;
+  color: #543310;
   text-align: center;
   margin-bottom: 100px;
 }
@@ -296,7 +228,7 @@
 .testimonials h2 {
   font-size: 36px;
   margin-bottom: 50px;
-  color: #543310; /* Deep chocolate text */
+  color: #543310;
 }
 
 .testimonial-grid {
@@ -308,7 +240,7 @@
 }
 
 .testimonial-item {
-  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+  background-color: rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -316,7 +248,8 @@
 }
 
 .testimonial-item:hover {
-  transform: translateY(-10px); /* Slight lift on hover */
+  transform: translateY(-10px);
+  /* Slight lift on hover */
 }
 
 .testimonial-content {
@@ -327,14 +260,14 @@
   font-size: 18px;
   line-height: 1.6;
   margin-bottom: 20px;
-  color: #543310; /* Deep chocolate text */
+  color: #543310;
   font-family: "Times New Roman", serif;
 }
 
 .testimonial-author {
   font-size: 16px;
   font-weight: bold;
-  color: #201405; /* Deep chocolate text */
+  color: #201405;
 }
 
 @media (max-width: 768px) {
@@ -342,4 +275,3 @@
     grid-template-columns: 1fr;
   }
 }
-

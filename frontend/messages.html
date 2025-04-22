@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Messages - ShareSpace</title>
+  <link rel="stylesheet" href="styles/shared/general.css" />
+  <link rel="stylesheet" href="styles/messages.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script src="scripts/navbar.js" defer></script>
+  <script src="scripts/messages.js" defer></script>
+</head>
+<body>
+  <div id="header-placeholder">
+    <nav class="navbar">
+      <div class="company">
+        <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
+        <a href="index.html" class="company-name">ShareSpace</a>
+      </div>
+      <ul class="nav-links" id="nav-links">
+        <!-- Navigation items will be inserted by navbar.js -->
+      </ul>
+    </nav>
+  </div>
+
+  <div class="dm-container">
+    <!-- LEFT: Chat List -->
+    <div class="chat-list">
+      
+      <div class="chat-item" data-user="Amanda">
+        <img src="img/user1.jpg" alt="Amanda" class="avatar" />
+        <div class="chat-info">
+          <p class="chat-name">Amanda</p>
+          <p class="chat-preview">Let’s meet this weekend</p>
+        </div>
+        <span class="chat-time">2h ago</span>
+      </div>
+      <div class="chat-item" data-user="Kevin">
+        <img src="img/user2.jpg" alt="Kevin" class="avatar" />
+        <div class="chat-info">
+          <p class="chat-name">Kevin</p>
+          <p class="chat-preview">Sounds great 👍</p>
+        </div>
+        <span class="chat-time">4h ago</span>
+      </div>
+      <div class="chat-item" data-user="Jessie">
+        <img src="img/user3.jpg" alt="Jessie" class="avatar" />
+        <div class="chat-info">
+          <p class="chat-name">Jessie</p>
+          <p class="chat-preview">I'll send it over</p>
+        </div>
+        <span class="chat-time">1d ago</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Chat Window -->
+    <div class="chat-window">
+      <div class="chat-header" id="chatHeader">Select a chat to start messaging</div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <form id="chatForm" class="chat-input hidden">
+        <input type="text" id="messageInput" placeholder="Type a message..." required />
+        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

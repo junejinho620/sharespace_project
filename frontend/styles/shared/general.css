@@ -13,6 +13,15 @@ body {
   color: #543310; /* Deep chocolate text */
 }
 /* Normalize spacing between headings and paragraphs site-wide */
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.footer {
+  margin-top: auto;
+}
 
 .about h2,
 .how-it-works h2,
@@ -75,12 +84,76 @@ body {
   color: black;
   font-weight: 500;
   transition: background-color 0.3s ease;
-  cursor: pointer; /* ✅ Full hover area shows pointer */
+  cursor: pointer; /* Full hover area shows pointer */
 }
 
 /* Change background on hover */
 .nav-links a:hover {
   background-color: lightgray;
+}
+
+/* Username Dropdown Styling */
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.username {
+  cursor: pointer;
+  padding: 10px 15px;
+  color: #543310;
+  font-weight: bold;
+  display: inline-block;
+}
+
+/* Dropdown menu positioning fixed to ensure hover */
+.dropdown-content {
+  position: absolute;
+  top: 100%;  /* Ensure it touches the username */
+  right: 0;
+  background-color: white;
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  z-index: 9999;
+  padding: 5px 0;
+  margin: 0;
+  width: 160px;
+  display: none; /* Hidden initially */
+}
+
+.dropdown-content li {
+  list-style: none;
+}
+
+.dropdown-content li a {
+  display: block;
+  text-decoration: none;
+  color: #543310;
+  padding: 8px 12px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-content li a:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover of entire li.user-dropdown element */
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Small responsive adjustment */
+@media (max-width: 600px) {
+  .nav-links {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dropdown-content {
+    width: 100%;
+    right: auto;
+    left: 0;
+  }
 }
 
 .company {
@@ -202,4 +275,22 @@ body {
   .footer-section {
     text-align: center;
   }
+}
+
+/*for login and signup*/
+.auth-tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  gap: 20px;
+}
+
+.tab-link {
+  padding: 10px 20px;
+  border-radius: 6px;
+  background-color: #f1e7d9;
+  text-decoration: none;
+  color: #543310;
+  font-weight: bold;
+  transition: background 0.3s;
 }

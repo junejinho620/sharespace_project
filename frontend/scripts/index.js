@@ -84,47 +84,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
   window.addEventListener('scroll', checkVisibility);
   window.addEventListener('load', checkVisibility);
-
-  // 🔹 Handle login state in nav bar
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  const username = localStorage.getItem('username');
-  const navLinks = document.querySelector('.nav-links');
-
-  if (isLoggedIn && username && navLinks) {
-    const loginLink = navLinks.querySelector('a[href="login.html"]');
-    const loginLi = loginLink?.parentElement;
-
-    if (loginLi) {
-      loginLi.classList.add('user-dropdown');
-      loginLi.innerHTML = `
-        <span class="username">${username} ▼</span>
-        <div class="dropdown-content">
-          <a href="profile.html">My Profile</a>
-          <a href="settings.html">Settings</a>
-          <a href="#" id="logoutButton">Log Out</a>
-        </div>
-      `;
-
-      const logoutBtn = document.getElementById('logoutButton');
-      loginLi.addEventListener('click', function (e) {
-        if (e.target && e.target.id === 'logoutButton') {
-          e.preventDefault();
-          localStorage.removeItem('isLoggedIn');
-          localStorage.removeItem('username');
-          loginLi.classList.remove('user-dropdown');
-          loginLi.innerHTML = `<a href="login.html" class="login">Log in</a>`;
-        }
-      });
-    }
-
-    const dashboardExists = Array.from(navLinks.querySelectorAll('a')).some(link =>
-      link.href.includes('my-dashboard.html')
-    );
-
-    if (!dashboardExists) {
-      const dashboardLi = document.createElement('li');
-      dashboardLi.innerHTML = '<a href="my-dashboard.html">My Dashboard</a>';
-      navLinks.insertBefore(dashboardLi, loginLi);
-    }
-  }
 });

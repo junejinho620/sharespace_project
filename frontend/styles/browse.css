@@ -1,0 +1,93 @@
+body {
+  background-color: #fdfaf7;
+  font-family: 'Segoe UI', sans-serif;
+  color: #543310;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.browse-profiles h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #543310;
+}
+
+.browse-profiles p {
+  font-size: 18px;
+  color: #7b5a3c;
+  margin-bottom: 40px;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+
+
+.view-btn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: #543310;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.view-btn:hover {
+  background-color: #3a240d;
+}
+
+.search-filter {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.search-filter input {
+  padding: 10px 15px;
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filters button {
+  background-color: #f3e6d6;
+  border: 1px solid #543310;
+  color: #543310;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.filters button:hover {
+  background-color: #e7d4bd;
+}
+
+.filters .clear {
+  background-color: #543310;
+  color: white;
+}
+
+.filters .clear:hover {
+  background-color: #3a240d;
+}

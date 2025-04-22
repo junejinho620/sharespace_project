@@ -1,5 +1,6 @@
 /* General Layout Fix */
-html, body {
+html,
+body {
   height: 100vh;
   min-height: 100%;
   margin: 0;
@@ -9,25 +10,19 @@ html, body {
   color: #543310;
   overflow-x: hidden;
 }
-.page-wrapper {
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-.navbar {
-  padding: 20px 40px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
 
 .username {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px 600px;
-  margin-top: 300px;
+  padding: 50px 20px;
+  background-color: white;
+  margin-top: 150px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  margin-bottom: 80px;
+  /* ✅ Same space above footer */
 }
 
 .username h2 {
@@ -50,11 +45,13 @@ html, body {
 }
 
 .username-form-group input[type="text"] {
-  padding: 12px 14px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  padding: 14px 16px;
+  font-size: 18px;
+  width: 100%;
+  border: 1px solid #543310;
+  border-radius: 8px;
   font-family: inherit;
+  box-sizing: border-box;
 }
 
 .btn {
@@ -79,11 +76,8 @@ html, body {
   color: white;
   padding: 40px 20px 20px 20px;
   text-align: center;
-  margin-top: 60px;
-  
- 
-  text-align: center;
-  margin-top: 0; /* Initially hidden */
+  margin-top: auto;
+  /* Replace 0 or 60px with auto */
 }
 
 .footer-content {
