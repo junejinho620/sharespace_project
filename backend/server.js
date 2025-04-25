@@ -47,3 +47,7 @@ app.use("/api/likes", likeRoutes);
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+
+app.use((req, res, next) => {
+  res.status(404).sendFile(path.join(__dirname, '../frontend/404-error.html'));
+}); //Automatically serve the 404-error.html page for broken API routes or frontend links

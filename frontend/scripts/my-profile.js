@@ -13,8 +13,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   try {
     // Fetch user details from backend
     const res = await fetch(`/api/users/${userId}`);
-    if (!res.ok) {
-      throw new Error("Failed to load user profile.");
+
+    // If user not found, go to 404 page
+    if (res.status === 404) {
+      window.location.href = "404-error.html";
+      return;
     }
 
     const user = await res.json();
@@ -76,10 +79,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
       }
     }
-  } catch (error) {
-    console.error(error);
-    alert("Unable to load profile. Try again later.");
-    window.location.href = "browse.html";
+  } catch (err) {
+    console.error("Error loading profile:", err);
+    window.location.href = "404-error.html";
   }
 });
 

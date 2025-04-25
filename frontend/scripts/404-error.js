@@ -26,3 +26,12 @@ house.addEventListener('mouseout', () => {
     window.style.boxShadow = 'none'; // Remove glow
   });
 });
+
+// Lets the search bar on 404 redirect you to browse.html with a query.
+document.getElementById("errorSearchBtn").addEventListener("click", () => {
+  const query = document.getElementById("errorSearchInput").value.trim();
+  if (query) {
+    // Redirect to browse page with search parameter
+    window.location.href = `browse.html?search=${encodeURIComponent(query)}`;
+  }
+});
