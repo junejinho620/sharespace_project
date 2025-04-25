@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (user.profile_picture_url) {
       document.getElementById('profilePic').src = user.profile_picture_url;
     } else {
-      document.getElementById('profilePic').src = 'img/default.jpg';
+      document.getElementById('profilePic').src = 'styles/img/default.jpg';
     }
 
     // Save user temporarily for chatting
@@ -92,7 +92,7 @@ function queueNewChat() {
   const queued = {
     id: user.id || Date.now(), // use real ID if available
     name: user.name,
-    avatar: user.profile_picture_url || "img/default-avatar.png",
+    avatar: user.profile_picture_url || "styles/img/default-avatar.png",
     lastMessage: "Say hi to your new match!"
   };
 

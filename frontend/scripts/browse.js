@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
-        <img src="${user.profile_picture_url || 'img/default.jpg'}" alt="${user.name}" class="profile-avatar">
+        <img src="${user.profile_picture_url || 'styles/img/default.jpg'}" alt="${user.name}" class="profile-avatar">
         <h1>${user.name}, ${user.age || ''}</h1>
         <div class="coords">${user.city || 'Unknown'} | Joined ${new Date(user.created_at).toLocaleDateString()}</div>
         <div class="tags">
