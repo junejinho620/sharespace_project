@@ -1,31 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const { Message, User } = require('../models');
+const { Message, User, Like } = require('../models');
 const { Op } = require('sequelize');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to verify user JWT
+const { checkMutualLike } = require('../utils/likeUtils');
 
-// Middleware to ensure users are matched
+// Middleware to verify mutual match
 async function verifyMatch(req, res, next) {
-  const { receiver_id } = req.body;
-  const sender_id = req.user.id;
+  const senderId = req.user.id;
+  const receiverId = req.body.receiver_id;
 
-  // Here, implement your matching verification logic.
-  // Example placeholder logic (adjust based on your matching implementation):
-  const isMatched = await checkMatch(sender_id, receiver_id);
-
-  if (!isMatched) {
-    return res.status(403).json({ error: 'You are not matched with this user.' });
+  if (!receiverId) {
+    return res.status(400).json({ error: "receiver_id is required." });
   }
 
-  next();
-}
-
-// Placeholder matching logic (replace with actual matching logic)
-async function checkMatch(sender_id, receiver_id) {
-  // Example logic to check match (to be replaced with your actual matching logic)
-  // Assume a `matches` table or other logic that confirms mutual likes
-  // return true if matched; false otherwise
-  return true;  // replace with real logic
+  try {
+    const isMatched = await checkMutualLike(senderId, receiverId);
+    if (!isMatched) {
+      return res.status(403).json({ error: "You are not matched with this user." });
+    }
+    next();
+  } catch (err) {
+    console.error("❌ verifyMatch error:", err);
+    res.status(500).json({ error: "Server error during match verification.", details: err.message });
+  }
 }
 
 // POST /api/messages/ - send a message

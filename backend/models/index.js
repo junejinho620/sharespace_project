@@ -7,12 +7,14 @@ const db = require("../config/database.js");
 const User = require("./User");
 const RoommatePref = require("./RoommatePref");
 const Message = require("./Message");
+const Like = require("./Like");
 
 // Initialize model associations
 const models = {
   User,
   RoommatePref,
   Message,
+  Like,
 };
 
 // Call associate functions if defined

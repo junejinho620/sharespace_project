@@ -20,16 +20,17 @@ app.use(express.static(path.join(__dirname, "..", "frontend"))); // Serve HTML/C
 
 const userRoutes = require("./routes/userRoutes");
 const roommatePrefRoutes = require("./routes/roommatePrefRoutes");
-const matchRoutes = require('./routes/matchRoutes');
+const recommendRoutes = require("./routes/recommendRoutes");
 const messageRoutes = require("./routes/messageRoutes");
+const likeRoutes = require("./routes/likeRoutes");
 
-sequelize.sync({ alter: true })  // sequelize is correctly imported above
-  .then(() => {
-    console.log("✅ All tables synced");
-  })
-  .catch((err) => {
-    console.error("❌ Error syncing tables:", err);
-  });
+// sequelize.sync({ alter: true })  // sequelize is correctly imported above
+//   .then(() => {
+//     console.log("✅ All tables synced");
+//   })
+//   .catch((err) => {
+//     console.error("❌ Error syncing tables:", err);
+//   });
 
 // Connect to MySQL database
 sequelize.authenticate()
@@ -39,8 +40,9 @@ sequelize.authenticate()
 // Define routes
 app.use("/api/users", userRoutes);
 app.use("/api/prefs", roommatePrefRoutes);
-app.use('/api/match', matchRoutes);
+app.use("/api/recommendations", recommendRoutes);
 app.use("/api/messages", messageRoutes);
+app.use("/api/likes", likeRoutes);
 
 // Start the server
 const PORT = process.env.PORT || 5000;

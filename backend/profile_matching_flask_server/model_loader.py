@@ -2,11 +2,15 @@ from sentence_transformers import SentenceTransformer, util
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-def find_best_matches(profiles_dict):
+def find_best_recommendations(profiles_dict):
+    print("🔍 Starting similarity calculation...")
     names = list(profiles_dict.keys())
     descriptions = list(profiles_dict.values())
 
-    embeddings = model.encode(descriptions, convert_to_tensor=True)
+    print(f"🧠 Encoding {len(descriptions)} profiles...")
+    embeddings = model.encode(descriptions, convert_to_tensor=False)
+
+    print("✅ Calculating cosine similarity...")
     similarity_matrix = util.pytorch_cos_sim(embeddings, embeddings)
 
     match_results = {}
@@ -21,16 +25,21 @@ def find_best_matches(profiles_dict):
 
 
 def find_similarity_matrix(profiles_dict):
+    print("🔍 Starting similarity calculation...")
     names = list(profiles_dict.keys())
     descriptions = list(profiles_dict.values())
 
-    embeddings = model.encode(descriptions, convert_to_tensor=True)
+    print(f"🧠 Encoding {len(descriptions)} profiles...")
+    embeddings = model.encode(descriptions, convert_to_tensor=False)
+
+    print("✅ Calculating cosine similarity...")
     similarity_matrix = util.pytorch_cos_sim(embeddings, embeddings)
 
-    # 유사도 결과를 딕셔너리로 변환
+    # Convert to JSON-compatible dict
     result = {}
     for i, name_i in enumerate(names):
         result[name_i] = {}
         for j, name_j in enumerate(names):
-            result[name_i][name_j] = round(similarity_matrix[i][j].item(), 4)  # 소수점 4자리
+            result[name_i][name_j] = round(similarity_matrix[i][j].item(), 4)  # 4 Decimal Points
+    print("🎯 Similarity matrix complete.")
     return result

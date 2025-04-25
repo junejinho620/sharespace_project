@@ -96,6 +96,18 @@ User.associate = (models) => {
     as: 'receivedMessages',
     onDelete: 'CASCADE',
   });
+
+  User.hasMany(models.Like, {
+    foreignKey: 'liker_id',
+    as: 'likesSent',
+    onDelete: 'CASCADE',
+  });
+
+  User.hasMany(models.Like, {
+    foreignKey: 'liked_id',
+    as: 'likesReceived',
+    onDelete: 'CASCADE',
+  });
 };
 
 module.exports = User;

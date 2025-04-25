@@ -3,12 +3,12 @@ from model_loader import *
 
 app = Flask(__name__)
 
-@app.route('/match_profiles', methods=['POST'])
-def match_profiles():
+@app.route('/recommend_profiles', methods=['POST'])
+def recommend_profiles():
     data = request.get_json()
     profiles = data.get("profiles", {})
     
-    #result = find_best_matches(profiles)
+    #result = find_best_recommendations(profiles)
     result = find_similarity_matrix(profiles)
     return jsonify(result)
 
