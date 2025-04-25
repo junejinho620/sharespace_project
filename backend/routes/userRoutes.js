@@ -152,7 +152,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'name', 'age', 'gender', 'email', 'profile_picture_url', 'created_at']
+      attributes: ['id', 'name', 'age', 'gender', 'bio', 'email', 'profile_picture_url', 'created_at']
     });
     res.json(users);
   } catch (error) {
