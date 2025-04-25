@@ -55,4 +55,26 @@ router.get('/matches', verifyToken, async (req, res) => {
   }
 });
 
+// GET /api/likes/check/:likedId - Check if current user already liked someone
+router.get('/check/:likedId', verifyToken, async (req, res) => {
+  const liker_id = req.user.id;
+  const liked_id = parseInt(req.params.likedId, 10);
+
+  try {
+    const { Like } = require('../models');
+    const existingLike = await Like.findOne({
+      where: { liker_id, liked_id }
+    });
+
+    if (existingLike) {
+      res.json({ liked: true });
+    } else {
+      res.json({ liked: false });
+    }
+  } catch (err) {
+    console.error("❌ Error checking like status:", err);
+    res.status(500).json({ error: 'Failed to check like status' });
+  }
+});
+
 module.exports = router;

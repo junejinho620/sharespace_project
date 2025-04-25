@@ -5,6 +5,9 @@ body {
   color: #543310;
   margin: 0;
   padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .profile-container {
@@ -96,6 +99,26 @@ body {
   text-align: center;
 }
 
+.like-btn {
+  background-color: #543310;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 15px;
+}
+
+.like-btn:hover {
+  background-color: #74512D;
+}
+
+.like-btn i {
+  margin-right: 8px;
+}
+
 .message-btn {
   background-color: #543310;
   color: white;
@@ -113,4 +136,9 @@ body {
 
 .message-btn i {
   margin-right: 8px;
+}
+
+/* Push footer to the bottom */
+.footer.footer {
+  margin-top: auto;
 }

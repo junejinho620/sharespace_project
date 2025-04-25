@@ -148,6 +148,19 @@ router.put('/:id', verifyToken, async (req, res) => {
   }
 });
 
+// GET /api/users - Fetch all users (basic info)
+router.get('/', async (req, res) => {
+  try {
+    const users = await User.findAll({
+      attributes: ['id', 'name', 'age', 'gender', 'email', 'profile_picture_url', 'created_at']
+    });
+    res.json(users);
+  } catch (error) {
+    console.error("❌ Failed to fetch users:", error);
+    res.status(500).json({ error: "Failed to fetch users" });
+  }
+});
+
 // GET /api/users/me - Get current user's profile (self)
 router.get('/me', verifyToken, async (req, res) => {
   try {

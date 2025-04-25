@@ -1,40 +1,89 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const target = JSON.parse(localStorage.getItem("currentChatTarget"));
-  if (!target) return;
+document.addEventListener('DOMContentLoaded', async () => {
+  const params = new URLSearchParams(window.location.search);
+  const userId = params.get('userId');
 
-  document.getElementById("chat-name").textContent = target.name;
-  document.getElementById("chat-avatar").src = target.profile_picture_url;
+  if (!userId) {
+    alert("User ID not found. Redirecting to browse page.");
+    window.location.href = "browse.html";
+    return;
+  }
 
-  // You could then fetch chat history like:
-  // loadMessages(currentUserId, target.id);
-});
+  const token = localStorage.getItem('token');
 
-// Load profile data from localStorage (simulate)
-document.addEventListener('DOMContentLoaded', () => {
-  const userData = JSON.parse(localStorage.getItem('selectedProfile'));
-  if (!userData) return;
-  document.getElementById('profileName').textContent = userData.name + ", " + userData.age;
-  document.getElementById('profileBio').textContent = userData.bio;
-  document.getElementById('profileCity').textContent = userData.city || "Toronto";
-  if (userData.profile_picture_url) {
-    document.getElementById('profilePic').src = userData.profile_picture_url;
+  try {
+    // Fetch user details from backend
+    const res = await fetch(`/api/users/${userId}`);
+    if (!res.ok) {
+      throw new Error("Failed to load user profile.");
+    }
+
+    const user = await res.json();
+
+    // Update profile page elements
+    document.getElementById('profileName').textContent = `${user.name}, ${user.age}`;
+    document.getElementById('profileBio').textContent = user.bio || "No bio available.";
+    document.getElementById('profileCity').textContent = user.city || "Unknown city";
+
+    if (user.profile_picture_url) {
+      document.getElementById('profilePic').src = user.profile_picture_url;
+    } else {
+      document.getElementById('profilePic').src = 'img/default.jpg';
+    }
+
+    // Save user temporarily for chatting
+    localStorage.setItem('selectedProfile', JSON.stringify(user));
+
+      // Check if already liked
+      if (token) {
+      const likeStatusRes = await fetch(`/api/likes/check/${userId}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const likeStatus = await likeStatusRes.json();
+
+      const likeBtn = document.getElementById('like-btn');
+
+      if (likeStatus.liked) {
+        likeBtn.innerHTML = '<i class="fa-solid fa-heart"></i> Liked';
+        likeBtn.disabled = true; // disable button if already liked (optional)
+        likeBtn.style.backgroundColor = '#aaa'; // make it look greyed out
+      } else {
+        likeBtn.addEventListener('click', async () => {
+          try {
+            const likeRes = await fetch('/api/likes/', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+              },
+              body: JSON.stringify({ liked_id: userId }),
+            });
+
+            const likeData = await likeRes.json();
+            if (likeRes.ok) {
+              alert('You liked this user!');
+              likeBtn.innerHTML = '<i class="fa-solid fa-heart"></i> Liked';
+              likeBtn.disabled = true;
+              likeBtn.style.backgroundColor = '#aaa';
+            } else {
+              alert(likeData.error || likeData.message);
+            }
+          } catch (err) {
+            console.error(err);
+            alert('Failed to like user.');
+          }
+        });
+      }
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Unable to load profile. Try again later.");
+    window.location.href = "browse.html";
   }
 });
 
-function startChatWithUser() {
-  const user = JSON.parse(localStorage.getItem('selectedProfile'));
-  if (!user) return;
-
-  const chatTarget = {
-    id: user.id || 2, // fallback to dummy ID
-    name: user.name || "Jane Doe",
-    profile_picture_url: user.profile_picture_url || "img/default-avatar.png"
-  };
-
-  localStorage.setItem("currentChatTarget", JSON.stringify(chatTarget));
-  window.location.href = "messages.html";
-}
-
+// Handles messaging button
 function queueNewChat() {
   const user = JSON.parse(localStorage.getItem("selectedProfile"));
   if (!user) return;
