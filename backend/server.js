@@ -65,6 +65,7 @@ io.on("connection", (socket) => {
   socket.on("private_message", ({ receiverId, message }) => {
     console.log(`Private message for receiverId: ${receiverId}`, message);
     io.to(receiverId).emit("new_message", message);
+    io.to(message.sender_id).emit("new_message", message);
   });
 
   socket.on("disconnect", () => {

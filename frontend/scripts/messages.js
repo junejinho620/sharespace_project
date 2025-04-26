@@ -27,16 +27,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     toast.style.cursor = "pointer";
     toast.addEventListener("click", async () => {
       console.log("🔗 Toast clicked. Jumping to chat with user:", senderId);
-    
+
       const targetChatItem = document.querySelector(`.chat-item[data-userid="${senderId}"]`);
-      
+
       if (targetChatItem) {
         // Smoothly scroll to the chat user
         targetChatItem.scrollIntoView({
           behavior: "smooth",
           block: "center"
         });
-    
+
         // Then after 0.3 seconds, open that chat
         setTimeout(() => {
           targetChatItem.click();
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       } else {
         console.log("⚠️ Target chat not found for user:", senderId);
       }
-    
+
       toast.remove(); // Remove the toast immediately after click
     });
 
@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   // ✅ Listen for incoming real-time messages
   socket.on("new_message", (message) => {
     console.log("🔥 Received real-time message:", message);
-    console.log("activeUserId:", activeUserId, "message.sender_id:", message.sender_id, "message.receiver_id:", message.receiver_id);
 
     // Skip duplicate real-time display if sending to yourself
     if (message.sender_id === userId && message.receiver_id === userId) {
@@ -82,23 +81,42 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const isOwnMessage = message.sender_id === userId;
     const isChatWithSenderActive = parseInt(activeUserId, 10) === parseInt(message.sender_id, 10);
-    const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) && isOwnMessage;;
+    const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) && isOwnMessage;
     const isCurrentChatOpen = isChatWithSenderActive || isChatWithReceiverActive;
+    
+    const targetUserId = isOwnMessage ? message.receiver_id : message.sender_id;
+    const targetChatItem = document.querySelector(`.chat-item[data-userid="${targetUserId}"]`);
 
+    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+    // If chatting with the user, display the new message
     if (isCurrentChatOpen) {
       const bubble = document.createElement("div");
       const isFromUser = message.sender_id === userId;
-
       bubble.className = "message-bubble " + (isFromUser ? "from-user" : "from-other");
-      bubble.textContent = message.message_text;
-
+      bubble.innerHTML = `
+        <div>${message.message_text}</div>
+        <div class="message-time">${currentTime}</div>
+      `;
+      
       chatMessages.appendChild(bubble);
       chatMessages.scrollTop = chatMessages.scrollHeight;
-    } else {
+    }
+
+    // Update sidebar preview and time in real-time
+    if (targetChatItem) {
+      // Update preview text
+      const preview = targetChatItem.querySelector('.chat-preview');
+      if (preview) {
+        preview.innerText = message.message_text;
+      }
+    }
+
+    if (!isOwnMessage && !isCurrentChatOpen) {
       const senderUser = matchedUsers.find(u => u.id === message.sender_id);
       const senderName = senderUser ? senderUser.name : `User ${message.sender_id}`;
 
-      // 2. If user is NOT chatting with the sender, show a toast popup
+      // If user is NOT chatting with the sender, show a toast popup
       showToast(`📬 New message from user ${senderName}. Click their chat to reply.`, message.sender_id);
     }
   });
@@ -165,17 +183,17 @@ document.addEventListener("DOMContentLoaded", async () => {
           messages.forEach(msg => {
             const messageDate = new Date(msg.sent_at);
             const currentDateString = messageDate.toDateString(); // "Tue Apr 30 2025"
-          
+
             // ✅ Check if we need a date separator
             if (currentDateString !== previousDate) {
               const dateSeparator = document.createElement("div");
               dateSeparator.className = "date-separator";
-          
+
               // ✅ Format separator: "Today", "Yesterday", or full date
               const today = new Date();
               const yesterday = new Date();
               yesterday.setDate(today.getDate() - 1);
-          
+
               if (currentDateString === today.toDateString()) {
                 dateSeparator.innerText = "Today";
               } else if (currentDateString === yesterday.toDateString()) {
@@ -189,26 +207,26 @@ document.addEventListener("DOMContentLoaded", async () => {
                   year: 'numeric'
                 });
               }
-          
+
               chatMessages.appendChild(dateSeparator);
               previousDate = currentDateString;
             }
-          
+
             // ✅ Create message bubble
             const bubble = document.createElement("div");
             const isFromUser = msg.sender_id === userId;
-          
+
             bubble.className = "message-bubble " + (isFromUser ? "from-user" : "from-other");
-          
+
             // Format time (e.g., 11:34 AM)
             const timeString = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          
+
             // Bubble content includes message text + small time under it
             bubble.innerHTML = `
               <div>${msg.message_text}</div>
               <div class="message-time">${timeString}</div>
             `;
-          
+
             chatMessages.appendChild(bubble);
           });
 
@@ -244,18 +262,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const data = await res.json();
       const sentMessageText = data.data.message_text;
 
-      // 2. Instantly show your sent message
-      const bubble = document.createElement("div");
-      bubble.className = "message-bubble from-user";
-      bubble.textContent = sentMessageText;
-      chatMessages.appendChild(bubble);
-
-      chatMessages.scrollTop = chatMessages.scrollHeight;
       messageInput.value = "";
 
       const receiverId = activeUserId;
 
-      // 3. Send message via WebSocket for real-time delivery
+      // 2. Send message via WebSocket for real-time delivery
       console.log("🚀 Sent message via WebSocket:", {
         to: receiverId,
         message: sentMessageText,
