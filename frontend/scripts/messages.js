@@ -160,13 +160,55 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const messages = await convRes.json();
           chatMessages.innerHTML = "";
+          let previousDate = null; // Track last rendered message date
 
           messages.forEach(msg => {
+            const messageDate = new Date(msg.sent_at);
+            const currentDateString = messageDate.toDateString(); // "Tue Apr 30 2025"
+          
+            // ✅ Check if we need a date separator
+            if (currentDateString !== previousDate) {
+              const dateSeparator = document.createElement("div");
+              dateSeparator.className = "date-separator";
+          
+              // ✅ Format separator: "Today", "Yesterday", or full date
+              const today = new Date();
+              const yesterday = new Date();
+              yesterday.setDate(today.getDate() - 1);
+          
+              if (currentDateString === today.toDateString()) {
+                dateSeparator.innerText = "Today";
+              } else if (currentDateString === yesterday.toDateString()) {
+                dateSeparator.innerText = "Yesterday";
+              } else {
+                // Format full date nicely
+                dateSeparator.innerText = messageDate.toLocaleDateString(undefined, {
+                  weekday: 'long',
+                  month: 'short',
+                  day: 'numeric',
+                  year: 'numeric'
+                });
+              }
+          
+              chatMessages.appendChild(dateSeparator);
+              previousDate = currentDateString;
+            }
+          
+            // ✅ Create message bubble
             const bubble = document.createElement("div");
             const isFromUser = msg.sender_id === userId;
-
+          
             bubble.className = "message-bubble " + (isFromUser ? "from-user" : "from-other");
-            bubble.textContent = msg.message_text;
+          
+            // Format time (e.g., 11:34 AM)
+            const timeString = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          
+            // Bubble content includes message text + small time under it
+            bubble.innerHTML = `
+              <div>${msg.message_text}</div>
+              <div class="message-time">${timeString}</div>
+            `;
+          
             chatMessages.appendChild(bubble);
           });
 

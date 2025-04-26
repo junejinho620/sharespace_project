@@ -129,6 +129,25 @@ body {
   border-bottom-left-radius: 0;
 }
 
+/* 🕒 Message Time Text */
+.message-time {
+  font-size: 11px;
+  color: #999;
+  margin-top: 4px;
+  text-align: right;
+}
+
+/* 🗓️ Date Separator */
+.date-separator {
+  text-align: center;
+  font-size: 13px;
+  color: #555;
+  background-color: #f0f0f0;
+  padding: 6px 12px;
+  margin: 20px 0;
+  border-radius: 12px;
+}
+
 /* ✍️ Input Bar Fixed at Bottom */
 .chat-input {
   display: flex;
