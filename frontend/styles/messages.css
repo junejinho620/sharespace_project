@@ -1,118 +1,119 @@
+/* 🧱 General Body Setup */
 body {
-  background-color: #fff;
-  color: #333;
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
 
+/* 🔲 Main Container: Grid Layout (Sidebar + Chat Window) */
 .dm-container {
   display: grid;
   grid-template-columns: 300px 1fr;
-  height: 100vh;
-  padding-top: 40px;
+  height: calc(100vh - 70px); /* Adjust height for navbar */
+  margin-top: 70px; /* Push down to start below navbar */
 }
 
-/* LEFT PANEL */
+/* 🧩 Left Sidebar: Chat List Area */
 .chat-list {
   border-right: 1px solid #eee;
   padding: 20px;
   overflow-y: auto;
+  background-color: #f9f9f9;
 }
 
-.chat-list h2 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #543310;
-}
-
+/* 🧩 Each Chat Item in Sidebar */
 .chat-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
   cursor: pointer;
-  transition: background 0.2s;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  transition: background 0.2s ease;
 }
 
+/* ✨ Hover Effect on Chat Item */
 .chat-item:hover {
-  background-color: #f3f3f3;
+  background-color: #ececec;
 }
 
+/* ✅ Active Selected Chat Item */
+.chat-item.active {
+  background-color: #ececec;
+}
+
+/* 🖼 User Avatar inside Chat Item */
 .avatar {
-  width: 52px;
-  height: 52px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  margin-right: 15px;
+  margin-right: 14px;
+  margin-left: 12px;
 }
 
+/* 📃 Info Section (Name + Preview) inside Chat Item */
 .chat-info {
   flex: 1;
 }
 
+/* 🏷 Chat Name (bold) */
 .chat-name {
   font-weight: bold;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   color: #543310;
 }
 
+/* 🏷 Last Message Preview */
 .chat-preview {
-  font-size: 14px;
+  font-size: 13px;
   color: #777;
 }
 
+/* 🕓 Last Message Time (not used yet) */
 .chat-time {
   font-size: 12px;
   color: #aaa;
 }
 
-/* Keep input form always visible */
+/* 🧩 Right Panel: Chat Window Area */
 .chat-window {
   display: flex;
   flex-direction: column;
-  height: 82%;
+  height: 100%;
   padding: 20px;
+  background-color: #fff;
   overflow: hidden;
 }
 
-.chat-messages {
-  flex: 1;
-  overflow-y: auto;
-  padding-right: 10px;
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-/* Make input always visible */
-.chat-input {
-  display: flex;
-  gap: 10px;
-  margin-top: auto;
-}
-
-/* Remove chat header text */
+/* 🚫 Hide Chat Header (optional to add later) */
 .chat-header {
   display: none;
 }
 
-/* Active chat item stays highlighted */
-.chat-item.active {
-  background-color: #f3f3f3;
+/* 🧹 Messages Area (Scrollable) */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  scroll-behavior: smooth;
 }
 
-
+/* 💬 Each Message Bubble */
 .message-bubble {
   max-width: 60%;
   padding: 12px 16px;
-  border-radius: 18px;
+  border-radius: 20px;
   font-size: 15px;
   line-height: 1.4;
+  word-break: break-word;
   display: inline-block;
 }
 
+/* ✉️ Your Own Message (Right Aligned) */
 .from-user {
   align-self: flex-end;
   background-color: #543310;
@@ -120,6 +121,7 @@ body {
   border-bottom-right-radius: 0;
 }
 
+/* ✉️ Other User's Message (Left Aligned) */
 .from-other {
   align-self: flex-start;
   background-color: #f1f1f1;
@@ -127,36 +129,82 @@ body {
   border-bottom-left-radius: 0;
 }
 
+/* ✍️ Input Bar Fixed at Bottom */
 .chat-input {
   display: flex;
+  padding: 10px 20px;
+  border-top: 3px solid #eee;
   gap: 10px;
+  background-color: #fff;
+  margin-top: auto;
+  margin-bottom: 30px;
+  align-items: center;
 }
 
+/* ✍️ Text Input Field */
 .chat-input input {
   flex: 1;
-  padding: 12px;
-  border-radius: 20px;
+  padding: 14px 18px;
+  border-radius: 25px;
   border: 1px solid #ccc;
   font-size: 16px;
+  background: #fafafa;
+  margin-top: 12px;
 }
 
+/* ✈️ Send Button (Paper Plane Style) */
 .chat-input button {
   background-color: #543310;
   border: none;
   color: white;
-  padding: 0 18px;
-  border-radius: 50px;
-  font-size: 16px;
+  padding: 0 20px;
+  border-radius: 50%;
+  font-size: 20px;
   cursor: pointer;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
+/* 🍞 Toast Container: Floating at Bottom-Right */
+#toast-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 10000;
+}
+
+/* 🍞 Individual Toast Popup */
+.toast {
+  background-color: #323232;
+  color: white;
+  padding: 14px 20px;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* 🍞 Toast Appearing Animation */
+.toast.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* 📦 Utility Classes */
 .hidden {
   display: none;
 }
 
+/* 📝 Placeholder Text for Empty Chat */
 .placeholder {
   color: #888;
   font-size: 18px;
   text-align: center;
-  margin: auto auto;
+  margin: auto;
 }

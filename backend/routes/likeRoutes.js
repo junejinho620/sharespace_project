@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { Like } = require('../models');
+const { Like, User, Message } = require('../models');
+const { Op } = require('sequelize');
 const verifyToken = require('../middleware/authMiddleware');
 
 // POST /api/likes/ - like other users
@@ -33,22 +34,46 @@ router.get('/matches', verifyToken, async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const { Like, User } = require('../models');
-
+    // Find sent and received likes
     const sentLikes = await Like.findAll({ where: { liker_id: userId } });
     const receivedLikes = await Like.findAll({ where: { liked_id: userId } });
 
     const likedIds = sentLikes.map(like => like.liked_id);
     const likerIds = receivedLikes.map(like => like.liker_id);
 
+    // Find matched user IDs
     const matchedUserIds = likedIds.filter(id => likerIds.includes(id));
 
+    // Fetch matched users
     const matchedUsers = await User.findAll({
       where: { id: matchedUserIds },
       attributes: ['id', 'name', 'profile_picture_url'], // Adjust to fit your frontend
     });
 
-    res.json({ matches: matchedUsers });
+    // For each matched user, find latest message
+    const matchesWithLastMessage = await Promise.all(
+      matchedUsers.map(async (user) => {
+        const lastMessage = await Message.findOne({
+          where: {
+            [Op.or]: [
+              { sender_id: userId, receiver_id: user.id },
+              { sender_id: user.id, receiver_id: userId },
+            ],
+          },
+          order: [['sent_at', 'DESC']],
+        });
+
+        return {
+          id: user.id,
+          name: user.name,
+          profile_picture_url: user.profile_picture_url,
+          last_message: lastMessage ? lastMessage.message_text : null, // Include last message if exists
+        };
+      })
+    );
+
+    res.json({ matches: matchesWithLastMessage });
+
   } catch (err) {
     console.error("❌ Error fetching matches:", err);
     res.status(500).json({ error: 'Failed to fetch matched users' });

@@ -16,6 +16,54 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
+  function showToast(message, senderId) {
+    const toastContainer = document.getElementById("toast-container");
+
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.innerText = message;
+
+    // Make toast clickable
+    toast.style.cursor = "pointer";
+    toast.addEventListener("click", async () => {
+      console.log("🔗 Toast clicked. Jumping to chat with user:", senderId);
+    
+      const targetChatItem = document.querySelector(`.chat-item[data-userid="${senderId}"]`);
+      
+      if (targetChatItem) {
+        // Smoothly scroll to the chat user
+        targetChatItem.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+    
+        // Then after 0.3 seconds, open that chat
+        setTimeout(() => {
+          targetChatItem.click();
+        }, 300);
+      } else {
+        console.log("⚠️ Target chat not found for user:", senderId);
+      }
+    
+      toast.remove(); // Remove the toast immediately after click
+    });
+
+    toastContainer.appendChild(toast);
+
+    // Trigger animation
+    setTimeout(() => {
+      toast.classList.add("show");
+    }, 100);
+
+    // Remove after 3.5 seconds if not clicked
+    setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => {
+        toast.remove();
+      }, 500);
+    }, 3500);
+  }
+
   // ✅ Setup WebSocket connection
   const socket = io("http://localhost:5000"); // Connect to socket.io server
 
@@ -25,7 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   socket.on("new_message", (message) => {
     console.log("🔥 Received real-time message:", message);
     console.log("activeUserId:", activeUserId, "message.sender_id:", message.sender_id, "message.receiver_id:", message.receiver_id);
-  
+
     // Skip duplicate real-time display if sending to yourself
     if (message.sender_id === userId && message.receiver_id === userId) {
       console.log("⚠️ Skipping duplicate message (self-chat).");
@@ -36,22 +84,22 @@ document.addEventListener("DOMContentLoaded", async () => {
     const isChatWithSenderActive = parseInt(activeUserId, 10) === parseInt(message.sender_id, 10);
     const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) && isOwnMessage;;
     const isCurrentChatOpen = isChatWithSenderActive || isChatWithReceiverActive;
-  
+
     if (isCurrentChatOpen) {
       const bubble = document.createElement("div");
       const isFromUser = message.sender_id === userId;
-  
+
       bubble.className = "message-bubble " + (isFromUser ? "from-user" : "from-other");
       bubble.textContent = message.message_text;
-  
+
       chatMessages.appendChild(bubble);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     } else {
       const senderUser = matchedUsers.find(u => u.id === message.sender_id);
       const senderName = senderUser ? senderUser.name : `User ${message.sender_id}`;
 
-      // 2. If user is NOT chatting with the sender, show a simple alert
-      alert(`📬 New message from user ${senderName}. Click their chat to reply.`);
+      // 2. If user is NOT chatting with the sender, show a toast popup
+      showToast(`📬 New message from user ${senderName}. Click their chat to reply.`, message.sender_id);
     }
   });
 
@@ -80,11 +128,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       item.dataset.userid = user.id;
       item.dataset.username = user.name;
 
+      const previewText = user.last_message ? user.last_message : "Click to start chat";
+
       item.innerHTML = `
         <img src="${user.profile_picture_url || 'styles/img/default.jpg'}" alt="${user.name}" class="avatar" />
         <div class="chat-info">
           <p class="chat-name">${user.name}</p>
-          <p class="chat-preview">Click to open chat</p>
+          <p class="chat-preview">${previewText}</p>
         </div>
         <span class="chat-time"></span>
       `;
