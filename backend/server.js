@@ -64,8 +64,15 @@ io.on("connection", (socket) => {
 
   socket.on("private_message", ({ receiverId, message }) => {
     console.log(`Private message for receiverId: ${receiverId}`, message);
-    io.to(receiverId).emit("new_message", message);
-    io.to(message.sender_id).emit("new_message", message);
+
+    if (receiverId === message.sender_id) {
+      // Self-chat: only emit once
+      io.to(receiverId).emit("new_message", message);
+    } else {
+      // Normal chat: emit to both sender and receiver
+      io.to(receiverId).emit("new_message", message);
+      io.to(message.sender_id).emit("new_message", message);
+    }
   });
 
   socket.on("disconnect", () => {

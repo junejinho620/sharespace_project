@@ -73,17 +73,11 @@ document.addEventListener("DOMContentLoaded", async () => {
   socket.on("new_message", (message) => {
     console.log("🔥 Received real-time message:", message);
 
-    // Skip duplicate real-time display if sending to yourself
-    if (message.sender_id === userId && message.receiver_id === userId) {
-      console.log("⚠️ Skipping duplicate message (self-chat).");
-      return;
-    }
-
     const isOwnMessage = message.sender_id === userId;
     const isChatWithSenderActive = parseInt(activeUserId, 10) === parseInt(message.sender_id, 10);
     const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) && isOwnMessage;
     const isCurrentChatOpen = isChatWithSenderActive || isChatWithReceiverActive;
-    
+
     const targetUserId = isOwnMessage ? message.receiver_id : message.sender_id;
     const targetChatItem = document.querySelector(`.chat-item[data-userid="${targetUserId}"]`);
 
@@ -98,18 +92,21 @@ document.addEventListener("DOMContentLoaded", async () => {
         <div>${message.message_text}</div>
         <div class="message-time">${currentTime}</div>
       `;
-      
+
       chatMessages.appendChild(bubble);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // Update sidebar preview and time in real-time
+    // Update sidebar preview in real-time
     if (targetChatItem) {
       // Update preview text
       const preview = targetChatItem.querySelector('.chat-preview');
       if (preview) {
         preview.innerText = message.message_text;
       }
+      // Move chat to top of chatList
+      const chatList = document.getElementById("chatList");
+      chatList.prepend(targetChatItem);
     }
 
     if (!isOwnMessage && !isCurrentChatOpen) {
