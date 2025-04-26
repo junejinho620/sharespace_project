@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   let activeUserId = null;
   let activeUserName = "";
+  let matchedUsers = [];
 
   const token = localStorage.getItem("token");
   const userId = parseInt(localStorage.getItem("userId"));
@@ -25,8 +26,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("🔥 Received real-time message:", message);
     console.log("activeUserId:", activeUserId, "message.sender_id:", message.sender_id, "message.receiver_id:", message.receiver_id);
   
+    // Skip duplicate real-time display if sending to yourself
+    if (message.sender_id === userId && message.receiver_id === userId) {
+      console.log("⚠️ Skipping duplicate message (self-chat).");
+      return;
+    }
+
+    const isOwnMessage = message.sender_id === userId;
     const isChatWithSenderActive = parseInt(activeUserId, 10) === parseInt(message.sender_id, 10);
-    const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10);
+    const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) && isOwnMessage;;
     const isCurrentChatOpen = isChatWithSenderActive || isChatWithReceiverActive;
   
     if (isCurrentChatOpen) {
@@ -39,8 +47,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       chatMessages.appendChild(bubble);
       chatMessages.scrollTop = chatMessages.scrollHeight;
     } else {
-      // 2. If user is NOT chatting with the sender, show a simple alert (optional)
-      alert(`📬 New message from user ${message.sender_id}. Click their chat to reply.`);
+      const senderUser = matchedUsers.find(u => u.id === message.sender_id);
+      const senderName = senderUser ? senderUser.name : `User ${message.sender_id}`;
+
+      // 2. If user is NOT chatting with the sender, show a simple alert
+      alert(`📬 New message from user ${senderName}. Click their chat to reply.`);
     }
   });
 
@@ -52,6 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const data = await res.json();
     const matches = data.matches;
+    matchedUsers = matches;
 
     if (!matches || matches.length === 0) {
       chatList.innerHTML = "<p>No matched users yet.</p>";
