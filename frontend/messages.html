@@ -1,43 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Messages - ShareSpace</title>
-  <link rel="stylesheet" href="styles/shared/general.css" />
-  <link rel="stylesheet" href="styles/messages.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <script src="scripts/navbar.js" defer></script>
-  <script src="scripts/messages.js" defer></script>
-</head>
-<body>
-  <div id="header-placeholder">
-    <nav class="navbar">
-      <div class="company">
-        <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
-        <a href="index.html" class="company-name">ShareSpace</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Messages - ShareSpace</title>
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/messages.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script src="scripts/navbar.js" defer></script>
+    <script src="scripts/messages.js" defer></script>
+  </head>
+  <body>
+    <div id="header-placeholder">
+      <nav class="navbar">
+        <div class="company">
+          <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
+          <a href="index.html" class="company-name">ShareSpace</a>
+        </div>
+        <ul class="nav-links" id="nav-links">
+          <!-- Navigation items will be inserted by navbar.js -->
+        </ul>
+      </nav>
+    </div>
+
+    <div class="dm-container">
+      <!-- LEFT: Chat List -->
+      <div class="chat-list" id="chatList">
+        <!-- Dynamic chat items will be inserted here by messages.js -->
       </div>
-      <ul class="nav-links" id="nav-links">
-        <!-- Navigation items will be inserted by navbar.js -->
-      </ul>
-    </nav>
-  </div>
 
-  <div class="dm-container">
-    <!-- LEFT: Chat List -->
-    <div class="chat-list" id="chatList">
-      <!-- Dynamic chat items will be inserted here by messages.js -->
+      <!-- RIGHT: Chat Window -->
+      <div class="chat-window">
+        <div class="chat-header" id="chatHeader">Select a chat to start messaging</div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <form id="chatForm" class="chat-input hidden">
+          <input type="text" id="messageInput" placeholder="Type a message..." required />
+          <button type="submit"><i class="fas fa-paper-plane"></i></button>
+        </form>
+      </div>
     </div>
-
-    <!-- RIGHT: Chat Window -->
-    <div class="chat-window">
-      <div class="chat-header" id="chatHeader">Select a chat to start messaging</div>
-      <div class="chat-messages" id="chatMessages"></div>
-      <form id="chatForm" class="chat-input hidden">
-        <input type="text" id="messageInput" placeholder="Type a message..." required />
-        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-      </form>
-    </div>
-  </div>
-</body>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+  </body>
 </html>
