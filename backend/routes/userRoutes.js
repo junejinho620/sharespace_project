@@ -3,6 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken'); // For generating JWT
 const crypto = require('crypto');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
+const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
 const { User } = require('../models');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
@@ -93,10 +94,12 @@ router.post('/login', async (req, res) => {
     const user = await User.unscoped().findOne({ where: { email } });
 
     if (!user) {
+      console.log("❌ User not found for email:", email);
       return res.status(404).json({ error: 'User not found' });
     }
 
     const isMatch = await user.comparePassword(password);
+
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid password' });
     }
@@ -199,6 +202,59 @@ router.get('/:id', async (req, res) => {
   } catch (error) {
     console.error("GET /api/users/:id error:", error);
     res.status(500).json({ error: 'Failed to fetch user data' });
+  }
+});
+
+// POST /api/users/forgot-password - Sends reset email
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ where: { email } });
+  if (!user) {
+    return res.status(404).json({ error: "User not found." });
+  }
+
+  // Generate token and expiration
+  const token = crypto.randomBytes(32).toString('hex');
+  user.reset_password_token = token;
+  user.reset_password_expires = Date.now() + 3600000; // 1 hour expiry
+  await user.save();
+
+  // Send email (reuse your email util)
+  const resetLink = `http://localhost:5000/reset-password.html?token=${token}`;
+  await sendResetPasswordEmail(user.email, resetLink);
+
+  res.json({ message: "Password reset email sent." });
+});
+
+// POST /api/users/reset-password - Sets new password
+router.post('/reset-password', async (req, res) => {
+  const { token, newPassword } = req.body;
+
+  const user = await User.findOne({
+    where: {
+      reset_password_token: token,
+      reset_password_expires: { [require('sequelize').Op.gt]: Date.now() }
+    }
+  });
+
+  if (!user) {
+    console.log("❌ User with token not found or token expired.");
+    return res.status(400).json({ error: "Token invalid or expired." });
+  }
+
+  user.password = newPassword;
+  user.reset_password_token = null;
+  user.reset_password_expires = null;
+
+  user.changed('password', true);
+
+  try {
+    await user.save();
+    res.json({ message: "Password has been reset." });
+  } catch (err) {
+    console.error("❌ Error saving new password:", err);
+    res.status(500).json({ error: "Failed to reset password." });
   }
 });
 

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', function () {
   const loginForm = document.getElementById('login-form');
   const rememberMeCheckbox = document.getElementById('rememberMe');
   const emailInput = document.getElementById('email');
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordInput = document.getElementById('password');
 
   // If email is stored, prefill it and check the box
   if (localStorage.getItem('rememberedEmail')) {
@@ -9,11 +11,11 @@ document.addEventListener('DOMContentLoaded', function () {
     rememberMeCheckbox.checked = true;
   }
 
+  // Handle login submit
   loginForm.addEventListener('submit', async function (event) {
     event.preventDefault();
 
-    const email = loginForm.querySelector('#email').value.trim();
-    const passwordInput = loginForm.querySelector('#password');
+    const email = emailInput.value.trim();
     const password = passwordInput.value;
 
     if (!validateEmail(email)) {
@@ -82,6 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.type === 'password' ? 'text' : 'password';
+    passwordInput.type = type;
+    this.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
+  });
+
   function validateEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -95,35 +103,4 @@ document.addEventListener('DOMContentLoaded', function () {
     inputEl.classList.add('error');
     setTimeout(() => inputEl.classList.remove('error'), 2000);
   }
-
-  const forgotPasswordLink = document.querySelector('.forgot-password a');
-  forgotPasswordLink.addEventListener('click', function (event) {
-    event.preventDefault();
-    const email = prompt('Please enter your email to reset your password:');
-    if (email && validateEmail(email)) {
-      alert(`Password reset instructions have been sent to ${email}.`);
-    } else {
-      alert('Please enter a valid email address.');
-    }
-  });
-});
-
-// Show/hide password
-document.addEventListener('DOMContentLoaded', function () {
-  const togglePassword = document.getElementById('togglePassword');
-  const passwordInput = document.getElementById('password');
-  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-
-  togglePassword.addEventListener('click', function () {
-    const type = passwordInput.type === 'password' ? 'text' : 'password';
-    passwordInput.type = type;
-    this.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
-  });
-
-  toggleConfirmPassword.addEventListener('click', function () {
-    const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
-    confirmPasswordInput.type = type;
-    this.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
-  });
 });

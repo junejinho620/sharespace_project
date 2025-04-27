@@ -1,12 +1,6 @@
-body {
-  background-color: #fdfaf7;
-  font-family: 'Segoe UI', sans-serif;
-  color: #543310;
-}
-
 .container {
   max-width: 1100px;
-  margin: 0 auto;
+  margin: 40px auto 0px;
   padding: 40px 20px;
   text-align: center;
 }

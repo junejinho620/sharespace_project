@@ -44,6 +44,8 @@ const User = db.define('User', {
   },
   verified: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: true },
   phone_number: { type: DataTypes.STRING(20), allowNull: true },
+  reset_password_token: { type: DataTypes.STRING, allowNull: true },
+  reset_password_expires: { type: DataTypes.DATE, allowNull: true },
 }, {
   modelName: 'User',
   tableName: 'users',
@@ -65,10 +67,16 @@ User.beforeCreate(async (user) => {
 });
 
 User.beforeUpdate(async (user) => {
-  if (user.changed('email')) user.email = user.email.toLowerCase().trim();
+  if (user.changed('email')) {
+    user.email = user.email.toLowerCase().trim();
+  }
   if (user.changed('password')) {
+    console.log("🔑 BEFORE UPDATE HOOK: hashing password...");
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
+    console.log("🔑 AFTER HASHING:", user.password);
+  } else {
+    console.log("🚩 BEFORE UPDATE HOOK: Password not detected as changed!");
   }
 });
 
