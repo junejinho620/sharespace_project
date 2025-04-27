@@ -7,6 +7,17 @@ const resetForm = document.getElementById("reset-password-form");
 const newPasswordInput = document.getElementById("new-password");
 const confirmPasswordInput = document.getElementById("confirm-password");
 
+// Create inline error message container for same password
+const formError = document.createElement('div');
+formError.style.color = 'red';
+formError.style.fontSize = '14px';
+formError.style.marginTop = '15px';
+formError.style.textAlign = 'center';  // center under button
+formError.style.transition = 'opacity 0.3s ease';
+formError.style.opacity = '0'; // Start hidden
+
+resetForm.appendChild(formError);
+
 // Create inline error message
 const passwordError = document.createElement('div');
 passwordError.style.color = 'red';
@@ -57,14 +68,25 @@ resetForm.addEventListener("submit", async (e) => {
     const data = await res.json();
 
     if (res.ok) {
-      alert(data.message);
       window.location.href = "login.html";
     } else {
-      alert("❌ " + data.error);
+      formError.textContent = `❌ ${data.error}`;
+      formError.style.opacity = '1';
+
+      // Automatically hide the error after 5 seconds
+      setTimeout(() => {
+        formError.style.opacity = '0';
+        formError.textContent = '';
+      }, 5000);
     }
   } catch (err) {
-    console.error(err);
-    alert("Something went wrong.");
+    formError.textContent = "❌ Something went wrong. Please try again.";
+    formError.style.opacity = '1';
+    
+    setTimeout(() => {
+      formError.style.opacity = '0';
+      formError.textContent = '';
+    }, 5000);
   }
 });
 

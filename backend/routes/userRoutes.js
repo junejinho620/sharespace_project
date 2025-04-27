@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const jwt = require('jsonwebtoken'); // For generating JWT
+const bcrypt = require('bcryptjs')
 const crypto = require('crypto');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
@@ -231,7 +232,7 @@ router.post('/forgot-password', async (req, res) => {
 router.post('/reset-password', async (req, res) => {
   const { token, newPassword } = req.body;
 
-  const user = await User.findOne({
+  const user = await User.unscoped().findOne({
     where: {
       reset_password_token: token,
       reset_password_expires: { [require('sequelize').Op.gt]: Date.now() }
@@ -239,10 +240,15 @@ router.post('/reset-password', async (req, res) => {
   });
 
   if (!user) {
-    console.log("❌ User with token not found or token expired.");
     return res.status(400).json({ error: "Token invalid or expired." });
   }
 
+  // Compare newPassword vs old password
+  const isSamePassword = await bcrypt.compare(newPassword, user.password);
+  if (isSamePassword) {
+    return res.status(400).json({ error: "New password cannot be the same as the previous password." });
+  }
+  
   user.password = newPassword;
   user.reset_password_token = null;
   user.reset_password_expires = null;
@@ -253,7 +259,7 @@ router.post('/reset-password', async (req, res) => {
     await user.save();
     res.json({ message: "Password has been reset." });
   } catch (err) {
-    console.error("❌ Error saving new password:", err);
+    console.error("Error saving new password:", err);
     res.status(500).json({ error: "Failed to reset password." });
   }
 });
