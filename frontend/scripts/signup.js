@@ -1,14 +1,39 @@
 document.addEventListener('DOMContentLoaded', function () {
   const signupForm = document.getElementById('signup-form');
+  const passwordInput = signupForm.querySelector('#password');
+  const confirmPasswordInput = signupForm.querySelector('#confirm-password');
+
+  // Inline error elements
+  const passwordError = document.createElement('div');
+  passwordError.style.color = 'red';
+  passwordError.style.fontSize = '13px';
+  passwordError.style.marginTop = '4px';
+
+  const confirmPasswordGroup = signupForm.querySelector('#confirm-password').closest('.form-group');
+  confirmPasswordGroup.appendChild(passwordError);
+  
+  // Real-time check for password match
+  confirmPasswordInput.addEventListener('input', function () {
+    const password = passwordInput.value.trim();
+    const confirmPassword = confirmPasswordInput.value.trim();
+    if (password !== confirmPassword) {
+      passwordError.textContent = "❌ Passwords do not match.";
+    } else {
+      passwordError.textContent = "";
+    }
+  });
 
   signupForm.addEventListener('submit', async function (event) {
-    const acceptTerms = signupForm.querySelector('#acceptTerms').checked;
     event.preventDefault(); // Prevent form submission
 
     // Get input values
     const email = signupForm.querySelector('#email').value;
     const password = signupForm.querySelector('#password').value;
     const confirmPassword = signupForm.querySelector('#confirm-password').value;
+    const acceptTerms = signupForm.querySelector('#acceptTerms').checked;
+    
+    // Reset previous error
+    passwordError.textContent = "";
 
     // Validate inputs
     if (!validateEmail(email)) {
@@ -22,9 +47,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (password !== confirmPassword) {
-      alert('Passwords do not match.');
+      passwordError.textContent = "❌ Passwords do not match.";
       return;
     }
+
     if (!acceptTerms) {
       alert('You must agree to the Terms and Privacy Policy.');
       return;
@@ -84,24 +110,5 @@ document.addEventListener('DOMContentLoaded', function () {
     const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
     confirmPasswordInput.type = type;
     this.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  const form = document.getElementById('username-form');
-
-  form.addEventListener('submit', function (event) {
-    event.preventDefault();
-
-    const nameInput = form.querySelector('#name');
-    const username = nameInput.value.trim();
-
-    if (username === '') return;
-
-    // Save to localStorage to simulate login
-    localStorage.setItem('isLoggedIn', 'true');
-    localStorage.setItem('username', username);
-
-    // Go to home page
   });
 });

@@ -2,15 +2,12 @@
 .signup {
   padding: 60px 30px;
   background-color: white;
-  margin-top: 150px;
+  margin: 150px auto 500px;
   max-width: 400px;
   width: 90%;
-  margin-left: auto;
-  margin-right: auto;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  margin-bottom: 100px;
 }
 
 .signup h2 {
@@ -98,6 +95,7 @@
 /* Password Container */
 .password-container {
   position: relative;
+  width: 100%;
 }
 
 .password-container input {
@@ -116,11 +114,6 @@
   font-size: 14px;
   cursor: pointer;
   padding: 0;
-}
-
-.password-container {
-  position: relative;
-  width: 100%;
 }
 
 .password-container img {
@@ -161,9 +154,4 @@
 /* Push footer to the bottom */
 .footer.footer {
   margin-top: auto;
-}
-
-/* Add space under the login box */
-.signup {
-  margin-bottom: 220px;
 }
