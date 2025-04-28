@@ -1,0 +1,143 @@
+/* My Profile Styling */
+body {
+  margin: 0;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #fdfaf7;
+  color: #543310;
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 40px auto 0px;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f3e6d6;
+}
+
+.profile-info h2 {
+  font-size: 26px;
+  margin: 0;
+}
+
+.profile-info p {
+  font-size: 16px;
+  color: #7b5a3c;
+}
+
+.tags {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background-color: #f3e6d6;
+  color: #543310;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+}
+
+.profile-bio h3 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.profile-bio p {
+  background-color: #fdfaf7;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+  line-height: 1.6;
+  border: 1px solid #eee;
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+
+.profile-stats div {
+  text-align: center;
+}
+
+.profile-stats h4 {
+  font-size: 16px;
+  margin-bottom: 5px;
+  color: #7b5a3c;
+}
+
+.profile-stats p {
+  font-size: 22px;
+  font-weight: bold;
+  color: #543310;
+}
+
+.profile-contact {
+  text-align: center;
+}
+
+.like-btn {
+  background-color: #543310;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-right: 15px;
+}
+
+.like-btn:hover {
+  background-color: #74512D;
+}
+
+.like-btn i {
+  margin-right: 8px;
+}
+
+.message-btn {
+  background-color: #543310;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.message-btn:hover {
+  background-color: #74512D;
+}
+
+.message-btn i {
+  margin-right: 8px;
+}
+
+/* Push footer to the bottom */
+.footer.footer {
+  margin-top: auto;
+}

@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           ${user.interests ? user.interests.split(',').map(interest => `<span class="tag">${interest.trim()}</span>`).join('') : ''}
         </div>
         <p>${user.bio || 'No bio provided.'}</p>
-        <a href="my-profile.html?userId=${user.id}" class="view-btn">View Profile</a>
+        <a href="profile.html?userId=${user.id}" class="view-btn">View Profile</a>
       `;
 
       centerContainer.appendChild(card);

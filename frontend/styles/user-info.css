@@ -3,9 +3,6 @@ body {
   min-height: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #fdfaf7;
-  color: #543310;
   overflow-x: hidden;
 }
 
@@ -37,6 +34,7 @@ label {
   font-weight: 600;
   color: #543310;
   font-size: 18px;
+  text-align:left;
 }
 
 input[type="text"],
@@ -50,6 +48,7 @@ textarea {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-family: inherit;
+  text-align: center;
 }
 
 input[type="tel"],
@@ -64,6 +63,7 @@ textarea {
 
 textarea {
   resize: vertical;
+  text-align: center;
 }
 
 button[type="submit"] {

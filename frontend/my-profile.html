@@ -1,76 +1,129 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Profile - ShareSpace</title>
-  <link rel="stylesheet" href="styles/shared/general.css" />
-  <link rel="stylesheet" href="styles/my-profile.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-  <script src="scripts/my-profile.js"></script>
-  <script src="scripts/navbar.js" defer></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Profile - ShareSpace</title>
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/my-profile.css" />
+    <script src="scripts/navbar.js" defer></script>
+    <script src="scripts/my-profile.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  </head>
 
-</head>
-<body>
-  <nav class="navbar">
-    <div class="company">
-      <a href="index.html" class="company-name">ShareSpace</a>
+  <body>
+    <div id="header-placeholder">
+      <nav class="navbar">
+        <div class="company">
+          <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
+          <a href="index.html" class="company-name">ShareSpace</a>
+        </div>
+        <ul class="nav-links" id="nav-links">
+          <!-- Navigation items will be inserted by navbar.js -->
+        </ul>
+      </nav>
     </div>
-    <ul class="nav-links" id="nav-links">
-      <!-- Navigation items will be inserted by navbar.js -->
-    </ul>
-  </nav>
 
-  <div class="profile-container">
-    <div class="profile-header">
-      <img id="profilePic" class="profile-img" src="styles/img/default.jpg" alt="Profile Picture" />
-      <div class="profile-info">
-        <h2 id="profileName">Jane Doe</h2>
-        <p id="profileCity">Toronto</p>
-        <div class="tags">
-          <span class="tag">🎓 Student</span>
-          <span class="tag">🧘 Yoga</span>
-          <span class="tag">🌱 Clean Living</span>
+    <div class="profile-container">
+      <div class="profile-header">
+        <div class="profile-image-wrapper">
+          <img id="profilePic" class="profile-img" src="styles/img/default.jpg" alt="Profile Picture" />
+        </div>
+        <div class="profile-info">
+          <h1 id="profileName">Jane Doe</h1>
+          <p id="profileCity">Toronto</p>
+        </div>
+        <button id="editProfileBtn" class="edit-profile-btn">
+          <i class="fas fa-edit"></i> Edit Profile
+        </button>
+      </div>
+
+      <div class="profile-section">
+        <h2>About Me</h2>
+        <p id="profileBio">
+          I’m looking for a respectful and chill roommate. Prefer quiet spaces and good energy!
+        </p>
+      </div>
+
+      <div class="profile-section">
+        <h2>Basic Info</h2>
+        <div class="info-grid">
+          <div><strong>Age:</strong> <span id="profileAge">25</span></div>
+          <div><strong>Gender:</strong> <span id="profileGender">Female</span></div>
+          <div><strong>Budget:</strong> <span id="profileBudget">$800 - $1200</span></div>
+          <div><strong>Sleep Schedule:</strong> <span id="profileSleep">Early Bird</span></div>
+          <div><strong>Cleanliness:</strong> <span id="profileCleanliness">Very Clean</span></div>
+          <div><strong>Noise Tolerance:</strong> <span id="profileNoise">Low</span></div>
+          <div><strong>Smoking:</strong> <span id="profileSmoking">No</span></div>
+          <div><strong>Pet Friendly:</strong> <span id="profilePetFriendly">Yes</span></div>
+          <div><strong>Personality:</strong> <span id="profilePersonality">Introvert</span></div>
+        </div>
+      </div>
+
+      <div class="profile-section">
+        <h2>Interests</h2>
+        <p id="profileHobbies">Hiking, Painting, Yoga</p>
+      </div>
+
+      <div class="profile-section">
+        <h2>Roommate Preferences</h2>
+        <div class="info-grid">
+          <div><strong>Gender Preference:</strong> <span id="profileGenderPref">Female</span></div>
+          <div><strong>Age Range:</strong> <span id="profileAgeRange">22 - 28</span></div>
         </div>
       </div>
     </div>
 
-    <div class="profile-bio">
-      <h3>About Me</h3>
-      <p id="profileBio">
-        I’m looking for a respectful and chill roommate. Prefer quiet spaces and good energy!
-      </p>
-    </div>
-
-    <div class="profile-stats">
-      <div>
-        <h4>Matches</h4>
-        <p>12</p>
-      </div>
-      <div>
-        <h4>Chats</h4>
-        <p>7</p>
-      </div>
-      <div>
-        <h4>Favorites</h4>
-        <p>5</p>
-      </div>
-    </div>
-
-    <div class="profile-contact">
-      <button class="like-btn" id="like-btn">
-        <i class="fa-solid fa-heart"></i> Like
-      </button>
-      <button class="message-btn" onclick="queueNewChat()">
-        <i class="fas fa-comment-alt"></i> Message
-      </button>
-    </div>
-  </div>
-
-  <footer class="footer">
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Navigation Links -->
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="dashboard.html">Contact</a></li>
+            <!--<li><a href="browse.html">Browse</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="user-info.html" class="btn">User Info</a></li>-->
+          </ul>
+        </div>
     
-  </footer>
-
-  
-</body>
+        <!-- Contact Details -->
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
+            <li>Phone: +82 (010) 6744-5288</li>
+            <li>Address: 123 Roommate St, Suite 456, City, Country</li>
+          </ul>
+        </div>
+    
+        <!-- Social Media Icons -->
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
+            <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+    
+        <!-- Legal Information -->
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    
+      <!-- Copyright Notice -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 ShareSpace. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
 </html>

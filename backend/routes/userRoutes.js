@@ -186,11 +186,6 @@ router.get('/me', verifyToken, async (req, res) => {
 // GET /api/users/:id - get user info
 router.get('/:id', async (req, res) => {
   try {
-    // // Prevent viewing other users
-    // if (parseInt(req.params.id) !== req.user.id) {
-    //   return res.status(403).json({ error: 'Unauthorized access' });
-    // }
-    
     const user = await User.findByPk(req.params.id, {
       attributes: { exclude: ['password'] }, // avoid exposing password
     });

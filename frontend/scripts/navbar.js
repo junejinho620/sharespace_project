@@ -26,7 +26,7 @@ function renderNavLinks() {
       <li id="login-li" class="user-dropdown">
         <span class="username">${username} ▼</span>
         <div class="dropdown-content">
-          <a href="profile.html">My Profile</a>
+          <a href="my-profile.html">My Profile</a>
           <a href="settings.html">Settings</a>
           <a href="#" id="logoutButton">Log Out</a>
         </div>

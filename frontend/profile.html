@@ -3,13 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User Info - ShareSpace</title>
+    <title>My Profile - ShareSpace</title>
     <link rel="stylesheet" href="styles/shared/general.css" />
-    <link rel="stylesheet" href="styles/user-info.css" />
+    <link rel="stylesheet" href="styles/profile.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <script src="scripts/profile.js"></script>
     <script src="scripts/navbar.js" defer></script>
   </head>
   <body>
-    <div class="page-wrapper">
+    <div id="header-placeholder">
       <nav class="navbar">
         <div class="company">
           <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
@@ -19,96 +21,58 @@
           <!-- Navigation items will be inserted by navbar.js -->
         </ul>
       </nav>
+    </div>
 
-      <div class="container">
-        <h1>Tell Us About Yourself</h1>
-        <form id="userInfoForm">
-          <label>Name: <input type="text" id="name" required /></label>
-          <label>Age: <input type="number" id="age" required /></label>
-          <label>Gender:
-            <select id="gender">
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Non-binary">Non-binary</option>
-              <option value="Other">Other</option>
-            </select>
-          </label>
-          <label>Bio:
-            <textarea id="bio" rows="4" placeholder="Tell us something about you..."></textarea>
-          </label>
-          <label>Profile Picture:
-            <input type="file" id="profilePic" accept="image/*" />
-          </label>
-          <label>Phone Number: <input type="tel" id="phone" /></label>
-          <label>Budget Range: <input type="text" id="budget" placeholder="$800 - $1200" /></label>
-          <label>Cleanliness:
-            <select id="cleanliness">
-              <option value="">Select</option>
-              <option value="Very Clean">Very Clean</option>
-              <option value="Moderate">Moderate</option>
-              <option value="Messy">Messy</option>
-            </select>
-          </label>
-          <label>Noise Tolerance:
-            <select id="noise">
-              <option value="">Select</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </label>
-          <label>Sleep Schedule:
-            <select id="sleep">
-              <option value="">Select</option>
-              <option value="Early Bird">Early Bird</option>
-              <option value="Night Owl">Night Owl</option>
-              <option value="Flexible">Flexible</option>
-            </select>
-          </label>
-          <label>Gender Preference:
-            <select id="genderPref">
-              <option value="">No Preference</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Non-binary">Non-binary</option>
-            </select>
-          </label>
-          <label>Age Range: <input type="text" id="ageRange" placeholder="20 - 30" /></label>
-          <label>Smoking:
-            <select id="smoking">
-              <option value="No">No</option>
-              <option value="Yes">Yes</option>
-              <option value="Occasionally">Occasionally</option>
-            </select>
-          </label>
-          <label>Personality:
-            <select id="personality">
-              <option value="">Select</option>
-              <option value="Introvert">Introvert</option>
-              <option value="Extrovert">Extrovert</option>
-              <option value="Ambivert">Ambivert</option>
-            </select>
-          </label>
-          <label>Pet Friendly:
-            <select id="petFriendly">
-              <option value="Yes">Yes</option>
-              <option value="No">No</option>
-            </select>
-          </label>
-          <label>Hobbies:
-            <input type="text" id="hobbies" placeholder="e.g. Hiking, Reading, Painting" />
-          </label>
-          <button type="submit">Submit</button>
-        </form>
+    <div class="profile-container">
+      <div class="profile-header">
+        <img id="profilePic" class="profile-img" src="styles/img/default.jpg" alt="Profile Picture" />
+        <div class="profile-info">
+          <h2 id="profileName">Jane Doe</h2>
+          <p id="profileCity">Toronto</p>
+          <div class="tags">
+            <span class="tag">🎓 Student</span>
+            <span class="tag">🧘 Yoga</span>
+            <span class="tag">🌱 Clean Living</span>
+          </div>
+        </div>
       </div>
 
-      <footer class="footer">
-        <p>&copy; 2025 ShareSpace. All rights reserved.</p>
-      </footer>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+      <div class="profile-bio">
+        <h3>About Me</h3>
+        <p id="profileBio">
+          I’m looking for a respectful and chill roommate. Prefer quiet spaces and good energy!
+        </p>
+      </div>
 
-      <script src="user-info.js"></script>
+      <div class="profile-stats">
+        <div>
+          <h4>Matches</h4>
+          <p>12</p>
+        </div>
+        <div>
+          <h4>Chats</h4>
+          <p>7</p>
+        </div>
+        <div>
+          <h4>Favorites</h4>
+          <p>5</p>
+        </div>
+      </div>
+
+      <div class="profile-contact">
+        <button class="like-btn" id="like-btn">
+          <i class="fa-solid fa-heart"></i> Like
+        </button>
+        <button class="message-btn" onclick="queueNewChat()">
+          <i class="fas fa-comment-alt"></i> Message
+        </button>
+      </div>
     </div>
+
+    <footer class="footer">
+      
+    </footer>
+
+    
   </body>
 </html>
