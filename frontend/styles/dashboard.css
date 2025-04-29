@@ -1,0 +1,172 @@
+body {
+  background-color: #F8F4E1;
+  margin: 0;
+  padding: 0;
+  color: #543310;
+}
+
+.dashboard-container {
+  max-width: 1200px;
+  margin: 120px auto 40px auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.dashboard-container h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #543310;
+}
+
+.progress-bar {
+  position: relative;
+  background-color: #e0e0e0;
+  border-radius: 30px;
+  overflow: hidden;
+  margin: 20px auto;
+  height: 30px;
+  width: 80%;
+}
+
+.progress-fill {
+  background-color: #99540b;
+  height: 100%;
+  width: 70%;
+  transition: width 0.5s;
+  border-radius: 30px 0 0 30px;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  color: #543310;
+  font-size: 16px;
+  z-index: 2; /* ⭐ VERY IMPORTANT to show above progress bar */
+  pointer-events: none; /* (optional) So clicking text doesn't interfere */
+}
+
+
+
+.key-metrics {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 40px 0;
+  flex-wrap: wrap;
+}
+
+.metric-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 200px;
+}
+
+.metric-card h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.dashboard-section {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 30px;
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.matches-list, .recent-activities {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.match-card, .activity-item {
+  background-color: #fdfaf7;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.quick-shortcuts {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #543310;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+.btn:hover {
+  background-color: #74512D;
+}
+
+.tip-section {
+  background-color: #fff7e6;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-top: 30px;
+}
+
+footer.footer {
+  padding: 30px;
+  background-color: #543310;
+  color: white;
+  text-align: center;
+  margin-top: 40px;
+}
+
+footer.footer p {
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .key-metrics, .quick-shortcuts {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .metric-card {
+    width: 80%;
+  }
+}
+.match-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+  background-color: #f1e7d0;
+  transition: background-color 0.3s;
+}
+
+.metric-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #74512D;
+  transform: scale(1.05);
+  transition: all 0.3s ease;
+}
