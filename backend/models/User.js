@@ -38,12 +38,10 @@ const User = db.define('User', {
   },
   bio: { type: DataTypes.TEXT, allowNull: true },
   profile_picture_url: { type: DataTypes.STRING(255), allowNull: true },
-  verification_token: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
+  verification_token: { type: DataTypes.STRING, allowNull: true },
   verified: { type: DataTypes.BOOLEAN, defaultValue: false, allowNull: true },
   phone_number: { type: DataTypes.STRING(20), allowNull: true },
+  city: { type: DataTypes.STRING, allowNull: true },
   reset_password_token: { type: DataTypes.STRING, allowNull: true },
   reset_password_expires: { type: DataTypes.DATE, allowNull: true },
 }, {

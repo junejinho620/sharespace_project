@@ -34,14 +34,16 @@ function populateProfile(user) {
   document.getElementById('age').value = user.age || '';
   document.getElementById('gender').value = capitalizeFirstLetter(user.gender) || '';
   document.getElementById('bio').value = user.bio || '';
-  document.getElementById('budget').value = user.budget || '';
+  document.getElementById('city').value = user.city || '';
+  document.getElementById('budget').value = user.budget_range || '';
   document.getElementById('cleanliness').value = user.cleanliness || '';
   document.getElementById('noise').value = user.noise_tolerance || '';
   document.getElementById('sleep').value = user.sleep_schedule || '';
   document.getElementById('smoking').value = user.smoking || '';
-  document.getElementById('petFriendly').value = user.pet_friendly ? 'Yes' : 'No';
+  document.getElementById('petFriendly').value = user.pet_friendly || '';
   document.getElementById('personality').value = user.personality || '';
   document.getElementById('hobbies').value = user.hobbies || '';
+  document.getElementById('gender_pref').value = user.gender_pref || '';
 
   // Profile picture
   if (user.profile_picture_url) {

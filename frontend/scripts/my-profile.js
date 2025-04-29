@@ -41,19 +41,17 @@ function populateProfile(user) {
   document.getElementById('profileName').textContent = user.name || 'Name not set';
   document.getElementById('profileCity').textContent = user.city || 'City not set';
   document.getElementById('profileBio').textContent = user.bio || 'No bio available.';
-
   document.getElementById('profileAge').textContent = user.age || '-';
   document.getElementById('profileGender').textContent = capitalizeFirstLetter(user.gender) || '-';
-  document.getElementById('profileBudget').textContent = user.budget || '-';
+  document.getElementById('profileBudget').textContent = user.budget_range || '-';
   document.getElementById('profileSleep').textContent = user.sleep_schedule || '-';
   document.getElementById('profileCleanliness').textContent = user.cleanliness || '-';
   document.getElementById('profileNoise').textContent = user.noise_tolerance || '-';
   document.getElementById('profileSmoking').textContent = user.smoking || '-';
-  document.getElementById('profilePetFriendly').textContent = user.pet_friendly ? 'Yes' : 'No';
+  document.getElementById('profilePetFriendly').textContent = user.pet_friendly || '-';
   document.getElementById('profilePersonality').textContent = user.personality || '-';
   document.getElementById('profileHobbies').textContent = user.hobbies || '-';
-  document.getElementById('profileGenderPref').textContent = user.gender_preference || '-';
-  document.getElementById('profileAgeRange').textContent = user.age_range || '-';
+  document.getElementById('profileGenderPref').textContent = user.gender_pref || '-';
 
   // Profile picture
   if (user.profile_picture_url) {
