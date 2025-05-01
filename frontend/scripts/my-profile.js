@@ -50,12 +50,34 @@ function populateProfile(user) {
   document.getElementById('profileSmoking').textContent = user.smoking || '-';
   document.getElementById('profilePetFriendly').textContent = user.pet_friendly || '-';
   document.getElementById('profilePersonality').textContent = user.personality || '-';
-  document.getElementById('profileHobbies').textContent = user.hobbies || '-';
+  loadAndDisplayHobbies(user.id, 'profileHobbies');
   document.getElementById('profileGenderPref').textContent = user.gender_pref || '-';
 
   // Profile picture
   if (user.profile_picture_url) {
     document.getElementById('profilePic').src = user.profile_picture_url;
+  }
+}
+
+// Helper: Load and display user's hobbies
+async function loadAndDisplayHobbies(userId, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  try {
+    const res = await fetch(`/api/users/${userId}/hobbies`);
+    const hobbies = await res.json();
+
+    container.innerHTML = '';
+    hobbies.forEach(hobby => {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = `${hobby.icon} ${hobby.name}`;
+      container.appendChild(tag);
+    });
+
+  } catch (err) {
+    console.error("❌ Failed to load hobbies:", err);
   }
 }
 

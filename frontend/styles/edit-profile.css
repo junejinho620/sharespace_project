@@ -91,6 +91,46 @@ textarea {
   background-color: #bbb;
 }
 
+/* Hobbies dropdown helper */
+.hobby-tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.hobby-tag {
+  background-color: #f3eae3;
+  border: 1px solid #d4bfa8;
+  padding: 8px 14px;
+  border-radius: 20px;
+  color: #543310;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 15px;
+}
+
+.hobby-tag:hover {
+  background-color: #e4d2bc;
+}
+
+#hobby-dropdown {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 5px;
+}
+
 .footer {
   margin-top: auto;
 }

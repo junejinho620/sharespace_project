@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 function populateProfile(user) {
   document.getElementById('profileName').textContent = `${user.name || 'Name not set'}, ${user.age || '-'}`;
   document.getElementById('profileCity').textContent = user.city || "Unknown";
+  loadAndDisplayHobbies(user.id, 'profileHobbies');
   document.getElementById('profileBio').textContent = user.bio || "No bio available.";
 
   if (user.profile_picture_url) {
@@ -98,6 +99,28 @@ async function setupLikeButton(userId, token) {
     }
   } catch (error) {
     console.error('❌ Error checking like status:', error);
+  }
+}
+
+// Helper: Load and display user's hobbies
+async function loadAndDisplayHobbies(userId, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  try {
+    const res = await fetch(`/api/users/${userId}/hobbies`);
+    const hobbies = await res.json();
+
+    container.innerHTML = '';
+    hobbies.forEach(hobby => {
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.textContent = `${hobby.icon} ${hobby.name}`;
+      container.appendChild(tag);
+    });
+
+  } catch (err) {
+    console.error("❌ Failed to load hobbies:", err);
   }
 }
 

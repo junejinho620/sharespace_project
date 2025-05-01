@@ -33,20 +33,14 @@ const roommatePrefRoutes = require("./routes/roommatePrefRoutes");
 const recommendRoutes = require("./routes/recommendRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const likeRoutes = require("./routes/likeRoutes");
+const hobbyRoutes = require("./routes/hobbyRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/prefs", roommatePrefRoutes);
 app.use("/api/recommendations", recommendRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/likes", likeRoutes);
-
-// sequelize.sync({ alter: true })  // sequelize is correctly imported above
-//   .then(() => {
-//     console.log("✅ All tables synced");
-//   })
-//   .catch((err) => {
-//     console.error("❌ Error syncing tables:", err);
-//   });
+app.use("/api/hobbies", hobbyRoutes);
 
 // Connect to MySQL database
 sequelize.authenticate()

@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
 const { User } = require('../models');
+const userController = require("../controllers/userController");
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
 
@@ -243,7 +244,7 @@ router.post('/reset-password', async (req, res) => {
   if (isSamePassword) {
     return res.status(400).json({ error: "New password cannot be the same as the previous password." });
   }
-  
+
   user.password = newPassword;
   user.reset_password_token = null;
   user.reset_password_expires = null;
@@ -258,5 +259,9 @@ router.post('/reset-password', async (req, res) => {
     res.status(500).json({ error: "Failed to reset password." });
   }
 });
+
+// Hobby-related routes
+router.get("/:id/hobbies", userController.getUserHobbies);
+router.put("/:id/hobbies", userController.updateUserHobbies);
 
 module.exports = router;

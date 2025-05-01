@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -127,9 +128,11 @@
         </select>
       </div>
 
-      <div class="form-group">
-        <label for="hobbies">Hobbies</label>
-        <input type="text" id="hobbies" placeholder="e.g. Hiking, Reading" />
+      <div class="form-group" id="hobby-wrapper">
+        <label for="hobby-tags">Hobbies</label>
+        <div id="hobby-tags" class="hobby-tag-container"></div>
+        <select id="hobby-dropdown" class="hidden"></select>
+        <p class="note">Click on a hobby to edit. Max 3 hobbies.</p>
       </div>
 
       <div class="form-group">
@@ -144,7 +147,7 @@
 
       <div class="form-buttons">
         <button type="submit" class="save-btn">Save Changes</button>
-        <a href="my-own-profile.html" class="cancel-btn">Cancel</a>
+        <a href="my-profile.html" class="cancel-btn">Cancel</a>
       </div>
     </form>
   </div>
@@ -163,7 +166,7 @@
           <li><a href="user-info.html" class="btn">User Info</a></li>-->
         </ul>
       </div>
-  
+
       <!-- Contact Details -->
       <div class="footer-section">
         <h3>Contact Us</h3>
@@ -173,7 +176,7 @@
           <li>Address: 123 Roommate St, Suite 456, City, Country</li>
         </ul>
       </div>
-  
+
       <!-- Social Media Icons -->
       <div class="footer-section">
         <h3>Follow Us</h3>
@@ -181,10 +184,11 @@
           <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
           <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
           <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i
+              class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
-  
+
       <!-- Legal Information -->
       <div class="footer-section">
         <h3>Legal</h3>
@@ -194,7 +198,7 @@
         </ul>
       </div>
     </div>
-  
+
     <!-- Copyright Notice -->
     <div class="footer-bottom">
       <p>&copy; 2025 ShareSpace. All rights reserved.</p>
@@ -202,4 +206,5 @@
   </footer>
 
 </body>
+
 </html>
