@@ -114,6 +114,13 @@ User.associate = (models) => {
     as: 'likesReceived',
     onDelete: 'CASCADE',
   });
+
+  User.belongsToMany(models.Hobby, {
+    through: 'UserHobby',
+    foreignKey: 'user_id',
+    otherKey: 'hobby_id',
+    as: 'hobbies'
+  });
 };
 
 module.exports = User;

@@ -2,17 +2,6 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const interestOptions = [
-      'hiking, fitness, travel',
-      'cooking, reading, board games',
-      'gaming, anime, tech',
-      'music, art, coffee',
-      'fashion, photography, vlogging',
-      'sports, movies, pets',
-      'yoga, meditation, vegetarian lifestyle',
-      'nightlife, concerts, dance'
-    ];
-
     const budgetOptions = [
       '$500-$800',
       '$700-$1000',
@@ -30,7 +19,6 @@ module.exports = {
         age_range: '20-30',
         pet_friendly: i % 3 === 0,
         smoking: i % 4 === 0,
-        hobbies: interestOptions[i % interestOptions.length],
         budget_range: budgetOptions[i % budgetOptions.length]
       });
     }

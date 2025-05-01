@@ -25,7 +25,6 @@ const RoommatePref = db.define('RoommatePref', {
   smoking: { type: DataTypes.BOOLEAN, defaultValue: false },
   introvert: { type: DataTypes.BOOLEAN, defaultValue: false },
   pet_friendly: { type: DataTypes.BOOLEAN, defaultValue: false },
-  hobbies: { type: DataTypes.TEXT },
 }, {
   modelName: 'RoommatePref',
   tableName: 'roommate_prefs',

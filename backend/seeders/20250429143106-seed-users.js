@@ -26,7 +26,11 @@ module.exports = {
       });
     }
 
-    await queryInterface.bulkInsert('users', users);
+    try {
+      await queryInterface.bulkInsert('users', users);
+    } catch (error) {
+      console.error('❌ Seeder failed:', error.errors || error);
+    }
   },
 
   async down(queryInterface, Sequelize) {
