@@ -4,16 +4,29 @@ const router = express.Router();
 const { RoommatePref } = require('../models');
 const verifyToken = require('../middleware/authMiddleware');
 
-// GET /api/prefs/me - Get current user's roommate preferences
+// GET /api/prefs/me - Get roommate preferences for logged-in user
 router.get('/me', verifyToken, async (req, res) => {
     try {
       const prefs = await RoommatePref.findOne({ where: { user_id: req.user.id } });
   
-      if (!prefs) {
-        return res.status(404).json({ error: 'Preferences not found' });
-      }
+    // If no prefs exist, create with sensible defaults
+    if (!prefs) {
+      prefs = await RoommatePref.create({
+        user_id: req.user.id,
+        budget_range: '',
+        cleanliness: 2,
+        noise_tolerance: 2,
+        sleep_schedule: '',
+        smoking: false,
+        pet_friendly: false,
+        gender_pref: 'Any',
+        introvert: false
+      });
+      console.log('✅ Created default roommate prefs for user:', req.user.id);
+    }
   
       res.json({ prefs });
+
     } catch (err) {
       console.error('GET /api/prefs/me error:', err);
       res.status(500).json({ error: 'Failed to fetch preferences' });
@@ -62,26 +75,25 @@ router.post('/', verifyToken, async (req, res) => {
   }
 });
 
-// PUT /api/prefs/:user_id - Update roommate preferences
-router.put('/:user_id', verifyToken, async (req, res) => {
+// PUT /api/prefs/me - Update roommate preferences
+router.put('/me', verifyToken, async (req, res) => {
   try {
-    const userId = parseInt(req.params.user_id);
-
-    if (req.user.id !== userId) {
-      return res.status(403).json({ error: 'Unauthorized access' });
-    }
-
-    const prefs = await RoommatePref.findOne({ where: { user_id: userId } });
+    const prefs = await RoommatePref.findOne({ where: { user_id: req.user.id } });
 
     if (!prefs) {
-      return res.status(404).json({ error: 'Preferences not found' });
+      // Create new preferences if they don't exist
+      prefs = await RoommatePref.create({
+        ...req.body,
+        user_id: req.user.id
+      });
+      return res.status(201).json({ message: 'Preferences created', prefs });
     }
 
     await prefs.update(req.body);
-
     res.json({ message: 'Preferences updated', prefs });
+
   } catch (err) {
-    console.error('PUT /api/prefs/:user_id error:', err);
+    console.error('PUT /api/prefs/me error:', err);
     res.status(500).json({ error: 'Failed to update preferences' });
   }
 });

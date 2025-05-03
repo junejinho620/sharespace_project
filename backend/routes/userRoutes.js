@@ -135,6 +135,19 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// PUT /api/users/me - update logged-in user info
+router.put('/me', verifyToken, async (req, res) => {
+  try {
+    const user = await User.findByPk(req.user.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    await user.update(req.body);
+    res.json({ message: 'User updated successfully', user });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 // PUT /api/users/:id - update user info
 router.put('/:id', verifyToken, async (req, res) => {
   try {

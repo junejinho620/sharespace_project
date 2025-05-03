@@ -1,163 +1,213 @@
-document.addEventListener('DOMContentLoaded', async function () {
+document.addEventListener('DOMContentLoaded', async () => {
   const token = localStorage.getItem('token');
-
   if (!token) {
     logoutAndRedirect();
     return;
   }
 
   try {
-    const response = await fetch('http://localhost:5000/api/users/me', {
-      method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
+    const user = await fetchCurrentUser(token);
+    const prefs = await fetchRoommatePrefs(token);
 
-    if (response.ok) {
-      const data = await response.json();
-      console.log('✅ Authenticated user:', data.user);
-      populateProfile(data.user);
-      loadHobbies(data.user.id);
-    } else {
-      // Token expired, invalid, or user not found
-      throw new Error('Unauthorized');
-    }
+    populateForm(user, prefs);
+    await loadHobbies(user.id);
+
+    setupFormSubmit(user.id, token);
+
   } catch (err) {
-    console.error("❌ Error loading profile:", err);
-    window.location.href = "404-error.html";
+    console.error('❌ Failed to initialise edit‑profile:', err);
+    window.location.href = '404-error.html';
   }
 });
 
-// Helper: Fill profile data into page
-function populateProfile(user) {
-  document.getElementById('name').value = user.name || '';
-  document.getElementById('age').value = user.age || '';
-  document.getElementById('gender').value = capitalizeFirstLetter(user.gender) || '';
-  document.getElementById('bio').value = user.bio || '';
-  document.getElementById('city').value = user.city || '';
-  document.getElementById('budget').value = user.budget_range || '';
-  document.getElementById('cleanliness').value = user.cleanliness || '';
-  document.getElementById('noise').value = user.noise_tolerance || '';
-  document.getElementById('sleep').value = user.sleep_schedule || '';
-  document.getElementById('smoking').value = user.smoking || '';
-  document.getElementById('petFriendly').value = user.pet_friendly || '';
-  document.getElementById('personality').value = user.personality || '';
-  document.getElementById('gender_pref').value = user.gender_pref || '';
+async function fetchCurrentUser(token) {
+  const res = await fetch('/api/users/me', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) throw new Error('Unauthorized');
+  const { user } = await res.json();
+  return user;
+}
 
-  // Profile picture
+async function fetchRoommatePrefs(token) {
+  const res = await fetch('/api/prefs/me', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  if (!res.ok) return {}; // first‑time users
+  const data = await res.json();
+  return data.prefs || data;
+}
+
+// Helper: Fill user data
+function populateForm(user, pref = {}) {
+  // User core
+  setValue('name', user.name);
+  setValue('age', user.age);
+  setValue('gender', capitalizeFirstLetter(user.gender));
+  setValue('bio', user.bio);
+  setValue('city', user.city);
+
   if (user.profile_picture_url) {
     document.getElementById('profilePic').src = user.profile_picture_url;
   }
+
+  // Prefs
+  setValue('budget', pref.budget_range);
+  setValue('cleanliness', cleanlinessLabel(pref.cleanliness));
+  setValue('noise', noiseLabel(pref.noise_tolerance));
+  setValue('sleep', pref.sleep_schedule);
+  setValue('smoking', pref.smoking ? 'Yes' : 'No');
+  setValue('petFriendly', pref.pet_friendly ? 'Yes' : 'No');
+  setValue('gender_pref', pref.gender_pref);
+  setValue('personality', pref.introvert ? 'Introvert' : 'Extrovert');
 }
 
-// Helper: Load hobbies in dropdown
-async function loadHobbies(userId) {
-  const hobbyRes = await fetch("/api/hobbies");
-  const allHobbies = await hobbyRes.json();
-
-  const userHobbyRes = await fetch(`/api/users/${userId}/hobbies`);
-  const selectedHobbies = await userHobbyRes.json();
-
-  const tagContainer = document.getElementById("hobby-tags");
-  const dropdown = document.getElementById("hobby-dropdown");
-
-  let selected = [...selectedHobbies]; // clone the user's hobbies
-
-  function renderTags() {
-    tagContainer.innerHTML = ""; // clear previous
-    selected.forEach((hobby, index) => {
-      const tag = document.createElement("div");
-      tag.className = "hobby-tag";
-      tag.textContent = `${hobby.icon} ${hobby.name}`;
-      tag.dataset.index = index;
-      tag.addEventListener("click", () => openDropdown(index));
-      tagContainer.appendChild(tag);
-    });
-
-    if (selected.length < 3) {
-      const addBtn = document.createElement("div");
-      addBtn.className = "hobby-tag";
-      addBtn.textContent = "+ Add hobby";
-      addBtn.addEventListener("click", () => openDropdown(selected.length));
-      tagContainer.appendChild(addBtn);
-    }
+function setValue(id, val) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  if (el.tagName === 'SELECT' || el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+    el.value = val ?? '';
   }
+}
 
-  function openDropdown(index) {
-    dropdown.innerHTML = "";
-    allHobbies.forEach(hobby => {
-      const option = document.createElement("option");
-      option.value = hobby.id;
-      option.textContent = `${hobby.icon} ${hobby.name}`;
-      option.selected = selected[index] && selected[index].id === hobby.id;
-      dropdown.appendChild(option);
+// Helper: Load hobbies
+async function loadHobbies(userId) {
+  const all = await (await fetch('/api/hobbies')).json();
+  const own = await (await fetch(`/api/users/${userId}/hobbies`)).json();
+  const tags = document.getElementById('hobby-tags');
+  const drop = document.getElementById('hobby-dropdown');
+  let selected = [...own];
+
+  const render = () => {
+    tags.innerHTML = '';
+    selected.forEach((h, i) => addTag(`${h.icon} ${h.name}`, () => open(i)));
+    if (selected.length < 3) addTag('+ Add hobby', () => open(selected.length));
+  };
+
+  const addTag = (txt, cb) => {
+    const div = document.createElement('div');
+    div.className = 'hobby-tag';
+    div.textContent = txt;
+    div.onclick = cb;
+    tags.appendChild(div);
+  };
+
+  const open = (idx) => {
+    drop.innerHTML = '';
+    all.forEach(h => {
+      const opt = document.createElement('option');
+      opt.value = h.id;
+      opt.textContent = `${h.icon} ${h.name}`;
+      opt.selected = selected[idx] && selected[idx].id === h.id;
+      drop.appendChild(opt);
     });
-
-    dropdown.classList.remove("hidden");
-    dropdown.onchange = async () => {
-      const chosenId = parseInt(dropdown.value);
-      const chosen = allHobbies.find(h => h.id === chosenId);
-      if (selected.find(h => h.id === chosenId)) {
-        alert("You already selected this hobby.");
+    drop.classList.remove('hidden');
+    drop.onchange = () => {
+      const id = parseInt(drop.value);
+      if (selected.some(h => h.id === id)) {
+        alert('You already selected this hobby.');
         return;
       }
-      selected[index] = chosen;
-      selected = selected.filter(Boolean); // remove empty slots
-      dropdown.classList.add("hidden");
-      renderTags();
+      selected[idx] = all.find(h => h.id === id);
+      selected = selected.filter(Boolean);
+      drop.classList.add('hidden');
+      render();
     };
-  }
-  // Initial render
-  renderTags();
+  };
+  render();
 
-  // Hook into form submission
-  const form = document.getElementById("editProfileForm");
-  form.addEventListener("submit", async function (e) {
+  // save on submit
+  document.getElementById('editProfileForm').addEventListener('submit', async e => {
     e.preventDefault();
-
-    const token = localStorage.getItem('token');
-    const userRes = await fetch('http://localhost:5000/api/users/me', {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    const user = (await userRes.json()).user;
-
-    const hobbyIds = selected.map(h => h.id);
-
-    await fetch(`/api/users/${user.id}/hobbies`, {
+    const ids = selected.map(h => h.id);
+    await fetch(`/api/users/${userId}/hobbies`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ hobbyIds })
+      body: JSON.stringify({ hobbyIds: ids })
     });
+  }, { once: true });
+}
+
+// Helper: Handle form submission for user + roommatePref
+function setupFormSubmit(userId, token) {
+  document.getElementById('editProfileForm').addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const updatedUser = {
+      name: getVal('name'),
+      age: parseInt(getVal('age')),
+      gender: getVal('gender'),
+      bio: getVal('bio'),
+      city: getVal('city')
+    };
+
+    const updatedPrefs = {
+      budget_range: getVal('budget'),
+      cleanliness: parseCleanliness(getVal('cleanliness')),
+      noise_tolerance: parseNoise(getVal('noise')),
+      sleep_schedule: getVal('sleep'),
+      smoking: getVal('smoking') === 'Yes',
+      pet_friendly: getVal('petFriendly') === 'Yes',
+      gender_pref: getVal('gender_pref') || 'Any',
+      introvert: getVal('personality') === 'Introvert'
+    };
+
+    await Promise.all([
+      fetch(`/api/users/me`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify(updatedUser)
+      }),
+      fetch('/api/prefs/me', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify(updatedPrefs)
+      })
+    ]);
 
     alert('Profile updated successfully!');
     window.location.href = 'my-profile.html';
   });
 }
 
-// Helper: Capitalize first letter (for gender etc.)
-function capitalizeFirstLetter(string) {
-  if (!string) return '';
-  return string.charAt(0).toUpperCase() + string.slice(1);
+function getVal(id) {
+  return document.getElementById(id).value;
 }
 
-document.getElementById('editProfileForm').addEventListener('submit', async function (e) {
-  e.preventDefault();
+// Helper: Utilities
+function cleanlinessLabel(val) {
+  if (val === 3) return 'Very Clean';
+  if (val === 2) return 'Moderate';
+  if (val === 1) return 'Messy';
+  return '';
+}
 
-  const token = localStorage.getItem('token');
-  const userRes = await fetch('http://localhost:5000/api/users/me', {
-    headers: { 'Authorization': `Bearer ${token}` }
-  });
-  const user = (await userRes.json()).user;
+function noiseLabel(val) {
+  if (val === 3) return 'High';
+  if (val === 2) return 'Medium';
+  if (val === 1) return 'Low';
+  return '';
+}
 
-  const selectedHobbies = [...document.getElementById('hobbySelect').selectedOptions].map(opt => parseInt(opt.value));
+function parseCleanliness(val) {
+  if (val === 'Very Clean') return 3;
+  if (val === 'Moderate') return 2;
+  if (val === 'Messy') return 1;
+  return null;
+}
+function parseNoise(val) {
+  if (val === 'High') return 3;
+  if (val === 'Medium') return 2;
+  if (val === 'Low') return 1;
+  return null;
+}
 
-  await fetch(`/api/users/${user.id}/hobbies`, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ hobbyIds: selectedHobbies })
-  });
+function capitalizeFirstLetter(str) {
+  if (!str) return '';
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 
-  alert('Profile updated successfully!');
-  window.location.href = 'my-profile.html';
-});
+function logoutAndRedirect() {
+  localStorage.clear();
+  window.location.href = 'login.html';
+}
