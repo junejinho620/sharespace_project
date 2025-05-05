@@ -22,29 +22,84 @@
       </nav>
     </div>
   
-    <section class="browse-profiles">
-      <div class="container">
-        <h1>Meet Your Future Roommate</h1>
-        <p>Browse profiles and find your ideal match</p>
-    
-        <!--🔍 Search and Filter -->
-        <div class="search-filter">
-          <input type="text" id="searchInput" placeholder="Search" />
-          <div class="filters">
-            <button data-filter="Student">🎓 Student</button>
-            <button data-filter="Vegetarian">🥗 Vegetarian</button>
-            <button data-filter="Pet-friendly">🐱 Pet-friendly</button>
-            <button data-filter="Music">🎸 Music</button>
-            <button data-filter="All" class="clear">Reset</button>
-          </div>
-        </div>
-      </div>
+    <section class="browse-header">
+      <h1 class="browse-title">Meet Your Future Roommate</h1>
+      <p class="browse-subtitle">Browse profiles and find your ideal match</p>
     </section>
 
-    <section class="browse-wrapper">
-      <h1 class="browse-title">Find Your Perfect Match</h1>
-      <div class="center">
-        <!-- Dynamic User Cards will be injected here by browse.js -->   
+    <section class="browse-profiles">
+      <div class="browse-layout">
+
+        <!-- Filter Sidebar (Left) -->
+        <aside class="filters-sidebar">
+          <h3>Filter by:</h3>
+        
+          <!-- Budget -->
+          <div class="filter-group">
+            <label for="budgetRange">Budget ($)</label>
+            <input type="range" id="budgetRange" min="0" max="5000" step="100" />
+            <button class="reset-btn">All prices</button>
+          </div>
+        
+          <!-- Age -->
+          <div class="filter-group">
+            <label for="ageRange">Age</label>
+            <input type="range" id="ageRange" min="18" max="70" step="1" />
+            <button class="reset-btn">All ages</button>
+          </div>
+        
+          <!-- City -->
+          <div class="filter-group">
+            <label>City</label>
+            <div class="radio-group">
+              <label><input type="radio" name="city" value="Toronto" /> Toronto</label>
+              <label><input type="radio" name="city" value="Vancouver" /> Vancouver</label>
+              <label><input type="radio" name="city" value="New York" /> New York</label>
+              <label><input type="radio" name="city" value="London" /> London</label>
+              <label><input type="radio" name="city" value="All" checked /> All</label>
+            </div>
+          </div>
+        
+          <!-- Gender -->
+          <div class="filter-group">
+            <label>Gender</label>
+            <div class="radio-group">
+              <label><input type="radio" name="gender" value="Male" /> Male</label>
+              <label><input type="radio" name="gender" value="Female" /> Female</label>
+              <label><input type="radio" name="gender" value="Any" checked /> Any</label>
+            </div>
+          </div>
+        
+          <!-- PMTI -->
+          <div class="filter-group">
+            <label>PMTI (Pomi Test)</label>
+            <div class="checkbox-grid">
+              <label><input type="checkbox" value="ENFP" /> ENFP</label>
+              <label><input type="checkbox" value="ENFJ" /> ENFJ</label>
+              <label><input type="checkbox" value="ENTP" /> ENTP</label>
+              <label><input type="checkbox" value="ENTJ" /> ENTJ</label>
+              <label><input type="checkbox" value="INFJ" /> INFJ</label>
+              <label><input type="checkbox" value="INFP" /> INFP</label>
+              <label><input type="checkbox" value="INTP" /> INTP</label>
+              <label><input type="checkbox" value="INTJ" /> INTJ</label>
+              <label><input type="checkbox" value="ESFP" /> ESFP</label>
+              <label><input type="checkbox" value="ESFJ" /> ESFJ</label>
+              <label><input type="checkbox" value="ESTP" /> ESTP</label>
+              <label><input type="checkbox" value="ESTJ" /> ESTJ</label>
+              <label><input type="checkbox" value="ISFJ" /> ISFJ</label>
+              <label><input type="checkbox" value="ISFP" /> ISFP</label>
+              <label><input type="checkbox" value="ISTP" /> ISTP</label>
+              <label><input type="checkbox" value="ISTJ" /> ISTJ</label>
+            </div>
+          </div>
+        </aside>    
+
+        <!-- Browse Results (Right) -->
+        <div class="browse-results">
+          <div class="center">
+            <!-- Dynamic User Cards will be injected here by browse.js -->   
+          </div>      
+        </div>  
       </div>
     </section>
 

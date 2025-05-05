@@ -5,7 +5,7 @@ const bcrypt = require('bcryptjs')
 const crypto = require('crypto');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
-const { User } = require('../models');
+const { User, RoommatePref, Hobby } = require('../models');
 const userController = require("../controllers/userController");
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
@@ -170,14 +170,33 @@ router.put('/:id', verifyToken, async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'name', 'age', 'gender', 'bio', 'email', 'profile_picture_url', 'created_at']
+      attributes: ['id', 'name', 'age', 'city', 'gender', 'bio', 'email', 'profile_picture_url', 'created_at'],
+      include: [
+        {
+          model: Hobby,
+          as: 'hobbies',
+          attributes: ['name'],
+          through: { attributes: [] } // hide join table fields
+        }
+      ]
     });
-    res.json(users);
+
+    // Flatten interests
+    const formattedUsers = users.map(user => {
+      return {
+        ...user.toJSON(),
+        interests: user.hobbies?.map(hobby => hobby.name).join(', ') || '',
+        city: user.roommatePref?.city || user.city || 'Unknown'
+      };
+    });
+
+    res.json(formattedUsers);
   } catch (error) {
-    console.error("❌ Failed to fetch users:", error);
-    res.status(500).json({ error: "Failed to fetch users" });
+    console.error("❌ Failed to fetch users with associations:", error);
+    res.status(500).json({ error: "Failed to fetch users with hobbies and prefs" });
   }
 });
+
 
 // GET /api/users/me - Get current user's profile (self)
 router.get('/me', verifyToken, async (req, res) => {
