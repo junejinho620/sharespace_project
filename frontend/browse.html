@@ -1,161 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Browse Roommates - ShareSpace</title>
-    <link rel="stylesheet" href="styles/shared/general.css" />
-    <link rel="stylesheet" href="styles/browse.css" />
-    <link rel="stylesheet" href="styles/browse-cards.css" />
-    <script src="scripts/navbar.js" defer></script>
-  </head>
-  <body>
-    <div id="header-placeholder">
-      <nav class="navbar">
-        <div class="company">
-          <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
-          <a href="index.html" class="company-name">ShareSpace</a>
-        </div>
-        <ul class="nav-links" id="nav-links">
-          <!-- Navigation items will be inserted by navbar.js -->
-        </ul>
-      </nav>
-    </div>
-  
-    <section class="browse-header">
-      <h1 class="browse-title">Meet Your Future Roommate</h1>
-      <p class="browse-subtitle">Browse profiles and find your ideal match</p>
-    </section>
 
-    <section class="browse-profiles">
-      <div class="browse-layout">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Roommates - ShareSpace</title>
+  <link rel="stylesheet" href="styles/shared/general.css" />
+  <link rel="stylesheet" href="styles/browse.css" />
+  <link rel="stylesheet" href="styles/browse-cards.css" />
+  <script src="scripts/navbar.js" defer></script>
+</head>
 
-        <!-- Filter Sidebar (Left) -->
-        <aside class="filters-sidebar">
-          <h3>Filter by:</h3>
-        
-          <!-- Budget -->
-          <div class="filter-group">
-            <label for="budgetRange">Budget ($)</label>
-            <input type="range" id="budgetRange" min="0" max="5000" step="100" />
-            <button class="reset-btn">All prices</button>
-          </div>
-        
-          <!-- Age -->
-          <div class="filter-group">
-            <label for="ageRange">Age</label>
-            <input type="range" id="ageRange" min="18" max="70" step="1" />
-            <button class="reset-btn">All ages</button>
-          </div>
-        
-          <!-- City -->
-          <div class="filter-group">
-            <label>City</label>
-            <div class="radio-group">
-              <label><input type="radio" name="city" value="Toronto" /> Toronto</label>
-              <label><input type="radio" name="city" value="Vancouver" /> Vancouver</label>
-              <label><input type="radio" name="city" value="New York" /> New York</label>
-              <label><input type="radio" name="city" value="London" /> London</label>
-              <label><input type="radio" name="city" value="All" checked /> All</label>
-            </div>
-          </div>
-        
-          <!-- Gender -->
-          <div class="filter-group">
-            <label>Gender</label>
-            <div class="radio-group">
-              <label><input type="radio" name="gender" value="Male" /> Male</label>
-              <label><input type="radio" name="gender" value="Female" /> Female</label>
-              <label><input type="radio" name="gender" value="Any" checked /> Any</label>
-            </div>
-          </div>
-        
-          <!-- PMTI -->
-          <div class="filter-group">
-            <label>PMTI (Pomi Test)</label>
-            <div class="checkbox-grid">
-              <label><input type="checkbox" value="ENFP" /> ENFP</label>
-              <label><input type="checkbox" value="ENFJ" /> ENFJ</label>
-              <label><input type="checkbox" value="ENTP" /> ENTP</label>
-              <label><input type="checkbox" value="ENTJ" /> ENTJ</label>
-              <label><input type="checkbox" value="INFJ" /> INFJ</label>
-              <label><input type="checkbox" value="INFP" /> INFP</label>
-              <label><input type="checkbox" value="INTP" /> INTP</label>
-              <label><input type="checkbox" value="INTJ" /> INTJ</label>
-              <label><input type="checkbox" value="ESFP" /> ESFP</label>
-              <label><input type="checkbox" value="ESFJ" /> ESFJ</label>
-              <label><input type="checkbox" value="ESTP" /> ESTP</label>
-              <label><input type="checkbox" value="ESTJ" /> ESTJ</label>
-              <label><input type="checkbox" value="ISFJ" /> ISFJ</label>
-              <label><input type="checkbox" value="ISFP" /> ISFP</label>
-              <label><input type="checkbox" value="ISTP" /> ISTP</label>
-              <label><input type="checkbox" value="ISTJ" /> ISTJ</label>
-            </div>
-          </div>
-        </aside>    
-
-        <!-- Browse Results (Right) -->
-        <div class="browse-results">
-          <div class="center">
-            <!-- Dynamic User Cards will be injected here by browse.js -->   
-          </div>      
-        </div>  
+<body>
+  <div id="header-placeholder">
+    <nav class="navbar">
+      <div class="company">
+        <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
+        <a href="index.html" class="company-name">ShareSpace</a>
       </div>
-    </section>
+      <ul class="nav-links" id="nav-links">
+        <!-- Navigation items will be inserted by navbar.js -->
+      </ul>
+    </nav>
+  </div>
 
-    <footer class="footer">
-      <div class="footer-content">
-        <!-- Navigation Links -->
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="about-us.html">About Us</a></li>
-            <li><a href="dashboard.html">Contact</a></li>
-            <!--<li><a href="browse.html">Browse</a></li>
+  <section class="browse-header">
+    <h1 class="browse-title">Meet Your Future Roommate</h1>
+    <p class="browse-subtitle">Browse profiles and find your ideal match</p>
+  </section>
+
+  <section class="browse-profiles">
+    <div class="browse-layout">
+
+      <!-- Filter Sidebar (Left) -->
+      <aside class="filters-sidebar">
+        <h3>Filter by:</h3>
+
+        <!-- Budget -->
+        <div class="filter-group">
+          <label>Budget ($)</label>
+          <div class="dual-slider">
+            <div class="slider-track"></div>
+            <input type="range" id="budgetRangeMin" min="0" max="5000" step="100" value="500">
+            <input type="range" id="budgetRangeMax" min="0" max="5000" step="100" value="5000">
+          </div>
+          <div class="range-values">
+            <input type="number" id="budgetInputMin" value="500" min="0" max="5000" step="100">
+            <span>to</span>
+            <input type="number" id="budgetInputMax" value="5000" min="0" max="5000" step="100">
+          </div>
+          <button class="reset-btn">All prices</button>
+        </div>
+
+        <!-- Age -->
+        <div class="filter-group">
+          <label>Age</label>
+          <div class="dual-slider">
+            <div class="slider-track"></div>
+            <input type="range" id="ageRangeMin" min="18" max="70" step="1" value="18">
+            <input type="range" id="ageRangeMax" min="18" max="70" step="1" value="70">
+          </div>
+          <div class="range-values">
+            <input type="number" id="ageInputMin" min="18" max="70" step="1" value="18">
+            <span>to</span>
+            <input type="number" id="ageInputMax" min="18" max="70" step="1" value="70">
+          </div>
+          <button class="reset-btn">All ages</button>
+        </div>
+
+        <!-- City -->
+        <div class="filter-group">
+          <label>City</label>
+          <div class="radio-group">
+            <label><input type="radio" name="city" value="Toronto" /> Toronto</label>
+            <label><input type="radio" name="city" value="Vancouver" /> Vancouver</label>
+            <label><input type="radio" name="city" value="New York" /> New York</label>
+            <label><input type="radio" name="city" value="London" /> London</label>
+            <label><input type="radio" name="city" value="All" checked /> All</label>
+          </div>
+        </div>
+
+        <!-- Gender -->
+        <div class="filter-group">
+          <label>Gender</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gender" value="Male" /> Male</label>
+            <label><input type="radio" name="gender" value="Female" /> Female</label>
+            <label><input type="radio" name="gender" value="Any" checked /> Any</label>
+          </div>
+        </div>
+
+        <!-- PMTI -->
+        <div class="filter-group">
+          <label>PMTI (Pomi Test)</label>
+          <div class="checkbox-grid">
+            <label><input type="checkbox" value="ENFP" /> ENFP</label>
+            <label><input type="checkbox" value="ENFJ" /> ENFJ</label>
+            <label><input type="checkbox" value="ENTP" /> ENTP</label>
+            <label><input type="checkbox" value="ENTJ" /> ENTJ</label>
+            <label><input type="checkbox" value="INFJ" /> INFJ</label>
+            <label><input type="checkbox" value="INFP" /> INFP</label>
+            <label><input type="checkbox" value="INTP" /> INTP</label>
+            <label><input type="checkbox" value="INTJ" /> INTJ</label>
+            <label><input type="checkbox" value="ESFP" /> ESFP</label>
+            <label><input type="checkbox" value="ESFJ" /> ESFJ</label>
+            <label><input type="checkbox" value="ESTP" /> ESTP</label>
+            <label><input type="checkbox" value="ESTJ" /> ESTJ</label>
+            <label><input type="checkbox" value="ISFJ" /> ISFJ</label>
+            <label><input type="checkbox" value="ISFP" /> ISFP</label>
+            <label><input type="checkbox" value="ISTP" /> ISTP</label>
+            <label><input type="checkbox" value="ISTJ" /> ISTJ</label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Browse Results (Right) -->
+      <div class="browse-results">
+        <div class="center">
+          <!-- Dynamic User Cards will be injected here by browse.js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <!-- Navigation Links -->
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="about-us.html">About Us</a></li>
+          <li><a href="dashboard.html">Contact</a></li>
+          <!--<li><a href="browse.html">Browse</a></li>
             <li><a href="faq.html">FAQ</a></li>
             <li><a href="user-info.html" class="btn">User Info</a></li>-->
-          </ul>
-        </div>
-    
-        <!-- Contact Details -->
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <ul>
-            <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
-            <li>Phone: +82 (010) 6744-5288</li>
-            <li>Address: 123 Roommate St, Suite 456, City, Country</li>
-          </ul>
-        </div>
-    
-        <!-- Social Media Icons -->
-        <div class="footer-section">
-          <h3>Follow Us</h3>
-          <div class="social-icons">
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-            <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-    
-        <!-- Legal Information -->
-        <div class="footer-section">
-          <h3>Legal</h3>
-          <ul>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms-of-service.html">Terms of Service</a></li>
-          </ul>
-        </div>
+        </ul>
       </div>
-    
-      <!-- Copyright Notice -->
-      <div class="footer-bottom">
-        <p>&copy; 2025 ShareSpace. All rights reserved.</p>
-      </div>
-    </footer>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="scripts/browse.js" defer></script>
-  </body>
+      <!-- Contact Details -->
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul>
+          <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
+          <li>Phone: +82 (010) 6744-5288</li>
+          <li>Address: 123 Roommate St, Suite 456, City, Country</li>
+        </ul>
+      </div>
+
+      <!-- Social Media Icons -->
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i
+              class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <!-- Legal Information -->
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Copyright Notice -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 ShareSpace. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="scripts/browse.js" defer></script>
+</body>
+
 </html>

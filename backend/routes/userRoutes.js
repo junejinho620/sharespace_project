@@ -177,20 +177,51 @@ router.get('/', async (req, res) => {
           as: 'hobbies',
           attributes: ['name'],
           through: { attributes: [] } // hide join table fields
+        }, {
+          model: RoommatePref,
+          as: 'roommatePref',
+          attributes: ['budget_range']
         }
       ]
     });
 
     // Flatten interests
-    const formattedUsers = users.map(user => {
+    const formatted = users.map(u => {
+      const json = u.toJSON();
+
+      // Default numeric bounds for budget_range
+      let budget_min = 0, budget_max = 0;
+
+      if (json.roommatePref && json.roommatePref.budget_range) {
+        // 1) (\d+)        → first number
+        // 2) (?:\D+(\d+))? → optionally: non-digits + second number
+        const m = json.roommatePref.budget_range.match(/(\d+)(?:\D+(\d+))?/);
+
+        if (m) {
+          budget_min = parseInt(m[1], 10);
+          // if there was a second number, use it; otherwise treat budget_max = budget_min
+          budget_max = m[2] ? parseInt(m[2], 10) : budget_min;
+        }
+      }
+
       return {
-        ...user.toJSON(),
-        interests: user.hobbies?.map(hobby => hobby.name).join(', ') || '',
-        city: user.roommatePref?.city || user.city || 'Unknown'
+        id: json.id,
+        name: json.name,
+        age: json.age,
+        city: json.city || 'Unknown',
+        gender: json.gender,
+        bio: json.bio,
+        profile_picture_url: json.profile_picture_url,
+        joined_at: json.created_at,
+        interests: (json.hobbies || []).map(h => h.name).join(', '),
+        budget_min,
+        budget_max,
+        budget_range: json.roommatePref?.budget_range || '',
       };
     });
 
-    res.json(formattedUsers);
+    res.json(formatted);
+
   } catch (error) {
     console.error("❌ Failed to fetch users with associations:", error);
     res.status(500).json({ error: "Failed to fetch users with hobbies and prefs" });
