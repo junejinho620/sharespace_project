@@ -11,14 +11,33 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 });
 
-function renderNavLinks() {
+async function renderNavLinks() {
   const navLinks = document.getElementById('nav-links');
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  const username = localStorage.getItem('username') || 'User';
+  const token = localStorage.getItem('token');
 
   if (!navLinks) return;
 
-  if (isLoggedIn) {
+  if (!token) {
+    // Not logged in
+    navLinks.innerHTML = `
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="browse.html">Browse Matches</a></li>
+      <li><a href="messages.html">Messages</a></li>
+      <li><a href="login.html" class="login">Log in</a></li>
+    `;
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/users/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+
+    if (!res.ok) throw new Error('Unauthorized');
+
+    const { user } = await res.json();
+    const username = user.name || 'User';
+
     navLinks.innerHTML = `
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="browse.html">Browse Matches</a></li>
@@ -37,20 +56,19 @@ function renderNavLinks() {
     loginLi.addEventListener('click', function (e) {
       if (e.target && e.target.id === 'logoutButton') {
         e.preventDefault();
-        localStorage.removeItem('isLoggedIn');
-        localStorage.removeItem('username');
-        localStorage.removeItem('userId');
+        localStorage.clear();
         loginLi.classList.remove('user-dropdown');
         loginLi.innerHTML = `<a href="login.html" class="login">Log in</a>`;
       }
     });
-  } else {
+  } catch (err) {
+    // Token is invalid or expired
+    localStorage.clear();
     navLinks.innerHTML = `
-    <li><a href="dashboard.html">Dashboard</a></li>
-    <li><a href="browse.html">Browse Matches</a></li>
-    <li><a href="messages.html">Messages</a></li>
-    <li class="user-dropdown">
-    <li><a href="login.html" class="login">Log in</a></li>
-  `;
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="browse.html">Browse Matches</a></li>
+      <li><a href="messages.html">Messages</a></li>
+      <li><a href="login.html" class="login">Log in</a></li>
+    `;
   }
 }
