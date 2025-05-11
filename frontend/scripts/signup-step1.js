@@ -1,58 +1,50 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const signupForm = document.getElementById('signup-form');
+  const signupForm = document.querySelector('.signup-form');
   const passwordInput = signupForm.querySelector('#password');
   const confirmPasswordInput = signupForm.querySelector('#confirm-password');
 
-  // Inline error elements
+  // Inline error element for password matching
   const passwordError = document.createElement('div');
   passwordError.style.color = 'red';
   passwordError.style.fontSize = '13px';
   passwordError.style.marginTop = '4px';
 
-  const confirmPasswordGroup = signupForm.querySelector('#confirm-password').closest('.form-group');
-  confirmPasswordGroup.appendChild(passwordError);
-  
+  const confirmPasswordContainer = confirmPasswordInput.closest('.password-container');
+  confirmPasswordContainer.insertAdjacentElement('afterend', passwordError);
+
   // Real-time check for password match
   confirmPasswordInput.addEventListener('input', function () {
     const password = passwordInput.value.trim();
     const confirmPassword = confirmPasswordInput.value.trim();
-    if (password !== confirmPassword) {
-      passwordError.textContent = "❌ Passwords do not match.";
-    } else {
-      passwordError.textContent = "";
-    }
+    passwordError.textContent = password !== confirmPassword ? "❌ Passwords do not match." : "";
   });
 
   signupForm.addEventListener('submit', async function (event) {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault(); // Prevent default form submission
 
-    // Get input values
+    // Fetch input values
     const email = signupForm.querySelector('#email').value;
-    const password = signupForm.querySelector('#password').value;
-    const confirmPassword = signupForm.querySelector('#confirm-password').value;
-    const acceptTerms = signupForm.querySelector('#acceptTerms').checked;
-    
-    // Reset previous error
+    const password = passwordInput.value;
+    const confirmPassword = confirmPasswordInput.value;
+
+    // Reset previous error messages
     passwordError.textContent = "";
 
-    // Validate inputs
+    // Validate email
     if (!validateEmail(email)) {
       alert('Please enter a valid email address.');
       return;
     }
 
+    // Validate password length
     if (!validatePassword(password)) {
       alert('Password must be at least 6 characters long.');
       return;
     }
 
+    // Validate password match
     if (password !== confirmPassword) {
       passwordError.textContent = "❌ Passwords do not match.";
-      return;
-    }
-
-    if (!acceptTerms) {
-      alert('You must agree to the Terms and Privacy Policy.');
       return;
     }
 
@@ -61,17 +53,15 @@ document.addEventListener('DOMContentLoaded', function () {
       const res = await fetch("http://localhost:5000/api/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await res.json();
 
       if (res.ok) {
-        localStorage.setItem("userId", data.user.id); //Store the user's ID for future updates
+        localStorage.setItem("userId", data.user.id); // Store user ID
         alert("✅ Sign-up successful! Please check your email and verify before continuing.");
+        // You can add navigation to the next signup step here
       } else {
         alert("❌ " + data.error);
       }
@@ -81,34 +71,27 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  // Email validation
-  function validateEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-  }
-
-  // Password validation
-  function validatePassword(password) {
-    return password.length >= 6;
-  }
-});
-
-// Show/hide password
-document.addEventListener('DOMContentLoaded', function () {
-  const togglePassword = document.getElementById('togglePassword');
-  const passwordInput = document.getElementById('password');
-  const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
-  const confirmPasswordInput = document.getElementById('confirm-password');
-
-  togglePassword.addEventListener('click', function () {
+  // Toggle password visibility
+  document.getElementById('togglePassword').addEventListener('click', function () {
     const type = passwordInput.type === 'password' ? 'text' : 'password';
     passwordInput.type = type;
     this.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
   });
 
-  toggleConfirmPassword.addEventListener('click', function () {
+  document.getElementById('toggleConfirmPassword').addEventListener('click', function () {
     const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
     confirmPasswordInput.type = type;
     this.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
   });
+
+  // Helper function for email validation
+  function validateEmail(email) {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  }
+
+  // Helper function for password validation
+  function validatePassword(password) {
+    return password.length >= 6;
+  }
 });

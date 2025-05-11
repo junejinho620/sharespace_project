@@ -1,124 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up - ShareSpace</title>
-    <link rel="stylesheet" href="styles/shared/general.css">
-    <link rel="stylesheet" href="styles/signup.css">
-    <script defer src="scripts/signup.js"></script>
-  </head>
-  <body>
-    <div class="page-wrapper">
-      <!-- Signup Section -->
-      <section class="signup">
-        <h2>Sign Up</h2>
-        <form id="signup-form">
-          <!-- Email Field -->
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-          </div>
-
-          <!-- Password Field -->
-          <div class="form-group">
-            <label for="password">Password</label>
-            <div class="password-container">
-              <input type="password" id="password" placeholder="Enter your password" required>
-              <img src="styles/img/eye.png" id="togglePassword" alt="Toggle visibility">
-            </div>
-          </div>
-
-          <!-- Confirm Password Field -->
-          <div class="form-group">
-            <label for="confirm-password">Confirm Password</label>
-            <div class="password-container">
-              <input type="password" id="confirm-password" placeholder="Confirm your password" required>
-              <img src="styles/img/eye.png" id="toggleConfirmPassword" alt="Toggle visibility">
-            </div>
-          </div>
-                  
-          <!-- Accept Terms Checkbox -->
-          <div class="form-group">
-            <label for="acceptTerms" style="font-size: 15px;">
-              I agree to the <a href="term-of-service.html" target="_blank">Terms and Conditions</a> and
-              <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.
-            </label>
-            <input type="checkbox" id="acceptTerms" required />
-          </div>
-
-          <!-- Sign Up Button -->
-          <button type="submit" class="btn">Sign Up</button>
-
-          <!-- Social Login -->
-          <div class="social-login">
-            <p>Or sign up with:</p>
-            <div class="social-icons">
-              <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
-              <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-            </div>
-          </div>
-
-          <!-- Link to Login Page -->
-          <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
-        </form>
-      </section>
-
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="footer-content">
-          <!-- Navigation Links -->
-          <div class="footer-section">
-            <h3>Quick Links</h3>
-            <ul>
-              <li><a href="#home">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
-              <!--<li><a href="browse.html">Browse</a></li>
-              <li><a href="faq.html">FAQ</a></li>
-              <li><a href="user-info.html" class="btn">User Info</a></li>-->
-            </ul>
-          </div>
-        
-          <!-- Contact Details -->
-          <div class="footer-section">
-            <h3>Contact Us</h3>
-            <ul>
-              <li>Email: <a href="mailto:sharespaceforinfo@gmail.com">sharespaceforinfo@gmail.com</a></li>
-              <li>Phone: +82 (010) 6744-5288</li>
-              <li>Address: 123 Roommate St, Suite 456, City, Country</li>
-            </ul>
-          </div>
-        
-          <!-- Social Media Icons -->
-          <div class="footer-section">
-            <h3>Follow Us</h3>
-            <div class="social-icons">
-              <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-              <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-              <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            </div>
-          </div>
-        
-          <!-- Legal Information -->
-          <div class="footer-section">
-            <h3>Legal</h3>
-            <ul>
-              <li><a href="privacy-policy.html">Privacy Policy</a></li>
-              <li><a href="terms-of-service.html">Terms of Service</a></li>
-            </ul>
-          </div>
-        </div>
-      
-        <!-- Copyright Notice -->
-        <div class="footer-bottom">
-          <p>&copy; 2025 ShareSpace. All rights reserved.</p>
-        </div>
-      </footer>
-
-      <!-- Font Awesome for Icons -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up - ShareSpace</title>
+  <link rel="stylesheet" href="styles/signup.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="page">
+    <!-- Left Side -->
+    <div class="left-panel">
+      <div class="logo" type="button" onclick="location.href='index.html'">ShareSpace</div>
+      <div class="left-content">
+        <img src="styles/img/image 315.svg" class="pomi-logo">
+        <p class="subtitle">Where Strangers Become<br />Someone to Miss</p>
+      </div>
     </div>
-  </body>
+
+    <!-- Right Side -->
+    <div class="right-panel">
+      <div class="form-wrapper">
+        <h2 class="title">Sign Up</h2>
+
+        <button class="social-btn google">
+          <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
+          Continue with Google
+        </button>
+
+        <button class="social-btn facebook">
+          <img src="https://img.icons8.com/ios-filled/16/ffffff/facebook-new.png" />
+          Continue with Facebook
+        </button>
+
+        <button class="social-btn apple">
+          <img src="https://img.icons8.com/ios-filled/16/ffffff/mac-os.png" />
+          Continue with Apple
+        </button>
+
+        <p class="terms">
+          By creating an account, you agree to the
+          <a href="terms-of-service.html">Terms of use</a> and <a href="privacy-policy.html">Privacy Policy</a>.
+        </p>
+
+        <div class="divider"><span>OR</span></div>
+
+        <button class="email-btn" type="button" onclick="location.href='signup-step1.html'">Sign up with Email / Mobile Number</button>
+
+        <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</body>
 </html>
