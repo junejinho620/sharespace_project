@@ -36,7 +36,7 @@ async function renderNavLinks() {
     if (!res.ok) throw new Error('Unauthorized');
 
     const { user } = await res.json();
-    const username = user.name || 'User';
+    const username = user.username || 'User';
 
     navLinks.innerHTML = `
       <li><a href="dashboard.html">Dashboard</a></li>

@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const prefs = await fetchRoommatePrefs(token);
 
     populateForm(user, prefs);
-    await loadHobbies(user.id);
+    await loadHobbies(user.id, token);
 
     setupFormSubmit(user.id, token);
 
@@ -71,9 +71,23 @@ function setValue(id, val) {
 }
 
 // Helper: Load hobbies
-async function loadHobbies(userId) {
-  const all = await (await fetch('/api/hobbies')).json();
-  const own = await (await fetch(`/api/users/${userId}/hobbies`)).json();
+async function loadHobbies(userId, token) {
+  const allRes = await fetch('/api/hobbies');
+  const ownRes = await fetch(`/api/users/${userId}/hobbies`, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+
+  if (!allRes.ok || !ownRes.ok) {
+    console.error('❌ Error loading hobbies', allRes.status, ownRes.status);
+    return;
+  }
+
+  const all = await allRes.json();
+  let own = await ownRes.json();
+
+  // Ensure 'own' is always an array
+  own = Array.isArray(own) ? own : [];
+
   const tags = document.getElementById('hobby-tags');
   const drop = document.getElementById('hobby-dropdown');
   let selected = [...own];
@@ -101,6 +115,7 @@ async function loadHobbies(userId) {
       opt.selected = selected[idx] && selected[idx].id === h.id;
       drop.appendChild(opt);
     });
+
     drop.classList.remove('hidden');
     drop.onchange = () => {
       const id = parseInt(drop.value);
@@ -114,17 +129,26 @@ async function loadHobbies(userId) {
       render();
     };
   };
+
   render();
 
   // save on submit
   document.getElementById('editProfileForm').addEventListener('submit', async e => {
+    const token = localStorage.getItem('token');
     e.preventDefault();
     const ids = selected.map(h => h.id);
-    await fetch(`/api/users/${userId}/hobbies`, {
+    const res = await fetch(`/api/users/${userId}/hobbies`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({ hobbyIds: ids })
     });
+    if (!res.ok) {
+      console.error('❌ Failed to update hobbies', res.status);
+      alert('❌ Failed to update hobbies');
+      return;
+    }
+    alert('✅ Profile and hobbies updated successfully!');
+    window.location.href = 'my-profile.html';
   }, { once: true });
 }
 

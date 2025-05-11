@@ -402,6 +402,6 @@ router.put('/:id/setup', verifyToken, upload.single('profile_picture'), async (r
 
 // Hobby-related routes
 router.get("/:id/hobbies", userController.getUserHobbies);
-router.put("/:id/hobbies", userController.updateUserHobbies);
+router.put("/:id/hobbies", verifyToken, userController.updateUserHobbies);
 
 module.exports = router;

@@ -15,6 +15,10 @@ exports.getUserHobbies = async (req, res) => {
 
 // PUT /api/users/:id/hobbies - Replace the user’s selected hobbies with the new set of hobby IDs
 exports.updateUserHobbies = async (req, res) => {
+  if (req.user.id !== Number(req.params.id)) {
+    return res.status(403).json({ message: 'Forbidden' });
+  }
+  
   try {
     const { hobbyIds } = req.body;
     const user = await User.findByPk(req.params.id);
