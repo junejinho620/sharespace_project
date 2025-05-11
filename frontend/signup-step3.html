@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Enter Verification Code</title>
+  <title>Setup Account</title>
   <link rel="stylesheet" href="styles/signup-step3.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
@@ -18,8 +18,8 @@
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
   </header>
 
-  <main>
-    <h1 class="page-title">Enter Code</h1>
+  <main class="setup-container">
+    <h1 class="page-title">Setup Account</h1>
 
     <div class="step-bar">
       <div class="step">
@@ -34,30 +34,30 @@
       <div class="line"></div>
       <div class="step active">
         <div class="circle">3</div>
-        <p>Account Setup</p>
+        <p>Setup your Account</p>
       </div>
     </div>
 
-    <div class="verify-container">
-      <p class="subtitle">
-        We’ve sent an SMS with an activation code to <strong id="user-email"></strong>
-      </p>
+    <form class="setup-form" id="setup-form">
+      <!-- Profile Picture Upload -->
+      <div class="profile-pic-container">
+        <input type="file" id="profile-picture" accept="image/*" hidden>
+        <label for="profile-picture">
+          <div class="profile-pic-slot" id="profile-pic-slot">
+            <i class="fas fa-camera"></i>
+            <span>Upload Photo</span>
+          </div>
+        </label>
+      </div>
 
-      <form class="code-form">
-        <div class="code-boxes">
-          <input type="text" maxlength="1" class="code-input" />
-          <input type="text" maxlength="1" class="code-input" />
-          <input type="text" maxlength="1" class="code-input" />
-          <input type="text" maxlength="1" class="code-input" />
-          <input type="text" maxlength="1" class="code-input" />
-          <input type="text" maxlength="1" class="code-input" />
-        </div>
+      <!-- Username Field -->
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="Choose a username" required>
+      </div>
 
-        <p class="resend-text">I didn’t receive a code. <a href="#" class="resend-link">Resend</a></p>
-
-        <button type="submit" class="btn">Verify</button>
-      </form>
-    </div>
+      <button type="submit" class="btn">Complete Setup</button>
+    </form>
   </main>
 </body>
 

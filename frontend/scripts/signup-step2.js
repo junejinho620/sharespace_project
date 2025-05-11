@@ -72,20 +72,31 @@ document.addEventListener('DOMContentLoaded', function () {
     event.preventDefault();
 
     const token = codeInputs.map(i => i.value).join('');
+    const email = localStorage.getItem('userEmail');
 
-    const res = await fetch('http://localhost:5000/api/users/verify-code', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email: userEmail, token }),
-    });
+    try {
+      const res = await fetch('http://localhost:5000/api/users/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, token })
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (res.ok) {
-      alert('✅ Email verified!');
-      window.location.href = 'signup-step3.html'; // Proceed to next step
-    } else {
-      alert('❌ ' + data.error);
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+
+        const payload = JSON.parse(atob(data.token.split('.')[1]));
+        localStorage.setItem('userId', payload.id);
+
+        alert('✅ Email verified!');
+        window.location.href = 'signup-step3.html';
+      } else {
+        alert('❌ ' + data.error);
+      }
+    } catch (error) {
+      console.error('Error during verification:', error);
+      alert('❌ An error occurred during verification.');
     }
   });
 });

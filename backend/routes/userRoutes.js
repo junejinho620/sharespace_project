@@ -3,10 +3,13 @@ const router = express.Router();
 const jwt = require('jsonwebtoken'); // For generating JWT
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto');
+const multer = require('multer'); // For image upload
+const path = require('path');
+const fs = require('fs');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
 const { User, RoommatePref, Hobby } = require('../models');
-const userController = require("../controllers/userController");
+const userController = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
 
@@ -40,12 +43,22 @@ router.post("/verify-code", async (req, res) => {
     user.verification_token = null; // clear token after verifying
     await user.save();
 
-    res.json({ message: 'Email successfully verified!' });
+    // ★ Generate a JWT so the client can call protected routes ★
+    const payload = { id: user.id, email: user.email };
+    const authToken = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
+    return res.json({ message: 'Email verified!', token: authToken });
   } catch (error) {
     console.error("Verification error:", error);
     res.status(500).json({ error: 'Server error during verification.' });
   }
+});
+
+// GET /api/users/check-username - Check username duplication
+router.get('/check-username', async (req, res) => {
+  const { username } = req.query;
+  const user = await User.findOne({ where: { username } });
+  res.json({ exists: !!user });
 });
 
 // GET /api/users/verify - handle user verification
@@ -343,6 +356,47 @@ router.post('/reset-password', async (req, res) => {
   } catch (err) {
     console.error("Error saving new password:", err);
     res.status(500).json({ error: "Failed to reset password." });
+  }
+});
+
+
+// Multer setup for image upload
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = './uploads/profile_pictures/';
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    cb(null, 'user-' + req.params.id + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage });
+
+// PUT /api/users/:id/setup - Setup username and profile photo
+router.put('/:id/setup', verifyToken, upload.single('profile_picture'), async (req, res) => {
+  try {
+    if (parseInt(req.params.id) !== req.user.id) {
+      return res.status(403).json({ error: 'Unauthorized access' });
+    }
+
+    const user = await User.findByPk(req.params.id);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+
+    const updates = { username: req.body.username };
+
+    // If a file is uploaded, set URL path
+    if (req.file) {
+      updates.profile_picture_url = req.file.path.replace(/\\/g, '/').replace('uploads/', '/uploads/');
+    }
+
+    await user.update(updates);
+
+    res.json({ message: 'Account setup complete!', user });
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ error: error.message });
   }
 });
 

@@ -26,6 +26,7 @@ app.use(cors()); // Enable CORS for cross-origin requests
 app.use(morgan("dev")); // Log incoming HTTP requests
 app.use(express.json()); // Parses JSON request bodies
 app.use(express.static(path.join(__dirname, "..", "frontend"))); // Serve HTML/CSS/JS
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Upload files statically
 
 // Define routes
 const userRoutes = require("./routes/userRoutes");
