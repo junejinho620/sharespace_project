@@ -13,7 +13,7 @@ require('dotenv').config(); // Loads JWT_SECRET
 // POST /api/users/signup - handle user registration and send verification email
 router.post("/signup", async (req, res) => {
   try {
-    const token = crypto.randomBytes(32).toString('hex');
+    const token = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit numeric code
     const newUser = await User.create({ ...req.body, verification_token: token }); // Sequelize hooks handle hashing
 
     await sendVerificationEmail(newUser.email, token);
@@ -22,6 +22,29 @@ router.post("/signup", async (req, res) => {
   } catch (error) {
     console.error("Signup error:", error);
     res.status(400).json({ error: error.message });
+  }
+});
+
+// POST /api/users/verify-code
+router.post("/verify-code", async (req, res) => {
+  const { email, token } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email, verification_token: token } });
+
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid verification code or email.' });
+    }
+
+    user.verified = true;
+    user.verification_token = null; // clear token after verifying
+    await user.save();
+
+    res.json({ message: 'Email successfully verified!' });
+
+  } catch (error) {
+    console.error("Verification error:", error);
+    res.status(500).json({ error: 'Server error during verification.' });
   }
 });
 
@@ -72,7 +95,7 @@ router.post('/resend-verification', async (req, res) => {
 
     // Create a new token
     const crypto = require('crypto');
-    const token = crypto.randomBytes(32).toString('hex');
+    const token = Math.floor(100000 + Math.random() * 900000).toString();
 
     user.verification_token = token;
     await user.save();

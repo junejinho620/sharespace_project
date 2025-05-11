@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
       if (res.ok) {
         localStorage.setItem("userId", data.user.id); // Store user ID
-        alert("✅ Sign-up successful! Please check your email and verify before continuing.");
-        // You can add navigation to the next signup step here
+        localStorage.setItem("userEmail", email); 
+        window.location.href = "signup-step2.html";
       } else {
         alert("❌ " + data.error);
       }

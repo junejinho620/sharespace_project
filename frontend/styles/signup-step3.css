@@ -5,6 +5,7 @@ body {
   color: #222;
   padding: 40px 80px;
   box-sizing: border-box;
+  justify-content: center;
 }
 
 .header {
@@ -75,60 +76,58 @@ body {
 }
 
 /* Form */
-.signup-form {
-  max-width: 650px;
-  margin-top: 35px;
+.verify-container {
+  width: 100%;
+  text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
 
-.signup-form label {
-  display: block;
-  font-weight: 500;
-  font-size: 15px;
-  margin-top: 30px;
-  margin-bottom: 10px;
+.subtitle {
+  color: rgba(0, 0, 0, 0.70);
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  margin-bottom: 40px;
 }
 
-.signup-form input[type="email"],
-.signup-form input[type="password"] {
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
+.code-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.code-boxes {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.code-input {
+  width: 50px;
+  height: 60px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
   border: 1px solid #ccc;
-  border-radius: 12px;
-  box-sizing: border-box;
+  border-radius: 10px;
   outline: none;
 }
 
-/* Password input with eye */
-.password-container {
-  position: relative;
+.code-input:focus {
+  border-color: #a48d65;
 }
 
-.password-container input[type="password"],
-.password-container input[type="text"] {
-  width: 100%;
-  padding: 16px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  box-sizing: border-box;
-  outline: none;
-  transition: all 0.2s ease; /* Optional smoothness */
+.resend-text {
+  font-size: 14px;
+  color: #333;
 }
 
-.password-container img {
-  position: absolute;
-  right: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
-  opacity: 0.7;
-  pointer-events: auto;
-  user-select: none;
+.resend-link {
+  font-weight: 600;
+  text-decoration: underline;
+  color: #000;
 }
 
 /* Submit button */
@@ -145,6 +144,7 @@ body {
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+
 .btn:hover {
   background-color: #8a7453;
 }

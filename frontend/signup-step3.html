@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enter Verification Code</title>
+  <link rel="stylesheet" href="styles/signup-step3.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet">
+  <script src="scripts/signup-step3.js" defer></script>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
+  </header>
+
+  <main>
+    <h1 class="page-title">Enter Code</h1>
+
+    <div class="step-bar">
+      <div class="step">
+        <div class="circle">1</div>
+        <p>Enter your Email <br>& Password</p>
+      </div>
+      <div class="line"></div>
+      <div class="step">
+        <div class="circle">2</div>
+        <p>Verify your Email</p>
+      </div>
+      <div class="line"></div>
+      <div class="step active">
+        <div class="circle">3</div>
+        <p>Account Setup</p>
+      </div>
+    </div>
+
+    <div class="verify-container">
+      <p class="subtitle">
+        We’ve sent an SMS with an activation code to <strong id="user-email"></strong>
+      </p>
+
+      <form class="code-form">
+        <div class="code-boxes">
+          <input type="text" maxlength="1" class="code-input" />
+          <input type="text" maxlength="1" class="code-input" />
+          <input type="text" maxlength="1" class="code-input" />
+          <input type="text" maxlength="1" class="code-input" />
+          <input type="text" maxlength="1" class="code-input" />
+          <input type="text" maxlength="1" class="code-input" />
+        </div>
+
+        <p class="resend-text">I didn’t receive a code. <a href="#" class="resend-link">Resend</a></p>
+
+        <button type="submit" class="btn">Verify</button>
+      </form>
+    </div>
+  </main>
+</body>
+
+</html>
