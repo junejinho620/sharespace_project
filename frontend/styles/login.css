@@ -1,164 +1,235 @@
-/* Login Section */
-.login {
-  padding: 60px 30px;
-  background-color: white;
-  margin-top: 150px;
-  max-width: 400px;
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  margin-bottom: 100px;
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
 }
 
-.login h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #543310;
+.page {
+  display: flex;
+  height: 100vh;
 }
 
-.login .form-group {
-  margin-bottom: 20px;
-  text-align: left;
+.logo {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: #bda98b;
+  cursor: pointer;
 }
 
-.login .form-group label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
-  color: #543310;
+/* PANEL WIDTHS */
+.left-panel {
+  width: 40%;
+  background-color: #f5e8d6;
+  padding: 80px 80px;
+  /* ⬆ increased padding */
+  box-sizing: border-box;
+  position: relative;
 }
 
-.login .form-group input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #543310;
-  border-radius: 5px;
-  font-size: 16px;
+.right-panel {
+  width: 60%;
+  padding: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
 }
 
-.login .btn {
-  width: 100%;
-  padding: 10px;
-  background-color: #543310;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 8px;
-}
-
-.login .btn:hover {
-  background-color: #74512D;
-}
-
-.login .forgot-password {
-  margin-top: 20px;
-  color: #543310;
-}
-
-.login .forgot-password a {
-  color: #AF8F6F;
-  text-decoration: none;
-}
-
-.login .forgot-password a:hover {
-  text-decoration: underline;
-}
-
-/* Remember Me Container */
-.remember-me {
+/* LEFT CONTENT */
+.left-content {
   display: flex;
-  align-items: center;
-  gap: 273px;
-  margin: 10px 0 0 0;
-  font-size: 15px;
-}
-
-/* Optional: Style checkbox for better spacing */
-.remember-me input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: #AF8F6F;
-}
-
-.login .social-login {
-  margin-top: 20px;
-}
-
-.login .social-icons {
-  display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 15px;
-  margin-top: 10px;
+  height: 100%;
 }
 
-.login .social-icons .social-icon {
-  color: #543310;
+.pomi-logo {
+  width: 200px;
+  /* or any px, %, or rem */
+  height: auto;
+  /* keeps aspect ratio */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subtitle {
+  color: #000;
+  text-align: center;
+  font-family: "Antic Didone";
   font-size: 24px;
-  transition: color 0.3s ease;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.2;
 }
 
-.login .social-icons .social-icon:hover {
-  color: #AF8F6F;
+/* FORM WRAPPER */
+.form-wrapper {
+  max-width: 460px;
+  width: 100%;
 }
 
-.login .signup-link {
-  margin-top: 20px;
-  color: #543310;
+.title {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px; 
+  margin-bottom: 35px;
+  color: #333;
+  text-align: center;
 }
 
-.login .signup-link a {
-  color: #AF8F6F;
-  text-decoration: none;
+.form-group {
+  max-width: 460px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.login .signup-link a:hover {
-  text-decoration: underline;
+.form-group label {
+  display: block;
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 10px;
 }
 
+.form-group input[type="email"],
+.form-group input[type="password"] {
+  width: 100%;
+  padding: 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* Password input with eye */
 .password-container {
   position: relative;
-  width: 100%;
 }
 
-.password-container input {
+.password-container input[type="password"],
+.password-container input[type="text"] {
   width: 100%;
-  padding-right: 40px; /* make space for the icon */
+  padding: 16px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease; /* Optional smoothness */
 }
 
 .password-container img {
   position: absolute;
-  right: 10px;
+  right: 14px;
   top: 50%;
   transform: translateY(-50%);
   width: 24px;
   height: 24px;
   cursor: pointer;
   opacity: 0.7;
+  pointer-events: auto;
+  user-select: none;
 }
 
-.password-container img:hover {
-  opacity: 1;
-}
-
-/* Let page take full height for footer positioning */
-.body {
+/* Remember me and forgot password */
+.auth-options {
   display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
-/* Push footer to the bottom */
-.footer.footer {
-  margin-top: auto;
+.remember-me {
+  margin: 0;
+  font-size: 14px;
+}
+.forgot-password {
+  margin: 0;
+  font-size: 14px;
+  text-decoration: none;
+  color: #666;
+}
+.forgot-password:hover {
+  text-decoration: underline;
 }
 
-/* Add space under the login box */
-.login {
-  margin-bottom: 200px;
+/* Submit button */
+.btn {
+  width: 100%;
+  margin-bottom: 24px;
+  padding: 16px 160px;
+  background-color: #a48d65;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #8a7453;
+}
+
+/* Social buttons */
+.social-login {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.social-login p {
+  margin: 0 0 12px;
+  color: #666;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social-icon {
+  font-size: 24px;
+  color: #666;
+}
+
+.social-icon:hover {
+  color: #333;
+}
+
+/* SIGNUP LINK */
+.signup-link {
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+.signup-link a {
+  font-weight: 500;
+  color: #a48d65;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    flex: none;
+    width: 100%;
+    padding: 20px;
+  }
 }

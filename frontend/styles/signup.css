@@ -45,12 +45,12 @@ body {
   height: 100%;
 }
 
-.main-text {
-  font-family: 'Playfair Display', serif;
-  font-size: 64px; /* ⬆ bigger */
-  line-height: 1.2;
-  color: #333;
-  margin-bottom: 40px; /* ⬆ spacing */
+.pomi-logo{
+  width: 200px;    /* or any px, %, or rem */
+  height: auto;    /* keeps aspect ratio */
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .subtitle {
@@ -60,19 +60,19 @@ body {
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
-  line-height: 16px; /* 66.667% */
+  line-height: 1.2;
 }
 
 /* FORM WRAPPER */
 .form-wrapper {
-  max-width: 460px; /* ⬆ wider */
+  max-width: 460px;
   width: 100%;
 }
 
 /* TITLE */
 .title {
   font-family: 'Playfair Display', serif;
-  font-size: 34px; /* ⬆ larger heading */
+  font-size: 34px;
   margin-bottom: 35px;
   color: #333;
   text-align: center;
@@ -180,7 +180,7 @@ body {
   padding: 16px;
   background-color: #d9d9d9;
   border: none;
-  border-radius: 30px;
+  border-radius: 10px;
   font-size: 16px;
   font-weight: 500;
   width: 100%;
@@ -204,13 +204,24 @@ body {
 
 .login-link a {
   font-weight: 500;
-  text-decoration: underline;
-  color: #333;
+  color: #a48d65;
+  text-decoration: none;
 }
-.pomi-logo{
-  width: 200px;    /* or any px, %, or rem */
-  height: auto;    /* keeps aspect ratio */
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+  }
+
+  .left-panel,
+  .right-panel {
+    flex: none;
+    width: 100%;
+    padding: 20px;
+  }
 }
