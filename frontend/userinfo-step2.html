@@ -1,190 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShareSpace – Step 2</title>
-  <link rel="stylesheet" href="styles/userinfo.css" />
+  <link rel="stylesheet" href="styles/userinfo-step2.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
-  <header class="wizard-header">
-    <div class="header-content">
-      <div class="logo">
-        <img src="logo.png" alt="ShareSpace Logo" />
+  <header class="header">
+    <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
+    <img src="styles/img/image 315.png" class="pomi-logo">
+
+    <hr class="solid">
+
+    <div class="step-bar">
+      <div class="step">
+        <div class="circle">1</div>
+        <p>Your Demographic <br>Information</p>
       </div>
-      <nav class="steps">
-        <div class="step completed">
-          <div class="circle">1</div>
-          <div class="label">Your Demographic Information</div>
-        </div>
-        <div class="step active">
-          <div class="circle">2</div>
-          <div class="label">Your Life Style & Preference</div>
-        </div>
-        <div class="step">
-          <div class="circle">3</div>
-          <div class="label">Feedback & Finish</div>
-        </div>
-      </nav>
+      <div class="line"></div>
+      <div class="step active">
+        <div class="circle">2</div>
+        <p>Your Life Style <br>& Preference</p>
+      </div>
+      <div class="line"></div>
+      <div class="step">
+        <div class="circle">3</div>
+        <p>Feedback & Finish</p>
+      </div>
     </div>
   </header>
 
   <main class="container">
     <form>
       <!-- Working hours -->
-      <div class="question">
-        <h2>What are your typical working hours?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">What are your typical working hours?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="hours" value="morning" />
-            <span>Morning (e.g. 8am – 4pm)</span>
+            <span class="option-label">Morning (e.g. 8 am – 4 pm)</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="hours" value="standard" />
-            <span>Standard (e.g. 9am – 6pm)</span>
+            <span class="option-label">Standard (e.g. 9 am – 6 pm)</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="hours" value="evening" />
-            <span>Evening / Night Shifts</span>
+            <span class="option-label">Evening / Night Shifts</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="hours" value="flexible" />
-            <span>Flexible or varies</span>
+            <span class="option-label">Flexible or varies</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Early bird / night owl -->
-      <div class="question">
-        <h2>Are you an Early bird or a night owl?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">Are you an Early bird or a night owl?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="chronotype" value="early" />
-            <span>Early bird (Wake up early)</span>
+            <span class="option-label">Early bird (Wake up early)</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="chronotype" value="night" />
-            <span>Night owl (Stay up late)</span>
+            <span class="option-label">Night owl (Stay up late)</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="chronotype" value="depends" />
-            <span>Depends on the day</span>
+            <span class="option-label">Depends on the day</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Cleanliness -->
-      <div class="question">
-        <h2>How would you describe your cleanliness level?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">How would you describe your cleanliness level?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="cleanliness" value="very-tidy" />
-            <span>Very tidy</span>
+            <span class="option-label">Very tidy</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="cleanliness" value="average" />
-            <span>Average</span>
+            <span class="option-label">Average</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="cleanliness" value="messy" />
-            <span>Messy is okay</span>
+            <span class="option-label">Messy is okay</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Smoking -->
-      <div class="question">
-        <h2>Do you smoke?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">Do you smoke?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="smoking" value="yes" />
-            <span>Yes</span>
+            <span class="option-label">Yes</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="smoking" value="no" />
-            <span>No</span>
+            <span class="option-label">No</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="smoking" value="occasionally" />
-            <span>Occasionally</span>
+            <span class="option-label">Occasionally</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Alcohol -->
-      <div class="question">
-        <h2>How often do you drink alcohol?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">How often do you drink alcohol?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="alcohol" value="often" />
-            <span>Often</span>
+            <span class="option-label">Often</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="alcohol" value="socially" />
-            <span>Socially</span>
+            <span class="option-label">Socially</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="alcohol" value="rarely" />
-            <span>Rarely</span>
+            <span class="option-label">Rarely</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="alcohol" value="never" />
-            <span>Never</span>
+            <span class="option-label">Never</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Dietary -->
-      <div class="question">
-        <h2>What are your dietary preferences?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">What are your dietary preferences?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="diet" value="no-restrictions" />
-            <span>No restrictions</span>
+            <span class="option-label">No restrictions</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="diet" value="vegetarian" />
-            <span>Vegetarian</span>
+            <span class="option-label">Vegetarian</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="diet" value="vegan" />
-            <span>Vegan</span>
+            <span class="option-label">Vegan</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="diet" value="halal" />
-            <span>Halal</span>
+            <span class="option-label">Halal</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="diet" value="other" />
-            <span>Other</span>
+            <span class="option-label">Other</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Pets -->
-      <div class="question">
-        <h2>Do you have pets, or allergies to pets?</h2>
-        <div class="checkbox-group">
-          <label>
+      <section class="question-card">
+        <h2 class="question-title">Do you have pets, or allergies to pets?</h2>
+        <div class="options-grid">
+          <label class="option">
             <input type="checkbox" name="pets" value="have-pets" />
-            <span>I have pets</span>
+            <span class="option-label">I have pets</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="pets" value="allergic" />
-            <span>Allergic to pets</span>
+            <span class="option-label">Allergic to pets</span>
           </label>
-          <label>
+          <label class="option">
             <input type="checkbox" name="pets" value="neither" />
-            <span>Neither</span>
+            <span class="option-label">Neither</span>
           </label>
         </div>
-      </div>
+      </section>
     </form>
 
     <div class="actions">
-      <button class="secondary" type="button">Come back later</button>
-      <button class="primary" type="button">Next Page</button>
+      <button class="button button--secondary" type="button">Come back later</button>
+      <button class="button button--primary" type="button">Next Page</button>
     </div>
   </main>
+
+  <hr class="solid">
+
+  <script>
+    document.querySelectorAll('.options-grid').forEach(group => {
+      const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+          if (cb.checked) {
+            checkboxes.forEach(other => {
+              if (other !== cb) other.checked = false;
+            });
+          }
+        });
+      });
+    });
+  </script>
 </body>
+
 </html>

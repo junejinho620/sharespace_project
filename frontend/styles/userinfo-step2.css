@@ -97,21 +97,21 @@ hr.solid {
 
 /* grid of options—auto-adjust to screen */
 .options-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 24px;
+  justify-content: flex-start;
 }
 
 /* option wrapper */
 .option {
   position: relative;
   display: block;
-  border: 1px solid #ddd;
-  border-radius: 6px;
   overflow: hidden;
-  transition: border-color 0.2s, background-color 0.2s;
+  transition: border-color 0.2s;
   cursor: pointer;
   padding: 4px;
+  flex: 0 0 260px;
 }
 
 /* hide the native control */
@@ -125,33 +125,54 @@ hr.solid {
 /* visible label inside */
 .option-label {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   height: 60px;
   font-size: 0.95rem;
   line-height: 1.2;  /* improve vertical centering */
   color: #555;
-  padding: 0 8px;
-  text-align: center;
-  user-select: none;
-  transition: color 0.2s;
+  padding-left: 36px;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* hover state */
-.option:hover {
+/* hover state on the whole card */
+.option:hover .option-label{
   border-color: #999;
 }
 
-/* focus ring */
-.option input:focus + .option-label {
-  box-shadow: 0 0 0 3px rgba(99,102,241,0.4);
+/* empty checkbox box */
+.option-label::before {
+  content: '';
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  transition: background-color 0.2s, border-color 0.2s;
 }
 
-/* when selected */
-.option input:checked + .option-label {
+/* when checked, fill the box & show white ✓ */
+.option input[type="checkbox"]:checked + .option-label::before {
   background-color: #6366f1;
   border-color: #6366f1;
-  color: #fff;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4 8L11 1' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* background of the entire card when checked */
+.option input[type="checkbox"]:checked + .option-label {
+  background-color: #f0f2ff;   /* a very light tint of your brand color */
+  border-color: #6366f1;
+  color: #222;
 }
 
 /* dropdowns in two-column layout */
