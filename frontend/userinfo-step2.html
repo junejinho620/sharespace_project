@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShareSpace – Step 2</title>
+  <link rel="stylesheet" href="styles/userinfo.css" />
+</head>
+<body>
+  <header class="wizard-header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="logo.png" alt="ShareSpace Logo" />
+      </div>
+      <nav class="steps">
+        <div class="step completed">
+          <div class="circle">1</div>
+          <div class="label">Your Demographic Information</div>
+        </div>
+        <div class="step active">
+          <div class="circle">2</div>
+          <div class="label">Your Life Style & Preference</div>
+        </div>
+        <div class="step">
+          <div class="circle">3</div>
+          <div class="label">Feedback & Finish</div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <form>
+      <!-- Working hours -->
+      <div class="question">
+        <h2>What are your typical working hours?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="hours" value="morning" />
+            <span>Morning (e.g. 8am – 4pm)</span>
+          </label>
+          <label>
+            <input type="checkbox" name="hours" value="standard" />
+            <span>Standard (e.g. 9am – 6pm)</span>
+          </label>
+          <label>
+            <input type="checkbox" name="hours" value="evening" />
+            <span>Evening / Night Shifts</span>
+          </label>
+          <label>
+            <input type="checkbox" name="hours" value="flexible" />
+            <span>Flexible or varies</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Early bird / night owl -->
+      <div class="question">
+        <h2>Are you an Early bird or a night owl?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="chronotype" value="early" />
+            <span>Early bird (Wake up early)</span>
+          </label>
+          <label>
+            <input type="checkbox" name="chronotype" value="night" />
+            <span>Night owl (Stay up late)</span>
+          </label>
+          <label>
+            <input type="checkbox" name="chronotype" value="depends" />
+            <span>Depends on the day</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Cleanliness -->
+      <div class="question">
+        <h2>How would you describe your cleanliness level?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="cleanliness" value="very-tidy" />
+            <span>Very tidy</span>
+          </label>
+          <label>
+            <input type="checkbox" name="cleanliness" value="average" />
+            <span>Average</span>
+          </label>
+          <label>
+            <input type="checkbox" name="cleanliness" value="messy" />
+            <span>Messy is okay</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Smoking -->
+      <div class="question">
+        <h2>Do you smoke?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="smoking" value="yes" />
+            <span>Yes</span>
+          </label>
+          <label>
+            <input type="checkbox" name="smoking" value="no" />
+            <span>No</span>
+          </label>
+          <label>
+            <input type="checkbox" name="smoking" value="occasionally" />
+            <span>Occasionally</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Alcohol -->
+      <div class="question">
+        <h2>How often do you drink alcohol?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="alcohol" value="often" />
+            <span>Often</span>
+          </label>
+          <label>
+            <input type="checkbox" name="alcohol" value="socially" />
+            <span>Socially</span>
+          </label>
+          <label>
+            <input type="checkbox" name="alcohol" value="rarely" />
+            <span>Rarely</span>
+          </label>
+          <label>
+            <input type="checkbox" name="alcohol" value="never" />
+            <span>Never</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Dietary -->
+      <div class="question">
+        <h2>What are your dietary preferences?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="diet" value="no-restrictions" />
+            <span>No restrictions</span>
+          </label>
+          <label>
+            <input type="checkbox" name="diet" value="vegetarian" />
+            <span>Vegetarian</span>
+          </label>
+          <label>
+            <input type="checkbox" name="diet" value="vegan" />
+            <span>Vegan</span>
+          </label>
+          <label>
+            <input type="checkbox" name="diet" value="halal" />
+            <span>Halal</span>
+          </label>
+          <label>
+            <input type="checkbox" name="diet" value="other" />
+            <span>Other</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Pets -->
+      <div class="question">
+        <h2>Do you have pets, or allergies to pets?</h2>
+        <div class="checkbox-group">
+          <label>
+            <input type="checkbox" name="pets" value="have-pets" />
+            <span>I have pets</span>
+          </label>
+          <label>
+            <input type="checkbox" name="pets" value="allergic" />
+            <span>Allergic to pets</span>
+          </label>
+          <label>
+            <input type="checkbox" name="pets" value="neither" />
+            <span>Neither</span>
+          </label>
+        </div>
+      </div>
+    </form>
+
+    <div class="actions">
+      <button class="secondary" type="button">Come back later</button>
+      <button class="primary" type="button">Next Page</button>
+    </div>
+  </main>
+</body>
+</html>

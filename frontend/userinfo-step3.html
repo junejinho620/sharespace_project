@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShareSpace – Step 3</title>
+  <link rel="stylesheet" href="styles/userinfo.css" />
+</head>
+<body>
+  <header class="wizard-header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="logo.png" alt="ShareSpace Logo" />
+      </div>
+      <nav class="steps">
+        <div class="step completed">
+          <div class="circle">1</div>
+          <div class="label">Your Demographic Information</div>
+        </div>
+        <div class="step active">
+          <div class="circle">2</div>
+          <div class="label">Your Life Style & Preference</div>
+        </div>
+        <div class="step">
+          <div class="circle">3</div>
+          <div class="label">Feedback & Finish</div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <form>
+      <!-- Introvert / Extrovert -->
+      <div class="question">
+        <h2>Would you describe yourself as more of an introvert or extrovert?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="personality" value="introvert" />
+            <span>Introvert</span>
+          </label>
+          <label>
+            <input type="radio" name="personality" value="extrovert" />
+            <span>Extrovert</span>
+          </label>
+          <label>
+            <input type="radio" name="personality" value="in-between" />
+            <span>In between</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Chatting -->
+      <div class="question">
+        <h2>Do you enjoy chatting with flatmates regularly?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="chatting" value="love" />
+            <span>Yes, I love to talk</span>
+          </label>
+          <label>
+            <input type="radio" name="chatting" value="occasionally" />
+            <span>Occasionally is nice</span>
+          </label>
+          <label>
+            <input type="radio" name="chatting" value="quiet" />
+            <span>I prefer keeping to myself</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Friendship -->
+      <div class="question">
+        <h2>Would you like to be friends with your flatmates?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="friends" value="yes" />
+            <span>Yes</span>
+          </label>
+          <label>
+            <input type="radio" name="friends" value="not-necessarily" />
+            <span>Not necessarily</span>
+          </label>
+          <label>
+            <input type="radio" name="friends" value="either" />
+            <span>Either is fine</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Sharing food -->
+      <div class="question">
+        <h2>Are you okay with sharing food or kitchen items?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="kitchen-sharing" value="yes" />
+            <span>Yes</span>
+          </label>
+          <label>
+            <input type="radio" name="kitchen-sharing" value="agree" />
+            <span>Only if we agree on it</span>
+          </label>
+          <label>
+            <input type="radio" name="kitchen-sharing" value="keep-separate" />
+            <span>Prefer to keep things separate</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Guests -->
+      <div class="question">
+        <h2>How do you feel about flatmates having guests over?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="guests" value="fine" />
+            <span>I'm fine with it</span>
+          </label>
+          <label>
+            <input type="radio" name="guests" value="occasionally" />
+            <span>Occasionally is okay</span>
+          </label>
+          <label>
+            <input type="radio" name="guests" value="no-guests" />
+            <span>I'd prefer no guests</span>
+          </label>
+        </div>
+      </div>
+    </form>
+
+    <div class="actions">
+      <button class="secondary" type="button">Come back later</button>
+      <button class="primary" type="button">Next Page</button>
+    </div>
+  </main>
+</body>
+</html>

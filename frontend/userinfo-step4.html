@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShareSpace – Step 4</title>
+  <link rel="stylesheet" href="styles/userinfo.css" />
+</head>
+<body>
+  <header class="wizard-header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="logo.png" alt="ShareSpace Logo" />
+      </div>
+      <nav class="steps">
+        <div class="step completed">
+          <div class="circle">1</div>
+          <div class="label">Your Demographic Information</div>
+        </div>
+        <div class="step active">
+          <div class="circle">2</div>
+          <div class="label">Your Life Style & Preference</div>
+        </div>
+        <div class="step">
+          <div class="circle">3</div>
+          <div class="label">Feedback & Finish</div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <form>
+      <!-- Budget -->
+      <div class="question">
+        <h2>What's your budget per week?</h2>
+        <div class="text-input-group">
+          <input type="text" name="budget_min" placeholder="£ Min" />
+          <input type="text" name="budget_max" placeholder="£ Max" />
+        </div>
+      </div>
+
+      <!-- Stay duration -->
+      <div class="question">
+        <h2>How long are you planning to stay?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="stay" value="<3" />
+            <span>Less than 3 months</span>
+          </label>
+          <label>
+            <input type="radio" name="stay" value="3-6" />
+            <span>3 - 6 months</span>
+          </label>
+          <label>
+            <input type="radio" name="stay" value="6-12" />
+            <span>6 months – 1 year</span>
+          </label>
+          <label>
+            <input type="radio" name="stay" value=">12" />
+            <span>Over 1 year</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Gender preference -->
+      <div class="question">
+        <h2>Do you prefer a flatmate of a certain gender? <small>(Optional)</small></h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="flatmate-gender" value="no-pref" />
+            <span>No preference</span>
+          </label>
+          <label>
+            <input type="radio" name="flatmate-gender" value="male" />
+            <span>Male</span>
+          </label>
+          <label>
+            <input type="radio" name="flatmate-gender" value="female" />
+            <span>Female</span>
+          </label>
+          <label>
+            <input type="radio" name="flatmate-gender" value="non-binary" />
+            <span>Non-binary</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- LGBTQ+ -->
+      <div class="question">
+        <h2>Are you LGBTQ+ friendly? <small>(Optional)</small></h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="lgbtq" value="yes" />
+            <span>Yes</span>
+          </label>
+          <label>
+            <input type="radio" name="lgbtq" value="no" />
+            <span>No</span>
+          </label>
+          <label>
+            <input type="radio" name="lgbtq" value="prefer-not" />
+            <span>Prefer not to say</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Bathroom sharing -->
+      <div class="question">
+        <h2>Are you okay with sharing a bathroom?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="bathroom" value="yes" />
+            <span>Yes</span>
+          </label>
+          <label>
+            <input type="radio" name="bathroom" value="private" />
+            <span>Prefer private</span>
+          </label>
+          <label>
+            <input type="radio" name="bathroom" value="depends" />
+            <span>Depends on flat layout</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Languages -->
+      <div class="question">
+        <h2>Languages you speak: <small>(Optional)</small></h2>
+        <div class="select-group">
+          <select name="languages">
+            <option value="" disabled selected>Search Languages</option>
+            <!-- your options here -->
+          </select>
+        </div>
+      </div>
+    </form>
+
+    <div class="actions">
+      <button class="secondary" type="button">Come back later</button>
+      <button class="primary" type="button">Next Page</button>
+    </div>
+  </main>
+</body>
+</html>

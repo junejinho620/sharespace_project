@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ShareSpace – Step 5</title>
+  <link rel="stylesheet" href="styles/userinfo.css" />
+</head>
+<body>
+  <header class="wizard-header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="logo.png" alt="ShareSpace Logo" />
+      </div>
+      <nav class="steps">
+        <div class="step completed">
+          <div class="circle">1</div>
+          <div class="label">Your Demographic Information</div>
+        </div>
+        <div class="step completed">
+          <div class="circle">2</div>
+          <div class="label">Your Life Style & Preference</div>
+        </div>
+        <div class="step active">
+          <div class="circle">3</div>
+          <div class="label">Feedback & Finish</div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <form>
+      <!-- Satisfaction emojis -->
+      <div class="question">
+        <h2>How satisfied are you with overall experience?</h2>
+        <div class="radio-group">
+          <label>
+            <input type="radio" name="satisfaction" value="very-dissatisfied" />
+            <span>😭<br>Very Dissatisfied</span>
+          </label>
+          <label>
+            <input type="radio" name="satisfaction" value="dissatisfied" />
+            <span>😞<br>Dissatisfied</span>
+          </label>
+          <label>
+            <input type="radio" name="satisfaction" value="neutral" />
+            <span>😐<br>Neutral</span>
+          </label>
+          <label>
+            <input type="radio" name="satisfaction" value="satisfied" />
+            <span>😊<br>Satisfied</span>
+          </label>
+          <label>
+            <input type="radio" name="satisfaction" value="very-satisfied" />
+            <span>😍<br>Very Satisfied</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Feedback textarea -->
+      <div class="question">
+        <h2>Feel free to write any feedback for us!</h2>
+        <textarea name="feedback" placeholder="Your feedback..."></textarea>
+      </div>
+    </form>
+
+    <div class="actions">
+      <button class="secondary" type="button">Come back later</button>
+      <button class="primary" type="button">Finish!</button>
+    </div>
+  </main>
+</body>
+</html>
