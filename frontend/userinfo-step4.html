@@ -12,9 +12,17 @@
 </head>
 
 <body>
-<header class="header">
+  <header class="header">
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
-    <img src="styles/img/image 315.png" class="pomi-logo">
+    <div style="display: flex; align-items: center; gap: 25px;">
+      <img src="styles/img/image 315.png" class="pomi-logo">
+      <div class="speech-wrapper">
+        <div class="triangle-left"></div>
+        <div class="speech-bubble">
+          <p>Last Questions!</p>
+        </div>
+      </div>
+    </div>
 
     <hr class="solid">
 
@@ -39,115 +47,132 @@
   <main class="container">
     <form>
       <!-- Budget -->
-      <div class="question">
-        <h2>What's your budget per week?</h2>
+      <section class="question-card">
+        <h2 class="question-title">What's your budget per week?</h2>
         <div class="text-input-group">
-          <input type="text" name="budget_min" placeholder="£ Min" />
-          <input type="text" name="budget_max" placeholder="£ Max" />
+          <input type="text" name="budget_min" placeholder="$ Min" />
+          <input type="text" name="budget_max" placeholder="$ Max" />
         </div>
-      </div>
+      </section>
 
       <!-- Stay duration -->
-      <div class="question">
-        <h2>How long are you planning to stay?</h2>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="stay" value="<3" />
-            <span>Less than 3 months</span>
+      <section class="question-card">
+        <h2 class="question-title">How long are you planning to stay?</h2>
+        <div class="options-grid">
+          <label class="option">
+            <input type="checkbox" name="stay" value="<3" />
+            <span class="option-label">Less than 3 months</span>
           </label>
-          <label>
-            <input type="radio" name="stay" value="3-6" />
-            <span>3 - 6 months</span>
+          <label class="option">
+            <input type="checkbox" name="stay" value="3-6" />
+            <span class="option-label">3 - 6 months</span>
           </label>
-          <label>
-            <input type="radio" name="stay" value="6-12" />
-            <span>6 months – 1 year</span>
+          <label class="option">
+            <input type="checkbox" name="stay" value="6-12" />
+            <span class="option-label">6 months – 1 year</span>
           </label>
-          <label>
-            <input type="radio" name="stay" value=">12" />
-            <span>Over 1 year</span>
+          <label class="option">
+            <input type="checkbox" name="stay" value=">12" />
+            <span class="option-label">Over 1 year</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Gender preference -->
-      <div class="question">
-        <h2>Do you prefer a flatmate of a certain gender? <small>(Optional)</small></h2>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="flatmate-gender" value="no-pref" />
-            <span>No preference</span>
+      <section class="question-card">
+        <h2 class="question-title">Do you prefer a flatmate of a certain gender? <small>(Optional)</small></h2>
+        <div class="options-grid">
+          <label class="option">
+            <input type="checkbox" name="flatmate-gender" value="no-pref" />
+            <span class="option-label">No preference</span>
           </label>
-          <label>
-            <input type="radio" name="flatmate-gender" value="male" />
-            <span>Male</span>
+          <label class="option">
+            <input type="checkbox" name="flatmate-gender" value="male" />
+            <span class="option-label">Male</span>
           </label>
-          <label>
-            <input type="radio" name="flatmate-gender" value="female" />
-            <span>Female</span>
+          <label class="option">
+            <input type="checkbox" name="flatmate-gender" value="female" />
+            <span class="option-label">Female</span>
           </label>
-          <label>
-            <input type="radio" name="flatmate-gender" value="non-binary" />
-            <span>Non-binary</span>
+          <label class="option">
+            <input type="checkbox" name="flatmate-gender" value="non-binary" />
+            <span class="option-label">Non-binary</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- LGBTQ+ -->
-      <div class="question">
-        <h2>Are you LGBTQ+ friendly? <small>(Optional)</small></h2>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="lgbtq" value="yes" />
-            <span>Yes</span>
+      <section class="question-card">
+        <h2 class="question-title">Are you LGBTQ+ friendly? <small>(Optional)</small></h2>
+        <div class="options-grid">
+          <label class="option">
+            <input type="checkbox" name="lgbtq" value="yes" />
+            <span class="option-label">Yes</span>
           </label>
-          <label>
-            <input type="radio" name="lgbtq" value="no" />
-            <span>No</span>
+          <label class="option">
+            <input type="checkbox" name="lgbtq" value="no" />
+            <span class="option-label">No</span>
           </label>
-          <label>
-            <input type="radio" name="lgbtq" value="prefer-not" />
-            <span>Prefer not to say</span>
+          <label class="option">
+            <input type="checkbox" name="lgbtq" value="prefer-not" />
+            <span class="option-label">Prefer not to say</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Bathroom sharing -->
-      <div class="question">
-        <h2>Are you okay with sharing a bathroom?</h2>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="bathroom" value="yes" />
-            <span>Yes</span>
+      <section class="question-card">
+        <h2 class="question-title">Are you okay with sharing a bathroom?</h2>
+        <div class="options-grid">
+          <label class="option">
+            <input type="checkbox" name="bathroom" value="yes" />
+            <span class="option-label">Yes</span>
           </label>
-          <label>
-            <input type="radio" name="bathroom" value="private" />
-            <span>Prefer private</span>
+          <label class="option">
+            <input type="checkbox" name="bathroom" value="private" />
+            <span class="option-label">Prefer private</span>
           </label>
-          <label>
-            <input type="radio" name="bathroom" value="depends" />
-            <span>Depends on flat layout</span>
+          <label class="option">
+            <input type="checkbox" name="bathroom" value="depends" />
+            <span class="option-label">Depends on flat layout</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Languages -->
-      <div class="question">
-        <h2>Languages you speak: <small>(Optional)</small></h2>
+      <section class="question-card">
+        <h2 class="question-title">Languages you speak: <small>(Optional)</small></h2>
         <div class="select-group">
           <select name="languages">
             <option value="" disabled selected>Search Languages</option>
             <!-- your options here -->
           </select>
         </div>
-      </div>
+      </section>
     </form>
 
     <div class="actions">
-      <button class="secondary" type="button">Come back later</button>
-      <button class="primary" type="button">Next Page</button>
+      <button class="button button--secondary" type="button">Come back later</button>
+      <button class="button button--primary" type="button">Next Page</button>
     </div>
   </main>
+
+  <hr class="solid">
+
+  <script>
+    document.querySelectorAll('.options-grid').forEach(group => {
+      const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+          if (cb.checked) {
+            checkboxes.forEach(other => {
+              if (other !== cb) other.checked = false;
+            });
+          }
+        });
+      });
+    });
+  </script>
 </body>
 
 </html>
