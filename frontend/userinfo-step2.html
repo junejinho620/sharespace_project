@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
+  <script src="scripts/userinfo-steps.js" defer></script>
 </head>
 
 <body>
@@ -189,27 +190,13 @@
     </form>
 
     <div class="actions">
-      <button class="button button--secondary" type="button">Come back later</button>
-      <button class="button button--primary" type="button">Next Page</button>
+      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back later</button>
+      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step3.html'">Next Page</button>
     </div>
   </main>
 
   <hr class="solid">
 
-  <script>
-    document.querySelectorAll('.options-grid').forEach(group => {
-      const checkboxes = group.querySelectorAll('input[type="checkbox"]');
-      checkboxes.forEach(cb => {
-        cb.addEventListener('change', () => {
-          if (cb.checked) {
-            checkboxes.forEach(other => {
-              if (other !== cb) other.checked = false;
-            });
-          }
-        });
-      });
-    });
-  </script>
 </body>
 
 </html>

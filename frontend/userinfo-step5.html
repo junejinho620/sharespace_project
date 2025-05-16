@@ -9,10 +9,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
+  <script src="scripts/userinfo-steps.js" defer></script>
 </head>
 
 <body>
-<header class="header">
+  <header class="header">
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
     <img src="styles/img/image 315.png" class="pomi-logo">
 
@@ -39,44 +40,49 @@
   <main class="container">
     <form>
       <!-- Satisfaction emojis -->
-      <div class="question">
+      <section class="question-card">
         <h2>How satisfied are you with overall experience?</h2>
-        <div class="radio-group">
-          <label>
-            <input type="radio" name="satisfaction" value="very-dissatisfied" />
-            <span>😭<br>Very Dissatisfied</span>
+        <div class="options-grid">
+          <label class="option">
+            <input type="checkbox" name="satisfaction" value="very-dissatisfied" />
+            <span class="option-label">😭 Very Dissatisfied</span>
           </label>
-          <label>
-            <input type="radio" name="satisfaction" value="dissatisfied" />
-            <span>😞<br>Dissatisfied</span>
+          <label class="option">
+            <input type="checkbox" name="satisfaction" value="dissatisfied" />
+            <span class="option-label">😞 Dissatisfied</span>
           </label>
-          <label>
-            <input type="radio" name="satisfaction" value="neutral" />
-            <span>😐<br>Neutral</span>
+          <label class="option">
+            <input type="checkbox" name="satisfaction" value="neutral" />
+            <span class="option-label">😐 Neutral</span>
           </label>
-          <label>
-            <input type="radio" name="satisfaction" value="satisfied" />
-            <span>😊<br>Satisfied</span>
+          <label class="option">
+            <input type="checkbox" name="satisfaction" value="satisfied" />
+            <span class="option-label">😊 Satisfied</span>
           </label>
-          <label>
-            <input type="radio" name="satisfaction" value="very-satisfied" />
-            <span>😍<br>Very Satisfied</span>
+          <label class="option">
+            <input type="checkbox" name="satisfaction" value="very-satisfied" />
+            <span class="option-label">😍 Very Satisfied</span>
           </label>
         </div>
-      </div>
+      </section>
 
       <!-- Feedback textarea -->
-      <div class="question">
-        <h2>Feel free to write any feedback for us!</h2>
-        <textarea name="feedback" placeholder="Your feedback..."></textarea>
-      </div>
+      <section class="question-card">
+        <h2 class="question-title">Feel free to write any feedback for us!</h2>
+        <textarea id="feedback" class="textarea" name="feedback" placeholder="Your feedback…" required
+          aria-labelledby="lbl-feedback"></textarea>
+        <small class="error" hidden>Please leave us a note.</small>
+      </section>
     </form>
 
     <div class="actions">
-      <button class="secondary" type="button">Come back later</button>
-      <button class="primary" type="button">Finish!</button>
+      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back later</button>
+      <button class="button button--primary" type="submit" onclick="document.location='dashboard.html'">Finish!</button>
     </div>
   </main>
+
+  <hr class="solid">
+
 </body>
 
 </html>
