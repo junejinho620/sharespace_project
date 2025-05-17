@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShareSpace – Step 1</title>
-  <link rel="stylesheet" href="styles/userinfo-step1.css" />
+  <link rel="stylesheet" href="styles/userinfo-steps.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
@@ -15,19 +15,27 @@
 <body>
   <header class="header">
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
-    <img src="styles/img/image 315.png" class="pomi-logo">
+    <div style="display: flex; align-items: center; gap: 25px;">
+      <img src="styles/img/image 315.png" class="pomi-logo">
+      <div class="speech-wrapper">
+        <div class="triangle-left"></div>
+        <div class="speech-bubble">
+          <p>Let’s start with the basics!</p>
+        </div>
+      </div>
+    </div>
 
     <hr class="solid">
 
     <div class="step-bar">
       <div class="step active">
         <div class="circle">1</div>
-        <p>Your Demographic <br>Information</p>
+        <p>Core Profile & Logistics</p>
       </div>
       <div class="line"></div>
       <div class="step">
         <div class="circle">2</div>
-        <p>Your Life Style <br>& Preference</p>
+        <p>Your Life Style & Preference</p>
       </div>
       <div class="line"></div>
       <div class="step">
@@ -39,6 +47,8 @@
 
   <main class="container">
     <form>
+      <h2 class="section-header">Essential Info</h2>
+
       <!-- Gender -->
       <section class="question-card">
         <h2 class="question-title">What's your gender identity?</h2>
@@ -121,11 +131,52 @@
         </div>
       </section>
 
+      <!-- If Remote/WFH: -->
+      <section class="question-card">
+        <h2 class="question-title">If you work remotely, how many days per week do you work from home?</h2>
+        <div class="text-input-group">
+          <input type="number" name="wfh_days" min="0" max="7" placeholder="0–7 days">
+        </div>
+      </section>
+
+      <!-- Budget -->
+      <section class="question-card">
+        <h2 class="question-title">What's your budget per month?</h2>
+        <div class="text-input-group">
+          <input type="number" name="budget_min" placeholder="$ Min" aria-label="Budget minimum" min="0" step="1" />
+          <input type="number" name="budget_max" placeholder="$ Max" aria-label="Budget maximum" min="0" step="1" />
+        </div>
+      </section>
+
+      <!-- Stay duration -->
+      <section class="question-card">
+        <h2 class="question-title">How long are you planning to stay?</h2>
+        <div class="options-grid">
+          <label class="option">
+            <input type="checkbox" name="stay" value="<3" />
+            <span class="option-label">Less than 3 months</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="stay" value="3-6" />
+            <span class="option-label">3 ~ 6 months</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="stay" value="6-12" />
+            <span class="option-label">6 months ~ 1 year</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="stay" value=">12" />
+            <span class="option-label">Over 1 year</span>
+          </label>
+        </div>
+      </section>
+
+      <h2 class="section-header">Culture & Languages</h2>
+
       <!-- Nationality / Cultural -->
       <section class="question-card">
         <h2 class="question-title">
           What's your nationality and cultural background?
-          <small>(Optional)</small>
         </h2>
         <div class="select-group">
           <select name="nationality">
@@ -349,6 +400,29 @@
         </div>
       </section>
 
+      <!-- Languages -->
+      <div class="custom-multiselect">
+        <label for="languages">Languages you speak:</label>
+        <div class="custom-multiselect-box" id="languages-box">
+          <div class="multiselect-header">
+            <input type="text" id="languages-input" placeholder="Select languages" oninput="filterLanguages()"
+              onclick="toggleLanguageDropdown()" />
+            <hr class="divider">
+            <div id="selected-languages" class="selected-tags"></div>
+          </div>
+        </div>
+        <ul id="language-options" class="hidden"></ul>
+      </div>
+
+      <h2 class="section-header">Activities You Enjoy</h2>
+
+      <!-- Hobbies -->
+      <section class="question-card" id="hobby-section">
+        <h2 class="question-title">What are your hobbies or interests?</h2>
+        <div id="hobby-tags" class="hobby-tag-container"></div>
+        <select id="hobby-dropdown" class="hidden"></select>
+        <p class="note">Click a tag to edit. Max 3 hobbies.</p>
+      </section>
     </form>
 
     <div class="actions">

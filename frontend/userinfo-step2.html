@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShareSpace – Step 2</title>
-  <link rel="stylesheet" href="styles/userinfo-step2&3.css" />
+  <link rel="stylesheet" href="styles/userinfo-steps.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
@@ -22,12 +22,12 @@
     <div class="step-bar">
       <div class="step">
         <div class="circle">1</div>
-        <p>Your Demographic <br>Information</p>
+        <p>Core Profile & Logistics</p>
       </div>
       <div class="line"></div>
       <div class="step active">
         <div class="circle">2</div>
-        <p>Your Life Style <br>& Preference</p>
+        <p>Your Life Style & Preference</p>
       </div>
       <div class="line"></div>
       <div class="step">
@@ -39,159 +39,91 @@
 
   <main class="container">
     <form>
+      <h2 class="section-header">Daily Schedule & Noise</h2>
+
       <!-- Working hours -->
       <section class="question-card">
         <h2 class="question-title">What are your typical working hours?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="hours" value="morning" />
-            <span class="option-label">Morning (e.g. 8 am – 4 pm)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="hours" value="standard" />
-            <span class="option-label">Standard (e.g. 9 am – 6 pm)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="hours" value="evening" />
-            <span class="option-label">Evening / Night Shifts</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="hours" value="flexible" />
-            <span class="option-label">Flexible or varies</span>
-          </label>
+          <label class="option"><input type="checkbox" name="work_hours" value="morning"><span
+              class="option-label">Morning (6am–2pm)</span></label>
+          <label class="option"><input type="checkbox" name="work_hours" value="standard"><span
+              class="option-label">Standard (9am–6pm)</span></label>
+          <label class="option"><input type="checkbox" name="work_hours" value="evening"><span
+              class="option-label">Evening / Night shifts</span></label>
+          <label class="option"><input type="checkbox" name="work_hours" value="varies"><span
+              class="option-label">Varies week-to-week</span></label>
         </div>
       </section>
 
-      <!-- Early bird / night owl -->
+      <!-- Weekday Bedtime -->
       <section class="question-card">
-        <h2 class="question-title">Are you an Early bird or a night owl?</h2>
+        <h2 class="question-title">When do you usually go to bed on weekdays?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="chronotype" value="early" />
-            <span class="option-label">Early bird (Wake up early)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="chronotype" value="night" />
-            <span class="option-label">Night owl (Stay up late)</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="chronotype" value="depends" />
-            <span class="option-label">Depends on the day</span>
-          </label>
+          <label class="option"><input type="checkbox" name="bedtime" value="before-10"><span
+              class="option-label">Before 10pm</span></label>
+          <label class="option"><input type="checkbox" name="bedtime" value="10-11"><span
+              class="option-label">10pm-11pm</span></label>
+          <label class="option"><input type="checkbox" name="bedtime" value="11-12"><span
+              class="option-label">11pm–12am</span></label>
+          <label class="option"><input type="checkbox" name="bedtime" value="after-mid"><span class="option-label">After
+              midnight</span></label>
         </div>
       </section>
 
-      <!-- Cleanliness -->
+      <!-- Noise Tolerance (5-point scale) -->
+      <section class="question-card">
+        <h2 class="question-title">How much noise do you tolerate at home?</h2>
+        <div class="options-grid">
+          <label class="option"><input type="checkbox" name="noise" value="1"><span class="option-label">1 (Need
+              absolute quiet)</span></label>
+          <label class="option"><input type="checkbox" name="noise" value="2"><span
+              class="option-label">2</span></label>
+          <label class="option"><input type="checkbox" name="noise" value="3"><span
+              class="option-label">3</span></label>
+          <label class="option"><input type="checkbox" name="noise" value="4"><span
+              class="option-label">4</span></label>
+          <label class="option"><input type="checkbox" name="noise" value="5"><span class="option-label">5 (Background
+              noise is fine)</span></label>
+        </div>
+      </section>
+
+      <h2 class="section-header">Cleanliness & Chores</h2>
+
+      <!-- Cleanliness Level -->
       <section class="question-card">
         <h2 class="question-title">How would you describe your cleanliness level?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="cleanliness" value="very-tidy" />
-            <span class="option-label">Very tidy</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="cleanliness" value="average" />
-            <span class="option-label">Average</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="cleanliness" value="messy" />
-            <span class="option-label">Messy is okay</span>
-          </label>
+          <label class="option"><input type="checkbox" name="cleanliness" value="very-tidy"><span
+              class="option-label">Very tidy</span></label>
+          <label class="option"><input type="checkbox" name="cleanliness" value="moderate"><span
+              class="option-label">Moderately tidy</span></label>
+          <label class="option"><input type="checkbox" name="cleanliness" value="relaxed"><span
+              class="option-label">Relaxed about mess</span></label>
         </div>
       </section>
 
-      <!-- Smoking -->
+      <!-- Deep Clean Frequency -->
       <section class="question-card">
-        <h2 class="question-title">Do you smoke?</h2>
+        <h2 class="question-title">How often do you deep-clean common areas?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="smoking" value="yes" />
-            <span class="option-label">Yes</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="smoking" value="no" />
-            <span class="option-label">No</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="smoking" value="occasionally" />
-            <span class="option-label">Occasionally</span>
-          </label>
-        </div>
-      </section>
-
-      <!-- Alcohol -->
-      <section class="question-card">
-        <h2 class="question-title">How often do you drink alcohol?</h2>
-        <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="alcohol" value="often" />
-            <span class="option-label">Often</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="alcohol" value="socially" />
-            <span class="option-label">Socially</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="alcohol" value="rarely" />
-            <span class="option-label">Rarely</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="alcohol" value="never" />
-            <span class="option-label">Never</span>
-          </label>
-        </div>
-      </section>
-
-      <!-- Dietary -->
-      <section class="question-card">
-        <h2 class="question-title">What are your dietary preferences?</h2>
-        <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="diet" value="no-restrictions" />
-            <span class="option-label">No restrictions</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="diet" value="vegetarian" />
-            <span class="option-label">Vegetarian</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="diet" value="vegan" />
-            <span class="option-label">Vegan</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="diet" value="halal" />
-            <span class="option-label">Halal</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="diet" value="other" />
-            <span class="option-label">Other</span>
-          </label>
-        </div>
-      </section>
-
-      <!-- Pets -->
-      <section class="question-card">
-        <h2 class="question-title">Do you have pets, or allergies to pets?</h2>
-        <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="pets" value="have-pets" />
-            <span class="option-label">I have pets</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="pets" value="allergic" />
-            <span class="option-label">Allergic to pets</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="pets" value="neither" />
-            <span class="option-label">Neither</span>
-          </label>
+          <label class="option"><input type="checkbox" name="clean_freq" value="weekly"><span
+              class="option-label">Weekly</span></label>
+          <label class="option"><input type="checkbox" name="clean_freq" value="biweekly"><span
+              class="option-label">Every two weeks</span></label>
+          <label class="option"><input type="checkbox" name="clean_freq" value="monthly"><span
+              class="option-label">Monthly</span></label>
+          <label class="option"><input type="checkbox" name="clean_freq" value="as-needed"><span
+              class="option-label">Only when necessary</span></label>
         </div>
       </section>
     </form>
 
     <div class="actions">
-      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back later</button>
-      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step3.html'">Next Page</button>
+      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
+        later</button>
+      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step3.html'">Next
+        Page</button>
     </div>
   </main>
 

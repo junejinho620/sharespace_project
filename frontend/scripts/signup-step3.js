@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (res.ok) {
         alert("✅ Account setup complete!");
-        window.location.href = "dashboard.html";
+        window.location.href = "userinfo-step1.html";
       } else {
         alert("❌ " + data.error);
       }

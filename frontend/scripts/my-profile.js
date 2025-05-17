@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Edit button ➜ edit-profile.html
     document.getElementById('editProfileBtn').addEventListener('click', () => {
-      window.location.href = 'edit-profile.html';
+      window.location.href = 'userinfo-step1.html';
     });
     
   } catch (err) {

@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShareSpace – Step 5</title>
-  <link rel="stylesheet" href="styles/userinfo-step5.css" />
+  <link rel="stylesheet" href="styles/userinfo-steps.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
@@ -30,12 +30,12 @@
     <div class="step-bar">
       <div class="step">
         <div class="circle">1</div>
-        <p>Your Demographic <br>Information</p>
+        <p>Core Profile & Logistics</p>
       </div>
       <div class="line"></div>
       <div class="step">
         <div class="circle">2</div>
-        <p>Your Life Style <br>& Preference</p>
+        <p>Your Life Style & Preference</p>
       </div>
       <div class="line"></div>
       <div class="step active">
@@ -49,35 +49,41 @@
     <form>
       <!-- Satisfaction emojis -->
       <section class="question-card">
-        <h2 class="question-title">How satisfied are you with the overall experience?</h2>
-        <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="satisfaction" value="very-dissatisfied" />
-            <span class="option-label">😭 Very Dissatisfied</span>
+        <h2 class="question-title">How satisfied were you with this onboarding experience?</h2>
+        <div class="emoji-rating">
+          <label class="emoji-option">
+            <input type="checkbox" name="satisfaction" value="1" />
+            <span class="emoji">😭</span>
+            <span class="emoji-label">Very Dissatisfied</span>
           </label>
-          <label class="option">
-            <input type="checkbox" name="satisfaction" value="dissatisfied" />
-            <span class="option-label">😞 Dissatisfied</span>
+          <label class="emoji-option">
+            <input type="checkbox" name="satisfaction" value="2" />
+            <span class="emoji">😞</span>
+            <span class="emoji-label">Dissatisfied</span>
           </label>
-          <label class="option">
-            <input type="checkbox" name="satisfaction" value="neutral" />
-            <span class="option-label">😐 Neutral</span>
+          <label class="emoji-option">
+            <input type="checkbox" name="satisfaction" value="3" />
+            <span class="emoji">😐</span>
+            <span class="emoji-label">Neutral</span>
           </label>
-          <label class="option">
-            <input type="checkbox" name="satisfaction" value="satisfied" />
-            <span class="option-label">😊 Satisfied</span>
+          <label class="emoji-option">
+            <input type="checkbox" name="satisfaction" value="4" />
+            <span class="emoji">😊</span>
+            <span class="emoji-label">Satisfied</span>
           </label>
-          <label class="option">
-            <input type="checkbox" name="satisfaction" value="very-satisfied" />
-            <span class="option-label">😍 Very Satisfied</span>
+          <label class="emoji-option">
+            <input type="checkbox" name="satisfaction" value="5" />
+            <span class="emoji">😍</span>
+            <span class="emoji-label">Very Satisfied</span>
           </label>
         </div>
       </section>
 
       <!-- Feedback textarea -->
       <section class="question-card">
-        <h2 class="question-title">Feel free to write any feedback for us!</h2>
-        <p class="feedback-intro">Let us know which questions were confusing, unnecessary, or especially helpful — and how we can improve your overall onboarding experience.</p>
+        <h2 class="question-title">Your feedback helps us improve!</h2>
+        <p class="feedback-intro">Let us know which questions were confusing, unnecessary, or especially helpful — and
+          how we can improve your overall onboarding experience.</p>
         <textarea id="feedback" class="textarea" name="feedback" placeholder="Your insights matter!" required
           aria-labelledby="lbl-feedback"></textarea>
         <small class="error" hidden>Please leave us a note.</small>

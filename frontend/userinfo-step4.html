@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShareSpace – Step 4</title>
-  <link rel="stylesheet" href="styles/userinfo-step4.css" />
+  <link rel="stylesheet" href="styles/userinfo-steps.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
@@ -30,12 +30,12 @@
     <div class="step-bar">
       <div class="step">
         <div class="circle">1</div>
-        <p>Your Demographic <br>Information</p>
+        <p>Core Profile & Logistics</p>
       </div>
       <div class="line"></div>
       <div class="step active">
         <div class="circle">2</div>
-        <p>Your Life Style <br>& Preference</p>
+        <p>Your Life Style & Preference</p>
       </div>
       <div class="line"></div>
       <div class="step">
@@ -47,46 +47,59 @@
 
   <main class="container">
     <form>
-      <!-- Budget -->
+      <h2 class="section-header">Guests</h2>
+
+      <!-- Overnight Guest Frequency -->
       <section class="question-card">
-        <h2 class="question-title">What's your budget per week?</h2>
-        <div class="text-input-group">
-          <input type="number" name="budget_min" placeholder="$ Min" aria-label="Budget minimum" min="0" step="1" />
-          <input type="number" name="budget_max" placeholder="$ Max" aria-label="Budget maximum" min="0" step="1" />
+        <h2 class="question-title">How often do you expect to have overnight guests?</h2>
+        <div class="options-grid">
+          <label class="option"><input type="checkbox" name="own_guest_freq" value="never"><span
+              class="option-label">Never</span></label>
+          <label class="option"><input type="checkbox" name="own_guest_freq" value="occasionally"><span
+              class="option-label">Occasionally</span></label>
+          <label class="option"><input type="checkbox" name="own_guest_freq" value="regular"><span
+              class="option-label">Regularly (weekly)</span></label>
+          <label class="option"><input type="checkbox" name="own_guest_freq" value="flexible"><span
+              class="option-label">Flexible with notice</span></label>
         </div>
       </section>
 
-      <!-- Stay duration -->
+      <!-- Comfort with Roommate's Guests -->
       <section class="question-card">
-        <h2 class="question-title">How long are you planning to stay?</h2>
+        <h2 class="question-title">How do you feel about roommates having guests over?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="stay" value="<3" />
-            <span class="option-label">Less than 3 months</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="stay" value="3-6" />
-            <span class="option-label">3 - 6 months</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="stay" value="6-12" />
-            <span class="option-label">6 months – 1 year</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="stay" value=">12" />
-            <span class="option-label">Over 1 year</span>
-          </label>
+          <label class="option"><input type="checkbox" name="flatmate_guest" value="anytime"><span
+              class="option-label">Anytime is fine</span></label>
+          <label class="option"><input type="checkbox" name="flatmate_guest" value="occasionally"><span
+              class="option-label">Occasionally is okay</span></label>
+          <label class="option"><input type="checkbox" name="flatmate_guest" value="minimal"><span
+              class="option-label">Prefer minimal guests</span></label>
+        </div>
+      </section>
+
+      <h2 class="section-header">Social & Compatibility</h2>
+
+      <!-- Social Vibe (5-point scale) -->
+      <section class="question-card">
+        <h2 class="question-title">How social are you at home?</h2>
+        <div class="options-grid">
+          <label class="option"><input type="checkbox" name="social_vibe" value="1"><span class="option-label">1 (Very
+              introverted)</span></label>
+          <label class="option"><input type="checkbox" name="social_vibe" value="2"><span
+              class="option-label">2</span></label>
+          <label class="option"><input type="checkbox" name="social_vibe" value="3"><span
+              class="option-label">3</span></label>
+          <label class="option"><input type="checkbox" name="social_vibe" value="4"><span
+              class="option-label">4</span></label>
+          <label class="option"><input type="checkbox" name="social_vibe" value="5"><span class="option-label">5 (Very
+              extroverted)</span></label>
         </div>
       </section>
 
       <!-- Gender preference -->
       <section class="question-card">
-        <h2 class="question-title">Do you prefer a flatmate of a certain gender? <small>(Optional)</small></h2>
+        <h2 class="question-title">Do you prefer a roommate of a certain gender? <small>(Optional)</small></h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="flatmate-gender" value="no-pref" />
-            <span class="option-label">No preference</span>
-          </label>
           <label class="option">
             <input type="checkbox" name="flatmate-gender" value="male" />
             <span class="option-label">Male</span>
@@ -98,6 +111,10 @@
           <label class="option">
             <input type="checkbox" name="flatmate-gender" value="non-binary" />
             <span class="option-label">Non-binary</span>
+          </label>
+          <label class="option">
+            <input type="checkbox" name="flatmate-gender" value="no-pref" />
+            <span class="option-label">No preference</span>
           </label>
         </div>
       </section>
@@ -121,38 +138,31 @@
         </div>
       </section>
 
-      <!-- Bathroom sharing -->
+      <h2 class="section-header">Allergies & Health</h2>
+      
+      <!-- Allergies -->
       <section class="question-card">
-        <h2 class="question-title">Are you okay with sharing a bathroom?</h2>
-        <div class="options-grid">
+        <h2 class="question-title">Do you have any allergies or strong sensitivities?</h2>
+        <div class="options-grid" id="allergy-options" data-multiselect="true">
+          <label class="option"><input type="checkbox" name="allergies" value="pets"><span
+              class="option-label">Pets</span></label>
+          <label class="option"><input type="checkbox" name="allergies" value="smoke"><span
+              class="option-label">Smoke</span></label>
+          <label class="option"><input type="checkbox" name="allergies" value="nuts"><span
+              class="option-label">Nuts</span></label>
+          <label class="option"><input type="checkbox" name="allergies" value="gluten"><span
+              class="option-label">Gluten</span></label>
+          <label class="option"><input type="checkbox" name="allergies" value="perfume"><span
+              class="option-label">Perfume / Scent</span></label>
           <label class="option">
-            <input type="checkbox" name="bathroom" value="yes" />
-            <span class="option-label">Yes</span>
+            <input type="checkbox" name="allergies" value="other" id="allergy-other">
+            <span class="option-label">Other</span>
           </label>
-          <label class="option">
-            <input type="checkbox" name="bathroom" value="private" />
-            <span class="option-label">Prefer private</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="bathroom" value="depends" />
-            <span class="option-label">Depends on flat layout</span>
-          </label>
-        </div>
-      </section>
-
-      <!-- Languages -->
-      <div class="custom-multiselect">
-        <label for="languages">Languages you speak:</label>
-        <div class="custom-multiselect-box" id="languages-box">
-          <div class="multiselect-header">
-            <input type="text" id="languages-input" placeholder="Search languages..." oninput="filterLanguages()"
-              onclick="toggleLanguageDropdown()" />
-            <hr class="divider">
-            <div id="selected-languages" class="selected-tags"></div>
+          <div id="allergy-other-input" class="hidden allergy-other-textbox">
+            <input type="text" name="allergy_custom" placeholder="Please specify">
           </div>
         </div>
-        <ul id="language-options" class="hidden"></ul>
-      </div>
+      </section>
     </form>
 
     <div class="actions">

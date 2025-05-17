@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ShareSpace – Step 3</title>
-  <link rel="stylesheet" href="styles/userinfo-step2&3.css" />
+  <link rel="stylesheet" href="styles/userinfo-steps.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
     rel="stylesheet">
@@ -30,12 +30,12 @@
     <div class="step-bar">
       <div class="step">
         <div class="circle">1</div>
-        <p>Your Demographic <br>Information</p>
+        <p>Core Profile & Logistics</p>
       </div>
       <div class="line"></div>
       <div class="step active">
         <div class="circle">2</div>
-        <p>Your Life Style <br>& Preference</p>
+        <p>Your Life Style & Preference</p>
       </div>
       <div class="line"></div>
       <div class="step">
@@ -47,105 +47,102 @@
 
   <main class="container">
     <form>
-      <!-- Personality -->
+      <h2 class="section-header">Household Preferences</h2>
+      
+      <!-- Pets -->
       <section class="question-card">
-        <h2 class="question-title">Would you describe yourself as more of an introvert or extrovert?</h2>
+        <h2 class="question-title">Do you have pets or allergies?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="personality" value="introvert" />
-            <span class="option-label">Introvert</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="personality" value="extrovert" />
-            <span class="option-label">Extrovert</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="personality" value="in-between" />
-            <span class="option-label">In between</span>
-          </label>
+          <label class="option"><input type="checkbox" name="pets" value="has-pets"><span class="option-label">I have
+              pets</span></label>
+          <label class="option"><input type="checkbox" name="pets" value="allergic"><span class="option-label">Allergic
+              to pets</span></label>
+          <label class="option"><input type="checkbox" name="pets" value="none"><span class="option-label">No pets / No
+              allergies</span></label>
         </div>
       </section>
 
-      <!-- Chatting -->
+      <!-- Smoking -->
       <section class="question-card">
-        <h2 class="question-title">Do you enjoy chatting with flatmates regularly?</h2>
+        <h2 class="question-title">Do you smoke?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="chatting" value="love" />
-            <span class="option-label">Yes, I love to talk</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="chatting" value="occasionally" />
-            <span class="option-label">Occasionally is nice</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="chatting" value="quiet" />
-            <span class="option-label">I prefer keeping to myself</span>
-          </label>
+          <label class="option"><input type="checkbox" name="smoking" value="yes"><span
+              class="option-label">Yes</span></label>
+          <label class="option"><input type="checkbox" name="smoking" value="occasionally"><span
+              class="option-label">Occasionally / Socially</span></label>
+          <label class="option"><input type="checkbox" name="smoking" value="no"><span
+              class="option-label">No</span></label>
         </div>
       </section>
 
-      <!-- Friendship -->
+      <!-- Alcohol -->
       <section class="question-card">
-        <h2 class="question-title">Would you like to be friends with your flatmates?</h2>
+        <h2 class="question-title">How often do you drink alcohol?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="friends" value="yes" />
-            <span class="option-label">Yes</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="friends" value="not-necessarily" />
-            <span class="option-label">Not necessarily</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="friends" value="either" />
-            <span class="option-label">Either is fine</span>
-          </label>
+          <label class="option"><input type="checkbox" name="alcohol" value="never"><span
+              class="option-label">Never</span></label>
+          <label class="option"><input type="checkbox" name="alcohol" value="rarely"><span
+              class="option-label">Rarely</span></label>
+          <label class="option"><input type="checkbox" name="alcohol" value="socially"><span
+              class="option-label">Socially</span></label>
+          <label class="option"><input type="checkbox" name="alcohol" value="often"><span
+              class="option-label">Often</span></label>
         </div>
       </section>
 
-      <!-- Sharing food -->
+      <!-- Dietary Preference -->
       <section class="question-card">
-        <h2 class="question-title">Are you okay with sharing food or kitchen items?</h2>
+        <h2 class="question-title">Do you have any dietary preferences or restrictions?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="kitchen-sharing" value="yes" />
-            <span class="option-label">Yes</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="kitchen-sharing" value="agree" />
-            <span class="option-label">Only if we agree on it</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="kitchen-sharing" value="keep-separate" />
-            <span class="option-label">Prefer to keep things separate</span>
-          </label>
+          <label class="option"><input type="checkbox" name="diet" value="vegetarian"><span
+              class="option-label">Vegetarian</span></label>
+          <label class="option"><input type="checkbox" name="diet" value="vegan"><span
+              class="option-label">Vegan</span></label>
+          <label class="option"><input type="checkbox" name="diet" value="halal"><span
+              class="option-label">Halal</span></label>
+          <label class="option"><input type="checkbox" name="diet" value="kosher"><span
+              class="option-label">Kosher</span></label>
+          <label class="option"><input type="checkbox" name="diet" value="gluten-free"><span
+              class="option-label">Gluten-free</span></label>
+          <label class="option"><input type="checkbox" name="diet" value="no-restrictions"><span class="option-label">No
+              restrictions</span></label>
+          <label class="option"><input type="checkbox" name="diet" value="other"><span
+              class="option-label">Other</span></label>
         </div>
       </section>
 
-      <!-- Guests -->
+      <!-- Food / Kitchen Sharing -->
       <section class="question-card">
-        <h2 class="question-title">How do you feel about flatmates having guests over?</h2>
+        <h2 class="question-title">How do you prefer to share food or kitchen items?</h2>
         <div class="options-grid">
-          <label class="option">
-            <input type="checkbox" name="guests" value="fine" />
-            <span class="option-label">I'm fine with it</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="guests" value="occasionally" />
-            <span class="option-label">Occasionally is okay</span>
-          </label>
-          <label class="option">
-            <input type="checkbox" name="guests" value="no-guests" />
-            <span class="option-label">I'd prefer no guests</span>
-          </label>
+          <label class="option"><input type="checkbox" name="kitchen_sharing" value="share-food-cookware"><span
+              class="option-label">Happy to share food & cookware</span></label>
+          <label class="option"><input type="checkbox" name="kitchen_sharing" value="share-cookware"><span
+              class="option-label">Share cookware only</span></label>
+          <label class="option"><input type="checkbox" name="kitchen_sharing" value="keep-separate"><span
+              class="option-label">Prefer everything separate</span></label>
+        </div>
+      </section>
+
+      <!-- Bathroom Sharing -->
+      <section class="question-card">
+        <h2 class="question-title">Are you okay with sharing a bathroom?</h2>
+        <div class="options-grid">
+          <label class="option"><input type="checkbox" name="bathroom" value="fine"><span class="option-label">Fine
+              sharing</span></label>
+          <label class="option"><input type="checkbox" name="bathroom" value="private"><span class="option-label">Prefer
+              private</span></label>
+          <label class="option"><input type="checkbox" name="bathroom" value="depends"><span
+              class="option-label">Depends on the house layout</span></label>
         </div>
       </section>
     </form>
 
     <div class="actions">
-      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back later</button>
-      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step4.html'">Next Page</button>
+      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
+        later</button>
+      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step4.html'">Next
+        Page</button>
     </div>
   </main>
 

@@ -1,4 +1,5 @@
 document.querySelectorAll('.options-grid').forEach(group => {
+  if (group.dataset.multiselect === 'true') return; // skip multi-select sections
   const checkboxes = group.querySelectorAll('input[type="checkbox"]');
   checkboxes.forEach(cb => {
     cb.addEventListener('change', () => {
@@ -9,6 +10,46 @@ document.querySelectorAll('.options-grid').forEach(group => {
       }
     });
   });
+});
+
+document.querySelectorAll('.emoji-rating').forEach(group => {
+  const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (cb.checked) {
+        checkboxes.forEach(other => {
+          if (other !== cb) other.checked = false;
+        });
+      }
+    });
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Allergies: Show/hide custom input for "Other"
+  const allergyOtherCheckbox = document.getElementById('allergy-other');
+  const allergyOtherInput = document.getElementById('allergy-other-input');
+  const allergyOtherText = allergyOtherInput ? allergyOtherInput.querySelector('input[type="text"]') : null;
+
+  if (allergyOtherCheckbox && allergyOtherInput) {
+    allergyOtherCheckbox.addEventListener('change', function () {
+      if (this.checked) {
+        allergyOtherInput.classList.remove('hidden');
+        allergyOtherText && allergyOtherText.focus();
+      } else {
+        allergyOtherInput.classList.add('hidden');
+        if (allergyOtherText) allergyOtherText.value = '';
+      }
+    });
+
+    // On page load, set correct visibility (handles browser autofill/refresh)
+    if (allergyOtherCheckbox.checked) {
+      allergyOtherInput.classList.remove('hidden');
+    } else {
+      allergyOtherInput.classList.add('hidden');
+      if (allergyOtherText) allergyOtherText.value = '';
+    }
+  }
 });
 
 // Inline validation on submit
@@ -96,6 +137,69 @@ function toggleLanguageDropdown() {
 }
 
 createLanguageList();
+
+
+// ----- Hobby Selection -----
+document.addEventListener('DOMContentLoaded', async () => {
+  const hobbyTags = document.getElementById('hobby-tags');
+  const hobbyDrop = document.getElementById('hobby-dropdown');
+  if (!hobbyTags || !hobbyDrop) return;
+
+  let allHobbies = [];
+  let selected = [];
+
+  try {
+    const res = await fetch('/api/hobbies');
+    if (!res.ok) throw new Error('Failed to fetch hobby list');
+    allHobbies = await res.json();
+  } catch (err) {
+    console.error('❌ Could not load hobbies:', err);
+    return;
+  }
+
+  const renderHobbies = () => {
+    hobbyTags.innerHTML = '';
+    selected.forEach((hobby, i) => addTag(`${hobby.icon} ${hobby.name}`, () => openHobbySelect(i)));
+    if (selected.length < 3) addTag('+ Add hobby', () => openHobbySelect(selected.length));
+  };
+
+  const addTag = (text, callback) => {
+    const div = document.createElement('div');
+    div.className = 'hobby-tag';
+    div.textContent = text;
+    div.onclick = callback;
+    hobbyTags.appendChild(div);
+  };
+
+  const openHobbySelect = (index) => {
+    hobbyDrop.innerHTML = '';
+    allHobbies.forEach(hobby => {
+      const option = document.createElement('option');
+      option.value = hobby.id;
+      option.textContent = `${hobby.icon} ${hobby.name}`;
+      if (selected[index] && selected[index].id === hobby.id) option.selected = true;
+      hobbyDrop.appendChild(option);
+    });
+
+    hobbyDrop.classList.remove('hidden');
+    hobbyDrop.onchange = () => {
+      const id = parseInt(hobbyDrop.value);
+      if (selected.some(h => h.id === id)) {
+        alert('You already selected this hobby.');
+        return;
+      }
+      selected[index] = allHobbies.find(h => h.id === id);
+      selected = selected.filter(Boolean);
+      hobbyDrop.classList.add('hidden');
+      renderHobbies();
+    };
+  };
+
+  renderHobbies();
+
+  // (Optional) expose selected hobbies to form submission
+  window.getSelectedHobbyIds = () => selected.map(h => h.id);
+});
 
 // Loading spinner on primary button
 const primaryBtn = document.querySelector('.button--primary');
