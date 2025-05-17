@@ -15,7 +15,15 @@
 <body>
   <header class="header">
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
-    <img src="styles/img/image 315.png" class="pomi-logo">
+    <div style="display: flex; align-items: center; gap: 25px;">
+      <img src="styles/img/image 315.png" class="pomi-logo">
+      <div class="speech-wrapper">
+        <div class="triangle-left"></div>
+        <div class="speech-bubble">
+          <p>Thank You!</p>
+        </div>
+      </div>
+    </div>
 
     <hr class="solid">
 
@@ -41,7 +49,7 @@
     <form>
       <!-- Satisfaction emojis -->
       <section class="question-card">
-        <h2>How satisfied are you with overall experience?</h2>
+        <h2 class="question-title">How satisfied are you with the overall experience?</h2>
         <div class="options-grid">
           <label class="option">
             <input type="checkbox" name="satisfaction" value="very-dissatisfied" />
@@ -69,14 +77,16 @@
       <!-- Feedback textarea -->
       <section class="question-card">
         <h2 class="question-title">Feel free to write any feedback for us!</h2>
-        <textarea id="feedback" class="textarea" name="feedback" placeholder="Your feedback…" required
+        <p class="feedback-intro">Let us know which questions were confusing, unnecessary, or especially helpful — and how we can improve your overall onboarding experience.</p>
+        <textarea id="feedback" class="textarea" name="feedback" placeholder="Your insights matter!" required
           aria-labelledby="lbl-feedback"></textarea>
         <small class="error" hidden>Please leave us a note.</small>
       </section>
     </form>
 
     <div class="actions">
-      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back later</button>
+      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
+        later</button>
       <button class="button button--primary" type="submit" onclick="document.location='dashboard.html'">Finish!</button>
     </div>
   </main>

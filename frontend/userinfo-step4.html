@@ -51,8 +51,8 @@
       <section class="question-card">
         <h2 class="question-title">What's your budget per week?</h2>
         <div class="text-input-group">
-          <input type="text" name="budget_min" placeholder="$ Min" aria-label="Budget minimum" />
-          <input type="text" name="budget_max" placeholder="$ Max" aria-label="Budget maximum" />
+          <input type="number" name="budget_min" placeholder="$ Min" aria-label="Budget minimum" min="0" step="1" />
+          <input type="number" name="budget_max" placeholder="$ Max" aria-label="Budget maximum" min="0" step="1" />
         </div>
       </section>
 
@@ -141,20 +141,25 @@
       </section>
 
       <!-- Languages -->
-      <section class="question-card">
-        <h2 class="question-title">Languages you speak: <small>(Optional)</small></h2>
-        <div class="select-group">
-          <select name="languages">
-            <option value="" disabled selected>Search Languages</option>
-            <!-- your options here -->
-          </select>
+      <div class="custom-multiselect">
+        <label for="languages">Languages you speak:</label>
+        <div class="custom-multiselect-box" id="languages-box">
+          <div class="multiselect-header">
+            <input type="text" id="languages-input" placeholder="Search languages..." oninput="filterLanguages()"
+              onclick="toggleLanguageDropdown()" />
+            <hr class="divider">
+            <div id="selected-languages" class="selected-tags"></div>
+          </div>
         </div>
-      </section>
+        <ul id="language-options" class="hidden"></ul>
+      </div>
     </form>
 
     <div class="actions">
-      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back later</button>
-      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step5.html'">Next Page</button>
+      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
+        later</button>
+      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step5.html'">Next
+        Page</button>
     </div>
   </main>
 

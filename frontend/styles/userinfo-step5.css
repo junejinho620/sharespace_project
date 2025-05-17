@@ -1,7 +1,14 @@
 /* ─── Animations ─── */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 body {
@@ -32,7 +39,8 @@ body {
 .speech-wrapper {
   display: flex;
   align-items: center;
-  gap: 0; /* no gap so triangle connects directly */
+  gap: 0;
+  /* no gap so triangle connects directly */
   transform: translateX(-2%);
 }
 
@@ -49,7 +57,8 @@ body {
   color: #000;
   box-shadow: 0px 0.5px 1px rgba(0, 0, 0, 0.06), 0px 8px 15px rgba(0, 0, 0, 0.05);
   filter: drop-shadow(0px 8px 15px rgba(0, 0, 0, 0.18));
-  backdrop-filter: blur(40px); /* Optional for soft effect */
+  backdrop-filter: blur(40px);
+  /* Optional for soft effect */
 }
 
 .triangle-left {
@@ -136,6 +145,14 @@ hr.solid {
   margin-bottom: 24px;
 }
 
+.feedback-intro {
+  max-width: 1000px;
+  font-size: 1rem;
+  color: #444;
+  margin: -16px 0 24px;
+  line-height: 1.6;
+}
+
 /* grid of options—auto-adjust to screen */
 .options-grid {
   display: flex;
@@ -171,7 +188,8 @@ hr.solid {
   justify-content: center;
   height: 60px;
   font-size: 0.95rem;
-  line-height: 1.2;  /* improve vertical centering */
+  line-height: 1.2;
+  /* improve vertical centering */
   color: #555;
   padding-left: 36px;
   background: #fafafa;
@@ -181,7 +199,7 @@ hr.solid {
 }
 
 /* hover state on the whole card */
-.option:hover .option-label{
+.option:hover .option-label {
   border-color: #999;
 }
 
@@ -201,7 +219,7 @@ hr.solid {
 }
 
 /* when checked, fill the box & show white ✓ */
-.option input[type="checkbox"]:checked + .option-label::before {
+.option input[type="checkbox"]:checked+.option-label::before {
   background-color: #6366f1;
   border-color: #6366f1;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4 8L11 1' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
@@ -210,8 +228,9 @@ hr.solid {
 }
 
 /* background of the entire card when checked */
-.option input[type="checkbox"]:checked + .option-label {
-  background-color: #f0f2ff;   /* a very light tint of your brand color */
+.option input[type="checkbox"]:checked+.option-label {
+  background-color: #f0f2ff;
+  /* a very light tint of your brand color */
   border-color: #6366f1;
   color: #222;
 }
@@ -228,7 +247,7 @@ hr.solid {
   background: #fafafa;
   border: 1px solid #ccc;
   border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
   transition: border 0.25s ease, box-shadow 0.25s ease;
   resize: none;
 }
@@ -242,7 +261,7 @@ hr.solid {
 .textarea:focus {
   outline: none;
   border: 1px solid #6366f1;
-  box-shadow: 0 0 0 1.5px rgba(99,102,241,0.15);
+  box-shadow: 0 0 0 1.5px rgba(99, 102, 241, 0.15);
   background: #fff;
 }
 
@@ -270,6 +289,7 @@ hr.solid {
   background: #6366f1;
   color: #fff;
 }
+
 .button--primary:hover {
   background: #4f46e5;
 }
@@ -279,6 +299,7 @@ hr.solid {
   opacity: 0.6;
   position: relative;
 }
+
 .button--primary.loading::after {
   content: "";
   position: absolute;
@@ -292,8 +313,11 @@ hr.solid {
   animation: spin 0.6s linear infinite;
   transform: translateY(-50%);
 }
+
 @keyframes spin {
-  to { transform: translateY(-50%) rotate(360deg); }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }
 
 /* secondary CTA */
@@ -302,8 +326,9 @@ hr.solid {
   color: #6366f1;
   border: 1px solid #6366f1;
 }
+
 .button--secondary:hover {
-  background: rgba(99,102,241,0.1);
+  background: rgba(99, 102, 241, 0.1);
 }
 
 /* ─── Mobile tweaks ─── */
@@ -311,21 +336,26 @@ hr.solid {
   .container {
     padding: 24px 20px;
   }
+
   .options-grid {
     flex-direction: column;
     gap: 16px;
   }
+
   .option {
     flex: 1 1 auto;
   }
+
   .textarea {
     font-size: 16px;
     padding: 12px 16px;
   }
+
   .actions {
     flex-direction: column;
     gap: 16px;
   }
+
   .button {
     width: 100%;
     text-align: center;
