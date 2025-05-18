@@ -31,11 +31,17 @@ const User = db.define('User', {
     },
   },
   name: { type: DataTypes.STRING(100), allowNull: true },
-  age: { type: DataTypes.INTEGER, allowNull: true },
   gender: {
-    type: DataTypes.ENUM('male', 'female', 'non-binary', 'other'),
+    type: DataTypes.ENUM('male', 'female', 'prefer-not-to-say'),
     allowNull: true,
   },
+  age: {
+    type: DataTypes.ENUM('18-20', '21-25', '26-30', '31-35', '36-40', 'over-40'),
+    allowNull: true,
+  },
+  occupation: { type: DataTypes.STRING(64), allowNull: true },
+  nationality: { type: DataTypes.STRING(64), allowNull: true },
+  cultural: { type: DataTypes.STRING(64), allowNull: true },
   bio: { type: DataTypes.TEXT, allowNull: true },
   profile_picture_url: { type: DataTypes.STRING(255), allowNull: true },
   verification_token: { type: DataTypes.STRING, allowNull: true },
@@ -69,16 +75,12 @@ User.beforeUpdate(async (user) => {
     user.email = user.email.toLowerCase().trim();
   }
   if (user.changed('password')) {
-    console.log("🔑 BEFORE UPDATE HOOK: hashing password...");
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
-    console.log("🔑 AFTER HASHING:", user.password);
-  } else {
-    console.log("🚩 BEFORE UPDATE HOOK: Password not detected as changed!");
   }
 });
 
-// Instance method
+// Compare password method
 User.prototype.comparePassword = async function (input) {
   return await bcrypt.compare(input, this.password);
 };
@@ -120,6 +122,19 @@ User.associate = (models) => {
     foreignKey: 'user_id',
     otherKey: 'hobby_id',
     as: 'hobbies'
+  });
+
+  User.belongsToMany(models.Language, {
+    through: 'UserLanguage',
+    foreignKey: 'user_id',
+    otherKey: 'language_id',
+    as: 'languages'
+  });
+
+  User.hasMany(models.Feedback, {
+    foreignKey: 'user_id',
+    as: 'feedbacks',
+    onDelete: 'CASCADE',
   });
 };
 

@@ -35,6 +35,7 @@ const recommendRoutes = require("./routes/recommendRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const likeRoutes = require("./routes/likeRoutes");
 const hobbyRoutes = require("./routes/hobbyRoutes");
+const languageRoutes = require("./routes/languageRoutes");
 
 app.use("/api/users", userRoutes);
 app.use("/api/prefs", roommatePrefRoutes);
@@ -42,6 +43,7 @@ app.use("/api/recommendations", recommendRoutes);
 app.use("/api/messages", messageRoutes);
 app.use("/api/likes", likeRoutes);
 app.use("/api/hobbies", hobbyRoutes);
+app.use("/api/languages", languageRoutes);
 
 // Connect to MySQL database
 sequelize.authenticate()
