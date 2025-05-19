@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const { user } = await userRes.json();
 
       if (!user.username) return window.location.href = 'signup-step3.html';
-      if (!user.name || !user.age || !user.gender) return window.location.href = 'user-info.html';
+      if (/*!user.name || */ !user.age || !user.gender) return window.location.href = 'userinfo-step1.html';
       window.location.href = 'index.html';
 
     } catch (err) {

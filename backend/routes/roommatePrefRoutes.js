@@ -6,32 +6,14 @@ const verifyToken = require('../middleware/authMiddleware');
 
 // GET /api/prefs/me - Get roommate preferences for logged-in user
 router.get('/me', verifyToken, async (req, res) => {
-    try {
-      const prefs = await RoommatePref.findOne({ where: { user_id: req.user.id } });
-  
-    // If no prefs exist, create with sensible defaults
-    if (!prefs) {
-      prefs = await RoommatePref.create({
-        user_id: req.user.id,
-        budget_range: '',
-        cleanliness: 2,
-        noise_tolerance: 2,
-        sleep_schedule: '',
-        smoking: false,
-        pet_friendly: false,
-        gender_pref: 'Any',
-        introvert: false
-      });
-      console.log('✅ Created default roommate prefs for user:', req.user.id);
-    }
-  
-      res.json({ prefs });
-
-    } catch (err) {
-      console.error('GET /api/prefs/me error:', err);
-      res.status(500).json({ error: 'Failed to fetch preferences' });
-    }
-  });
+  try {
+    let prefs = await RoommatePref.findOne({ where: { user_id: req.user.id } });
+    if (!prefs) prefs = await RoommatePref.create({ user_id: req.user.id });
+    res.json({ prefs });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // GET /api/prefs/:user_id - Get a user's roommate preferences
 router.get('/:user_id', verifyToken, async (req, res) => {
@@ -78,23 +60,40 @@ router.post('/', verifyToken, async (req, res) => {
 // PUT /api/prefs/me - Update roommate preferences
 router.put('/me', verifyToken, async (req, res) => {
   try {
-    const prefs = await RoommatePref.findOne({ where: { user_id: req.user.id } });
+    const allowedFields = ['budget_min', 'budget_max', 'stay', 'work_hours', 'wfh_days', 'bedtime', 'noise', 'cleanliness', 'clean_freq', 'pets', 'smoking', 'alcohol', 'diet', 'kitchen_sharing', 'bathroom', 'own_guest_freq', 'roommate_guest', 'social_vibe', 'roommate_gender', 'lgbtq', 'allergies', 'allergy_custom'];
+    const updates = {};
 
+    // Normalize multi-select array fields (handle checkboxes)
+    ['diet', 'allergies'].forEach(key => {
+      if (req.body[key]) {
+        if (Array.isArray(req.body[key])) {
+          req.body[key] = req.body[key].filter(Boolean);
+        } else if (typeof req.body[key] === 'string') {
+          req.body[key] = [req.body[key]];
+        }
+      }
+    });
+
+    allowedFields.forEach(field => {
+      if (req.body[field] !== undefined) updates[field] = req.body[field];
+    });
+
+    ['budget_min', 'budget_max', 'wfh_days', 'noise', 'social_vibe'].forEach(key => {
+      if (updates[key] !== undefined) {
+        updates[key] = updates[key] === '' ? null : Number(updates[key]);
+      }
+    });
+
+    let prefs = await RoommatePref.findOne({ where: { user_id: req.user.id } });
     if (!prefs) {
-      // Create new preferences if they don't exist
-      prefs = await RoommatePref.create({
-        ...req.body,
-        user_id: req.user.id
-      });
+      prefs = await RoommatePref.create({ user_id: req.user.id, ...updates });
       return res.status(201).json({ message: 'Preferences created', prefs });
     }
 
-    await prefs.update(req.body);
+    await prefs.update(updates);
     res.json({ message: 'Preferences updated', prefs });
-
   } catch (err) {
-    console.error('PUT /api/prefs/me error:', err);
-    res.status(500).json({ error: 'Failed to update preferences' });
+    res.status(400).json({ error: err.message });
   }
 });
 

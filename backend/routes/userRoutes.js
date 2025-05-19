@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
-const { User, RoommatePref, Hobby } = require('../models');
+const { User, RoommatePref, Hobby, Language } = require('../models');
 const userController = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
@@ -174,13 +174,20 @@ router.post('/login', async (req, res) => {
 // PUT /api/users/me - update logged-in user info
 router.put('/me', verifyToken, async (req, res) => {
   try {
+    const allowedFields = ['username', 'name', 'gender', 'age', 'occupation', 'nationality', 'cultural', 'bio', 'phone_number', 'city', 'profile_picture_url'];
+    const updates = {};
+
+    allowedFields.forEach(field => {
+      if (req.body[field] !== undefined) updates[field] = req.body[field];
+    });
+
     const user = await User.findByPk(req.user.id);
     if (!user) return res.status(404).json({ error: 'User not found' });
-
-    await user.update(req.body);
-    res.json({ message: 'User updated successfully', user });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
+    
+    await user.update(updates);
+    res.json({ message: 'User updated', user });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
   }
 });
 
@@ -269,17 +276,16 @@ router.get('/', async (req, res) => {
 router.get('/me', verifyToken, async (req, res) => {
   try {
     const user = await User.findByPk(req.user.id, {
-      attributes: { exclude: ['password'] }, // Hide password field
+      attributes: { exclude: ['password'] },
+      include: [
+        { model: Hobby, as: 'hobbies' },
+        { model: Language, as: 'languages' }
+      ]
     });
-
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
-    }
-
+    if (!user) return res.status(404).json({ error: 'User not found' });
     res.json({ user });
-  } catch (error) {
-    console.error("GET /api/users/me error:", error);
-    res.status(500).json({ error: 'Failed to fetch user data' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -288,6 +294,10 @@ router.get('/:id', async (req, res) => {
   try {
     const user = await User.findByPk(req.params.id, {
       attributes: { exclude: ['password'] }, // avoid exposing password
+      include: [
+        { model: Hobby, as: 'hobbies' },
+        { model: Language, as: 'languages' }
+      ]
     });
 
     if (!user) {
@@ -403,5 +413,9 @@ router.put('/:id/setup', verifyToken, upload.single('profile_picture'), async (r
 // Hobby-related routes
 router.get("/:id/hobbies", userController.getUserHobbies);
 router.put("/:id/hobbies", verifyToken, userController.updateUserHobbies);
+
+// Language‐related routes
+router.get('/:id/languages', userController.getUserLanguages);
+router.put('/:id/languages', verifyToken, userController.updateUserLanguages);
 
 module.exports = router;

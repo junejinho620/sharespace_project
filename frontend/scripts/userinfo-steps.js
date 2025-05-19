@@ -1,208 +1,422 @@
-document.querySelectorAll('.options-grid').forEach(group => {
-  if (group.dataset.multiselect === 'true') return; // skip multi-select sections
-  const checkboxes = group.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      if (cb.checked) {
-        checkboxes.forEach(other => {
-          if (other !== cb) other.checked = false;
-        });
-      }
-    });
-  });
-});
-
-document.querySelectorAll('.emoji-rating').forEach(group => {
-  const checkboxes = group.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(cb => {
-    cb.addEventListener('change', () => {
-      if (cb.checked) {
-        checkboxes.forEach(other => {
-          if (other !== cb) other.checked = false;
-        });
-      }
-    });
-  });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-  // Allergies: Show/hide custom input for "Other"
-  const allergyOtherCheckbox = document.getElementById('allergy-other');
-  const allergyOtherInput = document.getElementById('allergy-other-input');
-  const allergyOtherText = allergyOtherInput ? allergyOtherInput.querySelector('input[type="text"]') : null;
-
-  if (allergyOtherCheckbox && allergyOtherInput) {
-    allergyOtherCheckbox.addEventListener('change', function () {
-      if (this.checked) {
-        allergyOtherInput.classList.remove('hidden');
-        allergyOtherText && allergyOtherText.focus();
-      } else {
-        allergyOtherInput.classList.add('hidden');
-        if (allergyOtherText) allergyOtherText.value = '';
-      }
-    });
-
-    // On page load, set correct visibility (handles browser autofill/refresh)
-    if (allergyOtherCheckbox.checked) {
-      allergyOtherInput.classList.remove('hidden');
-    } else {
-      allergyOtherInput.classList.add('hidden');
-      if (allergyOtherText) allergyOtherText.value = '';
-    }
-  }
-});
-
-// Inline validation on submit
-const form = document.querySelector('form');
-form.addEventListener('submit', e => {
-  e.preventDefault();
-  let valid = true;
-
-  form.querySelectorAll('[required]').forEach(field => {
-    const errorEl = field.parentNode.querySelector('.error');
-    if (!field.value.trim()) {
-      valid = false;
-      errorEl.hidden = false;
-    } else {
-      errorEl.hidden = true;
-    }
-  });
-
-  if (valid) {
-    // e.g. form.submit(); or your next-page logic here
-    console.log('All good – proceed');
-  }
-});
-
-// Language Selection
-const languages = [
-  "Afrikaans", "Arabic", "Bengali", "Cantonese", "Dutch", "English", "French", "German",
-  "Hindi", "Indonesian", "Italian", "Japanese", "Kannada", "Korean", "Malay", "Mandarin Chinese",
-  "Marathi", "Persian", "Polish", "Portuguese", "Punjabi", "Russian", "Spanish", "Swahili",
-  "Tamil", "Telugu", "Thai", "Turkish", "Ukrainian", "Urdu", "Vietnamese", "Other"
-];
-
-const optionsList = document.getElementById("language-options");
-const selectedBox = document.getElementById("selected-languages");
-
-function createLanguageList() {
-  languages.forEach(lang => {
-    const li = document.createElement("li");
-    li.textContent = lang;
-    li.onclick = () => toggleSelection(lang, li);
-    optionsList.appendChild(li);
-  });
-}
-
-const selected = new Set();
-
-function toggleSelection(lang, li) {
-  if (selected.has(lang)) {
-    selected.delete(lang);
-    li.classList.remove("selected");
-  } else {
-    selected.add(lang);
-    li.classList.add("selected");
-  }
-  updateSelectedDisplay();
-}
-
-function updateSelectedDisplay() {
-  selectedBox.innerHTML = "";
-  selected.forEach(lang => {
-    const tag = document.createElement("span");
-    tag.className = "language-tag";
-    tag.textContent = lang;
-    tag.onclick = () => {
-      // Deselect by clicking tag
-      selected.delete(lang);
-      document.querySelectorAll("#language-options li").forEach(li => {
-        if (li.textContent === lang) li.classList.remove("selected");
-      });
-      updateSelectedDisplay();
-    };
-    selectedBox.appendChild(tag);
-  });
-}
-
-function filterLanguages() {
-  const input = document.getElementById("languages-input").value.toLowerCase();
-  document.querySelectorAll("#language-options li").forEach(li => {
-    li.style.display = li.textContent.toLowerCase().includes(input) ? "block" : "none";
-  });
-}
-
-function toggleLanguageDropdown() {
-  optionsList.classList.toggle("hidden");
-}
-
-createLanguageList();
-
-
-// ----- Hobby Selection -----
 document.addEventListener('DOMContentLoaded', async () => {
-  const hobbyTags = document.getElementById('hobby-tags');
-  const hobbyDrop = document.getElementById('hobby-dropdown');
-  if (!hobbyTags || !hobbyDrop) return;
-
-  let allHobbies = [];
-  let selected = [];
-
-  try {
-    const res = await fetch('/api/hobbies');
-    if (!res.ok) throw new Error('Failed to fetch hobby list');
-    allHobbies = await res.json();
-  } catch (err) {
-    console.error('❌ Could not load hobbies:', err);
+  const token = localStorage.getItem('token');
+  if (!token) {
+    logoutAndRedirect();
     return;
   }
 
-  const renderHobbies = () => {
-    hobbyTags.innerHTML = '';
-    selected.forEach((hobby, i) => addTag(`${hobby.icon} ${hobby.name}`, () => openHobbySelect(i)));
-    if (selected.length < 3) addTag('+ Add hobby', () => openHobbySelect(selected.length));
-  };
+  try {
+    const user = await fetchCurrentUser(token);
 
-  const addTag = (text, callback) => {
-    const div = document.createElement('div');
-    div.className = 'hobby-tag';
-    div.textContent = text;
-    div.onclick = callback;
-    hobbyTags.appendChild(div);
-  };
+    const [prefs, hobbies, languages, feedback] = await Promise.all([
+      fetchRoommatePrefs(token),
+      fetchUserHobbies(user.id),
+      fetchUserLanguages(user.id),
+      fetchUserFeedback(user.id),
+    ]);
 
-  const openHobbySelect = (index) => {
-    hobbyDrop.innerHTML = '';
-    allHobbies.forEach(hobby => {
-      const option = document.createElement('option');
-      option.value = hobby.id;
-      option.textContent = `${hobby.icon} ${hobby.name}`;
-      if (selected[index] && selected[index].id === hobby.id) option.selected = true;
-      hobbyDrop.appendChild(option);
+    if (document.body.dataset.step === '1') {
+      populateStep1(user, prefs, hobbies, languages);
+      setupLanguageSelector(languages);
+      setupHobbySelector(hobbies);
+    }
+
+    if (document.body.dataset.step === '2') {
+      populateStep2(prefs);
+    }
+
+    if (document.body.dataset.step === '3') {
+      populateStep3(prefs);
+    }
+
+    if (document.body.dataset.step === '4') {
+      populateStep4(prefs);
+      applyAllergyOtherLogic();
+    }
+
+    if (document.body.dataset.step === '5') {
+      populateStep5(feedback);
+      applyEmojiRatingLogic();
+    }
+
+    applySingleSelectLogic();
+    setupValidation();
+
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', handleFormSubmit);
+    });
+  } catch (err) {
+    console.error('❌ Initialization failed:', err);
+    logoutAndRedirect();
+  }
+});
+
+// Fetch helper functions
+async function fetchCurrentUser(token) {
+  const res = await fetch('/api/users/me', { headers: { Authorization: `Bearer ${token}` } });
+  if (!res.ok) throw new Error('Unauthorized');
+  return (await res.json()).user;
+}
+
+async function fetchRoommatePrefs(token) {
+  const res = await fetch('/api/prefs/me', { headers: { Authorization: `Bearer ${token}` } });
+  return res.ok ? (await res.json()).prefs : {};
+}
+
+async function fetchUserHobbies(userId) {
+  const res = await fetch(`/api/users/${userId}/hobbies`, { headers: authHeader() });
+  return res.ok ? await res.json() : [];
+}
+
+async function fetchUserLanguages(userId) {
+  const res = await fetch(`/api/users/${userId}/languages`, { headers: authHeader() });
+  return res.ok ? await res.json() : [];
+}
+
+async function fetchUserFeedback(userId) {
+  const res = await fetch(`/api/feedback/${userId}`, { headers: authHeader() });
+  return res.ok ? (await res.json()).feedback : {};
+}
+
+function authHeader() {
+  return { Authorization: `Bearer ${localStorage.getItem('token')}` };
+}
+
+// Populate form steps
+function populateStep1(user, prefs, hobbies, languages) {
+  setCheckboxValue('gender', user.gender);
+  setCheckboxValue('age', user.age);
+  setInputValue('occupation', user.occupation);
+  setInputValue('wfh_days', prefs.wfh_days);
+  setInputValue('budget_min', prefs.budget_min);
+  setInputValue('budget_max', prefs.budget_max);
+  setCheckboxValue('stay', prefs.stay);
+  setSelectValue('nationality', user.nationality);
+  setSelectValue('cultural', user.cultural);
+  populateTags('hobby-tags', hobbies, 'icon', 'name');
+  populateLanguageTags(languages);
+}
+
+function populateStep2(prefs) {
+  setCheckboxValue('work_hours', prefs.work_hours);
+  setCheckboxValue('bedtime', prefs.bedtime);
+  setCheckboxValue('noise', prefs.noise);
+  setCheckboxValue('cleanliness', prefs.cleanliness);
+  setCheckboxValue('clean_freq', prefs.clean_freq);
+}
+
+function populateStep3(prefs) {
+  setCheckboxValue('pets', prefs.pets);
+  setCheckboxValue('smoking', prefs.smoking);
+  setCheckboxValue('alcohol', prefs.alcohol);
+  setMultiCheckboxValues('diet', prefs.diet || []);
+  setCheckboxValue('kitchen_sharing', prefs.kitchen_sharing);
+  setCheckboxValue('bathroom', prefs.bathroom);
+}
+
+function populateStep4(prefs) {
+  setCheckboxValue('own_guest_freq', prefs.own_guest_freq);
+  setCheckboxValue('roommate_guest', prefs.roommate_guest);
+  setCheckboxValue('social_vibe', prefs.social_vibe);
+  setCheckboxValue('roommate_gender', prefs.roommate_gender);
+  setCheckboxValue('lgbtq', prefs.lgbtq);
+  setMultiCheckboxValues('allergies', prefs.allergies || []);
+  setInputValue('allergy_custom', prefs.allergy_custom);
+}
+
+function populateStep5(feedback) {
+  setCheckboxValue('satisfaction', feedback.satisfaction);
+  setInputValue('feedback', feedback.feedback);
+}
+
+// Helper functions
+function setCheckboxValue(name, value) {
+  document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+    input.checked = String(input.value) === String(value);
+  });
+}
+
+function setMultiCheckboxValues(name, values) {
+  document.querySelectorAll(`input[name="${name}"]`).forEach(input => {
+    input.checked = values.includes(input.value);
+  });
+}
+
+function setInputValue(name, value) {
+  const input = document.querySelector(`[name="${name}"]`);
+  if (input) input.value = value || '';
+}
+
+function setSelectValue(name, value) {
+  const select = document.querySelector(`select[name="${name}"]`);
+  if (select) select.value = value || '';
+}
+
+function populateTags(containerId, items, iconKey, nameKey) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = '';
+  items.forEach(item => {
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = `${item[iconKey]} ${item[nameKey]}`;
+    container.appendChild(tag);
+  });
+}
+
+function populateLanguageTags(languages) {
+  const container = document.getElementById('selected-languages');
+  container.innerHTML = '';
+  languages.forEach(lang => {
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = lang.name;
+    container.appendChild(tag);
+  });
+}
+
+// Handle form submissions
+async function handleFormSubmit(e) {
+  e.preventDefault();
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.warn("Missing token in localStorage!");
+    console.warn("Current URL:", window.location.href);
+    return logoutAndRedirect();
+  }
+
+  const formData = new FormData(e.target);
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    if (!formData.has(cb.name) && cb.dataset.single !== "false") {
+      formData.append(cb.name, null);
+    }
+  });
+  ['budget_min', 'budget_max', 'wfh_days', 'noise', 'social_vibe'].forEach((key) => {
+    if (formData.has(key)) {
+      const val = formData.get(key);
+      formData.set(key, val === '' ? null : Number(val));
+    }
+  });
+
+  const data = {};
+  formData.forEach((value, key) => {
+    console.log(`🟨 ${key}:`, value);
+    if (data[key]) {
+      if (Array.isArray(data[key])) data[key].push(value);
+      else data[key] = [data[key], value];
+    } else {
+      data[key] = value;
+    }
+  });
+
+  let endpoint = '';
+  let method = 'PUT';
+  if (location.pathname.includes('step1')) {
+    // Split into two API requests for step1
+    const userPayload = {};
+    const prefPayload = {};
+
+    for (const [key, value] of formData.entries()) {
+      if (['gender', 'age', 'occupation', 'nationality', 'cultural'].includes(key)) {
+        userPayload[key] = value;
+      } else {
+        prefPayload[key] = value;
+      }
+    }
+
+    // Send user fields
+    await fetch('/api/users/me', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(userPayload),
     });
 
-    hobbyDrop.classList.remove('hidden');
-    hobbyDrop.onchange = () => {
-      const id = parseInt(hobbyDrop.value);
-      if (selected.some(h => h.id === id)) {
-        alert('You already selected this hobby.');
-        return;
-      }
-      selected[index] = allHobbies.find(h => h.id === id);
-      selected = selected.filter(Boolean);
-      hobbyDrop.classList.add('hidden');
-      renderHobbies();
+    // Send pref fields
+    await fetch('/api/prefs/me', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(prefPayload),
+    });
+
+    // ✅ Short-circuit to prevent sending a 3rd invalid request
+    const nextPage = getNextPage(location.pathname);
+    return (window.location.href = nextPage || 'dashboard.html');
+
+  } else if (location.pathname.includes('step2') || location.pathname.includes('step3') || location.pathname.includes('step4')) {
+    endpoint = '/api/prefs/me';
+  } else if (location.pathname.includes('step5')) {
+    endpoint = '/api/feedback';
+    method = 'POST';
+  }
+
+  try {
+    console.log("Submitting to:", endpoint);
+    console.log("User payload:", userPayload);
+    console.log("Prefs payload:", prefPayload);
+    console.log("Token:", token);
+    const res = await fetch(endpoint, {
+      method,
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify(data),
+    });
+
+    if (!res.ok) throw new Error('Failed to submit form');
+
+    const nextPage = getNextPage(location.pathname);
+    window.location.href = nextPage || 'dashboard.html';
+
+  } catch (err) {
+    console.error('❌ Submission error:', err);
+    alert('Error submitting the form.');
+  }
+}
+
+function getNextPage(path) {
+  if (path.includes('step1')) return 'userinfo-step2.html';
+  if (path.includes('step2')) return 'userinfo-step3.html';
+  if (path.includes('step3')) return 'userinfo-step4.html';
+  if (path.includes('step4')) return 'userinfo-step5.html';
+  return null;
+}
+
+// Utility: Logout if no token
+function logoutAndRedirect() {
+  localStorage.clear();
+  window.location.href = 'login.html';
+}
+
+
+// 1️⃣ Single-select checkbox logic
+function applySingleSelectLogic() {
+  document.querySelectorAll('.options-grid').forEach(group => {
+    if (group.dataset.multiselect === 'true') return;
+    const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.addEventListener('change', () => {
+      if (cb.checked) checkboxes.forEach(other => other !== cb && (other.checked = false));
+    }));
+  });
+}
+
+// 2️⃣ Emoji rating logic
+function applyEmojiRatingLogic() {
+  document.querySelectorAll('.emoji-rating').forEach(group => {
+    const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => cb.addEventListener('change', () => {
+      if (cb.checked) checkboxes.forEach(other => other !== cb && (other.checked = false));
+    }));
+  });
+}
+
+// 3️⃣ Allergy "Other" textbox logic
+function applyAllergyOtherLogic() {
+  const allergyOtherCheckbox = document.getElementById('allergy-other');
+  const allergyOtherInput = document.getElementById('allergy-other-input');
+  const allergyOtherText = allergyOtherInput?.querySelector('input[type="text"]');
+
+  if (allergyOtherCheckbox && allergyOtherInput) {
+    allergyOtherCheckbox.addEventListener('change', () => {
+      allergyOtherInput.classList.toggle('hidden', !allergyOtherCheckbox.checked);
+      if (allergyOtherCheckbox.checked) allergyOtherText?.focus();
+      else if (allergyOtherText) allergyOtherText.value = '';
+    });
+    allergyOtherInput.classList.toggle('hidden', !allergyOtherCheckbox.checked);
+  }
+}
+
+// 4️⃣ Inline validation logic
+function setupValidation() {
+  document.querySelectorAll('form').forEach(form => form.addEventListener('submit', e => {
+    let valid = true;
+    form.querySelectorAll('[required]').forEach(field => {
+      const errorEl = field.parentNode.querySelector('.error');
+      const isEmpty = !field.value.trim();
+      if (errorEl) errorEl.hidden = !isEmpty;
+      if (isEmpty) valid = false;
+    });
+    if (!valid) e.preventDefault();
+  }));
+}
+
+// 5️⃣ Language selector widget
+function setupLanguageSelector(selectedLanguages) {
+  const optionsList = document.getElementById("language-options");
+  const selectedBox = document.getElementById("selected-languages");
+  const selected = new Set(selectedLanguages.map(lang => lang.name));
+
+  fetch('/api/languages').then(res => res.json()).then(languages => {
+    languages.forEach(lang => {
+      const li = document.createElement("li");
+      li.textContent = lang.name;
+      li.onclick = () => {
+        selected.has(lang.name) ? selected.delete(lang.name) : selected.add(lang.name);
+        li.classList.toggle('selected');
+        updateSelectedDisplay();
+      };
+      if (selected.has(lang.name)) li.classList.add('selected');
+      optionsList.appendChild(li);
+    });
+    updateSelectedDisplay();
+  });
+
+  function updateSelectedDisplay() {
+    selectedBox.innerHTML = "";
+    selected.forEach(lang => {
+      const tag = document.createElement("span");
+      tag.className = "language-tag";
+      tag.textContent = lang;
+      tag.onclick = () => {
+        selected.delete(lang);
+        [...optionsList.children].forEach(li => li.textContent === lang && li.classList.remove('selected'));
+        updateSelectedDisplay();
+      };
+      selectedBox.appendChild(tag);
+    });
+  }
+
+  window.getSelectedLanguages = () => [...selected];
+}
+
+// 6️⃣ Hobby selection widget (limit 3)
+function setupHobbySelector(selectedHobbies) {
+  const hobbyTags = document.getElementById('hobby-tags');
+  const hobbyDrop = document.getElementById('hobby-dropdown');
+  let selected = selectedHobbies.slice();
+
+  fetch('/api/hobbies').then(res => res.json()).then(allHobbies => {
+    const render = () => {
+      hobbyTags.innerHTML = '';
+      selected.forEach((hobby, i) => addTag(`${hobby.icon} ${hobby.name}`, () => openSelect(i)));
+      if (selected.length < 3) addTag('+ Add hobby', () => openSelect(selected.length));
     };
-  };
+    const addTag = (text, cb) => {
+      const div = document.createElement('div');
+      div.className = 'hobby-tag';
+      div.textContent = text;
+      div.onclick = cb;
+      hobbyTags.appendChild(div);
+    };
+    const openSelect = idx => {
+      hobbyDrop.innerHTML = '';
+      allHobbies.forEach(h => {
+        const opt = new Option(`${h.icon} ${h.name}`, h.id, false, selected[idx]?.id === h.id);
+        hobbyDrop.add(opt);
+      });
+      hobbyDrop.classList.remove('hidden');
+      hobbyDrop.onchange = () => {
+        const id = parseInt(hobbyDrop.value);
+        if (selected.some(h => h.id === id)) return alert('Already selected');
+        selected[idx] = allHobbies.find(h => h.id === id);
+        hobbyDrop.classList.add('hidden');
+        render();
+      };
+    };
+    render();
+  });
 
-  renderHobbies();
-
-  // (Optional) expose selected hobbies to form submission
   window.getSelectedHobbyIds = () => selected.map(h => h.id);
-});
-
-// Loading spinner on primary button
-const primaryBtn = document.querySelector('.button--primary');
-form.addEventListener('submit', () => {
-  primaryBtn.classList.add('loading');
-});
+}

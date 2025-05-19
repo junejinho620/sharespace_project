@@ -12,7 +12,7 @@
   <script src="scripts/userinfo-steps.js" defer></script>
 </head>
 
-<body>
+<body data-step="1">
   <header class="header">
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
     <div style="display: flex; align-items: center; gap: 25px;">
@@ -423,14 +423,14 @@
         <select id="hobby-dropdown" class="hidden"></select>
         <p class="note">Click a tag to edit. Max 3 hobbies.</p>
       </section>
-    </form>
 
-    <div class="actions">
-      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
-        later</button>
-      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step2.html'">Next
-        Page</button>
-    </div>
+      <div class="actions">
+        <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
+          later</button>
+        <button class="button button--primary" type="submit">Next Page</button>
+      </div>
+
+    </form>
   </main>
 
   <hr class="solid">

@@ -12,7 +12,7 @@
   <script src="scripts/userinfo-steps.js" defer></script>
 </head>
 
-<body>
+<body data-step="3">
   <header class="header">
     <div class="brand" type="button" onclick="location.href='index.html'">ShareSpace</div>
     <div style="display: flex; align-items: center; gap: 25px;">
@@ -48,7 +48,7 @@
   <main class="container">
     <form>
       <h2 class="section-header">Household Preferences</h2>
-      
+
       <!-- Pets -->
       <section class="question-card">
         <h2 class="question-title">Do you have pets or allergies?</h2>
@@ -136,14 +136,14 @@
               class="option-label">Depends on the house layout</span></label>
         </div>
       </section>
-    </form>
 
-    <div class="actions">
-      <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
-        later</button>
-      <button class="button button--primary" type="submit" onclick="document.location='userinfo-step4.html'">Next
-        Page</button>
-    </div>
+      <div class="actions">
+        <button class="button button--secondary" type="button" onclick="document.location='dashboard.html'">Come back
+          later</button>
+        <button class="button button--primary" type="submit">Next Page</button>
+      </div>
+
+    </form>
   </main>
 
   <hr class="solid">

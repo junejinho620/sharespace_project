@@ -12,11 +12,13 @@ const Language = db.define('Language', {
   timestamps: false,
 });
 
-Language.belongsToMany(models.User, {
-  through: 'UserLanguage',
-  foreignKey: 'language_id',
-  otherKey: 'user_id',
-  as: 'users'
-});
+Language.associate = (models) => {
+  Language.belongsToMany(models.User, {
+    through: 'UserLanguage',
+    foreignKey: 'language_id',
+    otherKey: 'user_id',
+    as: 'users'
+  });
+};
 
-module.exports = Language;
+  module.exports = Language;
