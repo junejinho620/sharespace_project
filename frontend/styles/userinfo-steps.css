@@ -402,6 +402,7 @@ hr.solid {
   white-space: normal;
   text-overflow: ellipsis;
   overflow: hidden;
+  display: block;
 }
 
 #language-options li:hover {

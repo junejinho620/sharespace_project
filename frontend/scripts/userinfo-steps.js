@@ -183,6 +183,7 @@ async function handleFormSubmit(e) {
     console.warn("Current URL:", window.location.href);
     return logoutAndRedirect();
   }
+  const user = await fetchCurrentUser(token);
 
   const formData = new FormData(e.target);
   document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
@@ -243,6 +244,25 @@ async function handleFormSubmit(e) {
       body: JSON.stringify(prefPayload),
     });
 
+    // Send hobby fields
+    const hobbyIds = getSelectedHobbyIds();
+    await fetch(`/api/users/${user.id}/hobbies`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({ hobbyIds })
+    });
+
+    // Send language fields
+    const languageIds  = getSelectedLanguages();
+    await fetch(`/api/users/${user.id}/languages`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ languageIds })
+    });
+
     // ✅ Short-circuit to prevent sending a 3rd invalid request
     const nextPage = getNextPage(location.pathname);
     return (window.location.href = nextPage || 'dashboard.html');
@@ -255,10 +275,6 @@ async function handleFormSubmit(e) {
   }
 
   try {
-    console.log("Submitting to:", endpoint);
-    console.log("User payload:", userPayload);
-    console.log("Prefs payload:", prefPayload);
-    console.log("Token:", token);
     const res = await fetch(endpoint, {
       method,
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -346,34 +362,68 @@ function setupValidation() {
 function setupLanguageSelector(selectedLanguages) {
   const optionsList = document.getElementById("language-options");
   const selectedBox = document.getElementById("selected-languages");
-  const selected = new Set(selectedLanguages.map(lang => lang.name));
+  const input = document.getElementById("languages-input");
+  const selected = new Set(selectedLanguages.map(lang => lang.id));
+  let allLanguages = [];
 
-  fetch('/api/languages').then(res => res.json()).then(languages => {
-    languages.forEach(lang => {
-      const li = document.createElement("li");
-      li.textContent = lang.name;
-      li.onclick = () => {
-        selected.has(lang.name) ? selected.delete(lang.name) : selected.add(lang.name);
-        li.classList.toggle('selected');
-        updateSelectedDisplay();
-      };
-      if (selected.has(lang.name)) li.classList.add('selected');
-      optionsList.appendChild(li);
-    });
-    updateSelectedDisplay();
+  // 1. Toggle the dropdown when you click the input
+  input.addEventListener("click", () => {
+    optionsList.classList.toggle("hidden");
   });
+
+  // 2. Filter the <li> based on what’s typed
+  input.addEventListener("input", () => {
+    const q = input.value.toLowerCase();
+    // show/hide each <li>
+    Array.from(optionsList.children).forEach(li => {
+      const matches = li.textContent.toLowerCase().includes(q);
+      li.style.display = matches ? "block" : "none";
+    });
+  });
+
+  // 3. Fetch list of languages 
+  fetch('/api/languages')
+    .then(res => res.json())
+    .then(languages => {
+      allLanguages = languages; // cache for name lookups
+      languages.forEach(lang => {
+        const li = document.createElement("li");
+        li.textContent = lang.name;
+        li.dataset.id = lang.id;    // tag the element with its ID
+
+        li.addEventListener("click", () => {
+          const id = lang.id;
+          if (selected.has(id)) selected.delete(id);
+          else selected.add(id);
+          li.classList.toggle("selected");
+          updateSelectedDisplay();
+        });
+
+        if (selected.has(lang.id)) li.classList.add("selected");
+        optionsList.appendChild(li);
+      });
+      updateSelectedDisplay();
+    });
 
   function updateSelectedDisplay() {
     selectedBox.innerHTML = "";
-    selected.forEach(lang => {
+    // now selected contains IDs; look up each name
+    selected.forEach(id => {
+      const lang = allLanguages.find(l => l.id === id);
+      if (!lang) return;
       const tag = document.createElement("span");
       tag.className = "language-tag";
-      tag.textContent = lang;
-      tag.onclick = () => {
-        selected.delete(lang);
-        [...optionsList.children].forEach(li => li.textContent === lang && li.classList.remove('selected'));
+      tag.textContent = lang.name;
+
+      tag.addEventListener("click", () => {
+        selected.delete(id);
+        // un-highlight the <li>
+        Array.from(optionsList.children)
+          .find(li => Number(li.dataset.id) === id)
+          ?.classList.remove("selected");
         updateSelectedDisplay();
-      };
+      });
+
       selectedBox.appendChild(tag);
     });
   }
