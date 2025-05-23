@@ -74,7 +74,7 @@ async function fetchUserLanguages(userId) {
 }
 
 async function fetchUserFeedback(userId) {
-  const res = await fetch(`/api/feedback/${userId}`, { headers: authHeader() });
+  const res = await fetch(`/api/feedbacks/${userId}`, { headers: authHeader() });
   return res.ok ? (await res.json()).feedback : {};
 }
 
@@ -191,7 +191,7 @@ async function handleFormSubmit(e) {
       formData.append(cb.name, null);
     }
   });
-  ['budget_min', 'budget_max', 'wfh_days', 'noise', 'social_vibe'].forEach((key) => {
+  ['budget_min', 'budget_max', 'wfh_days', 'noise', 'social_vibe', 'satisfaction'].forEach((key) => {
     if (formData.has(key)) {
       const val = formData.get(key);
       formData.set(key, val === '' ? null : Number(val));
@@ -270,7 +270,7 @@ async function handleFormSubmit(e) {
   } else if (location.pathname.includes('step2') || location.pathname.includes('step3') || location.pathname.includes('step4')) {
     endpoint = '/api/prefs/me';
   } else if (location.pathname.includes('step5')) {
-    endpoint = '/api/feedback';
+    endpoint = '/api/feedbacks';
     method = 'POST';
   }
 

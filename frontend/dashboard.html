@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,12 +60,13 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       max-width: 1600px;
-      margin: 40px auto;
+      margin: 120px auto 50px;
       gap: 40px;
       padding: 0 40px;
     }
 
-    .left-section, .right-section {
+    .left-section,
+    .right-section {
       display: flex;
       flex-direction: column;
       gap: 30px;
@@ -76,7 +78,9 @@
       padding: 50px;
     }
 
-    .profile-title, .traits-title, .section-title {
+    .profile-title,
+    .traits-title,
+    .section-title {
       font-size: 34px;
       font-weight: 800;
       margin-bottom: 25px;
@@ -127,7 +131,8 @@
       top: 0;
     }
 
-    .bar-left, .bar-right {
+    .bar-left,
+    .bar-right {
       width: 70px;
       text-align: center;
       font-size: 15px;
@@ -189,8 +194,9 @@
       width: 100%;
       display: block;
     }
+
     .traits-card.cozy {
-    background: linear-gradient(135deg, #fdf6e3, #ffdad4);
+      background: linear-gradient(135deg, #fdf6e3, #ffdad4);
     }
 
     .traits-card.disco {
@@ -241,7 +247,7 @@
       cursor: default;
     }
 
-      .quick-metrics {
+    .quick-metrics {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -271,14 +277,13 @@
       text-align: center;
     }
 
-
-
     .metric-card p {
       font-size: 20px;
       color: #666;
     }
 
-    .match-item, .activity-item {
+    .match-item,
+    .activity-item {
       background-color: #f9f7f2;
       padding: 14px;
       border-radius: 10px;
@@ -287,9 +292,11 @@
       transition: background-color 0.3s;
     }
 
-    .match-item:hover, .activity-item:hover {
+    .match-item:hover,
+    .activity-item:hover {
       background-color: #f1ede7;
     }
+
     .progress-bar {
       background-color: #eee;
       border-radius: 30px;
@@ -301,7 +308,8 @@
 
     .progress-fill {
       height: 100%;
-      width: 70%; /* Adjust dynamically if needed */
+      width: 70%;
+      /* Adjust dynamically if needed */
       background: linear-gradient(90deg, #e8b370, #c6884b);
       border-radius: 30px;
       transition: width 0.4s ease-in-out;
@@ -315,6 +323,7 @@
       margin-top: 5px;
       margin-right: 5px;
     }
+
     .cta-container {
       text-align: center;
       margin-top: 15px;
@@ -335,8 +344,6 @@
     .cta-button:hover {
       background-color: #a66e36;
     }
-
-
 
     /* Quote section card */
     .quote-card {
@@ -369,8 +376,9 @@
       padding: 16px;
       text-align: center;
       border-radius: 16px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
     }
+
     .quote-badge-wrapper {
       display: flex;
       flex-direction: column;
@@ -406,26 +414,21 @@
       font-weight: bold;
       font-size: 14px;
       font-style: normal;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
+
     .quotes {
       background: white;
       border-radius: 18px;
       padding: 37px;
     }
-
-
   </style>
+  <script src="scripts/navbar.js" defer></script>
+  <link rel="stylesheet" href="styles/shared/general.css">
 </head>
-<body>
-  <header>
-    <div class="header-left">ShareSpace</div>
-    <div class="header-right">
-      <a href="index.html">Home</a>
-      <a href="browse.html">Browse</a>
 
-    </div>
-  </header>
+<body>
+  <div id="header-placeholder"></div>
 
   <div class="main-grid">
     <div class="left-section">
@@ -441,17 +444,23 @@
         </div>
         <div class="bar-row">
           <div class="bar-left" style="color: #b08ae4">90%<br>Introvert</div>
-          <div class="bar-container"><div class="bar-fill bar-purple"></div></div>
+          <div class="bar-container">
+            <div class="bar-fill bar-purple"></div>
+          </div>
           <div class="bar-right">10%<br>Extrovert</div>
         </div>
         <div class="bar-row">
           <div class="bar-left" style="color: #1e90ff">95%<br>Tidy</div>
-          <div class="bar-container"><div class="bar-fill bar-blue"></div></div>
+          <div class="bar-container">
+            <div class="bar-fill bar-blue"></div>
+          </div>
           <div class="bar-right">5%<br>Messy</div>
         </div>
         <div class="bar-row">
           <div class="bar-left">7%<br>Loud</div>
-          <div class="bar-container"><div class="bar-fill bar-pink"></div></div>
+          <div class="bar-container">
+            <div class="bar-fill bar-pink"></div>
+          </div>
           <div class="bar-right" style="color: #e25594">93%<br>Quiet</div>
         </div>
       </div>
@@ -499,18 +508,27 @@
         <div class="cta-container">
           <button class="cta-button">Finish Set Up</button>
         </div>
-        
+
       </div>
-      
-      
+
+
       <div class="card">
         <div class="profile-title">Quick Metrics</div>
         <div class="quick-metrics">
-          <div class="metric-card"><p>Matches</p><h2>5</h2></div>
-          <div class="metric-card"><p>Messages</p><h2>2</h2></div>
-          <div class="metric-card"><p>Views</p><h2>12</h2></div>
+          <div class="metric-card">
+            <p>Matches</p>
+            <h2>5</h2>
+          </div>
+          <div class="metric-card">
+            <p>Messages</p>
+            <h2>2</h2>
+          </div>
+          <div class="metric-card">
+            <p>Views</p>
+            <h2>12</h2>
+          </div>
         </div>
-        
+
       </div>
 
       <div class="card">
@@ -529,9 +547,9 @@
       <div class="card quote-badge-wrapper" id="quoteCard">
         <div class="quote" id="quoteText">“Loading quote...”</div>
         <div class="author" id="quoteAuthor"></div>
-        
+
       </div>
-      
+
     </div>
   </div>
 
