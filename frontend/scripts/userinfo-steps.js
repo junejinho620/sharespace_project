@@ -297,6 +297,7 @@ function getNextPage(path) {
   if (path.includes('step2')) return 'userinfo-step3.html';
   if (path.includes('step3')) return 'userinfo-step4.html';
   if (path.includes('step4')) return 'userinfo-step5.html';
+  if (path.includes('step5')) return 'ai-results-loading.html';
   return null;
 }
 

@@ -1,0 +1,76 @@
+/* ========== Global Layout ========== */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fff;
+  color: #222;
+  margin: 0;
+  padding: 40px 80px;
+  box-sizing: border-box;
+}
+
+/* Header */
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: #bda98b;
+  cursor: pointer;
+  margin-bottom: 40px;
+}
+
+/* Full-viewport flex container */
+.loading-page {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  background: #fff;
+  /* center header horizontally */
+  align-items: center;
+}
+
+/* Centered main area */
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image wrapper */
+.image-container {
+  width: 400px;     /* or whatever fits your artwork */
+  margin-bottom: 40px;
+}
+
+.image-container img {
+  width: 100%;
+  display: block;
+}
+
+/* Spinner styling */
+.loader {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 20px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+/* Keyframes for spinner rotation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Primary loading line */
+.loading-text {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+/* Secondary loading line */
+.loading-subtext {
+  font-size: 18px;
+}
