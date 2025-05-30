@@ -13,6 +13,10 @@ const UserHobby = require("./UserHobby");
 const Feedback = require("./Feedback");
 const Language = require("./Language");
 const UserLanguage = require("./UserLanguage");
+const Fomi = require("./Fomi");
+const FomiRelation = require("./FomiRelation");
+const UserFomi = require("./UserFomi");
+
 
 // Initialize model associations
 const models = {
@@ -25,6 +29,9 @@ const models = {
   Feedback,
   Language,
   UserLanguage,
+  Fomi,
+  FomiRelation,
+  UserFomi,
 };
 
 // Call associate functions if defined
