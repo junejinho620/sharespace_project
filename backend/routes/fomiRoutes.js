@@ -67,51 +67,57 @@ function mapHobby(arr) {
 }
 
 router.get('/users/me/fomi', verifyToken, async (req, res) => {
-    try {
-      // 1. Load this user’s prefs
-      const prefs = await db.RoommatePref.findOne({
-        where: { user_id: req.user.id },
-        // if you store hobbies in a separate table, join/include that here
-      });
-      if (!prefs) {
-        return res.status(404).json({ error: 'Preferences not found' });
-      }
-
-      // 2. Translate into Q-codes
-      const answers = {
-        Q12: numToLetter(prefs.noise_tolerance),
-        Q23: numToLetter(prefs.social_vibe || prefs.introvert),
-        Q13: mapCleanliness(prefs.cleanliness),
-        Q14: mapDeepClean(prefs.deep_clean_freq),
-        Q22: mapGuests(prefs.guest_policy),
-        Q11: mapBedtime(prefs.sleep_schedule),
-        Q10: mapWorkHours(prefs.work_hours),
-        Q19: mapKitchen(prefs.kitchen_sharing),
-        Q24: mapGender(prefs.gender_preference),
-        Q26: (prefs.allergies && prefs.allergies.length) ? 'any' : 'none',
-        Q21: mapOvernight(prefs.overnight_guests),
-        Q9: mapHobby(prefs.hobbies || []),
-      };
-
-      // 3. Call the Flask service
-      const flaskRes = await axios.post(
-        'http://127.0.0.1:5001/api/match_fomi',
-        answers
-      );
-
-      const { matchedFomi } = flaskRes.data;
-
-      // 4. Save back to your User record & return
-      await db.User.update(
-        { fomi_type: matchedFomi },
-        { where: { id: req.user.id } }
-      );
-      return res.json({ matchedFomi });
-    } catch (err) {
-      console.error('Fomi match error', err);
-      return res.status(500).json({ error: err.message });
+  try {
+    // 1. Load this user’s prefs
+    const prefs = await db.RoommatePref.findOne({
+      where: { user_id: req.user.id },
+      // if you store hobbies in a separate table, join/include that here
+    });
+    if (!prefs) {
+      return res.status(404).json({ error: 'Preferences not found' });
     }
+
+    // 2. Translate into Q-codes
+    const answers = {
+      Q12: numToLetter(prefs.noise_tolerance),
+      Q23: numToLetter(prefs.social_vibe || prefs.introvert),
+      Q13: mapCleanliness(prefs.cleanliness),
+      Q14: mapDeepClean(prefs.deep_clean_freq),
+      Q22: mapGuests(prefs.guest_policy),
+      Q11: mapBedtime(prefs.sleep_schedule),
+      Q10: mapWorkHours(prefs.work_hours),
+      Q19: mapKitchen(prefs.kitchen_sharing),
+      Q24: mapGender(prefs.gender_preference),
+      Q26: (prefs.allergies && prefs.allergies.length) ? 'any' : 'none',
+      Q21: mapOvernight(prefs.overnight_guests),
+      Q9: mapHobby(prefs.hobbies || []),
+    };
+
+    // 3. Call the Flask service
+    const flaskRes = await axios.post(
+      'http://127.0.0.1:5001/api/match_fomi',
+      answers
+    );
+
+    const { matchedFomi } = flaskRes.data;
+
+    // 4) Upsert into UserFomi (one-to-one)
+    const [record, created] = await db.UserFomi.findOrCreate({
+      where: { user_id: req.user.id },
+      defaults: { fomi_name: matchedFomi }
+    });
+
+    if (!created) {
+      // Already exists, so update
+      await record.update({ fomi_name: matchedFomi });
+    }
+
+    // 5) Return the matched Fomi
+    return res.json({ matchedFomi });
+  } catch (err) {
+    console.error('Fomi match error', err);
+    return res.status(500).json({ error: err.message });
   }
-);
+});
 
 module.exports = router;
