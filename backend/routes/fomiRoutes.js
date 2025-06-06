@@ -66,6 +66,7 @@ function mapHobby(arr) {
   return 's';
 }
 
+// GET /api/users/me/fomi
 router.get('/users/me/fomi', verifyToken, async (req, res) => {
   try {
     // 1. Load this user’s prefs
@@ -116,6 +117,49 @@ router.get('/users/me/fomi', verifyToken, async (req, res) => {
     return res.json({ matchedFomi });
   } catch (err) {
     console.error('Fomi match error', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/fomis/:name/details - returns { name, photo_url, traits, bestMatches: [...], worstMatches: [...] }
+router.get('/fomis/:name/details', async (req, res) => {
+  try {
+    const name = req.params.name;
+
+    // 1) Fetch the Fomi itself
+    const fomi = await db.Fomi.findByPk(name);
+    if (!fomi) {
+      return res.status(404).json({ error: 'Fomi not found' });
+    }
+
+    // 2) Find best matches
+    const bestRows = await db.FomiRelation.findAll({
+      where: {
+        source_fomi: name,
+        relation_type: 'best'
+      }
+    });
+    const bestMatches = bestRows.map(r => r.target_fomi);
+
+    // 3) Find worst matches
+    const worstRows = await db.FomiRelation.findAll({
+      where: {
+        source_fomi: name,
+        relation_type: 'worst'
+      }
+    });
+    const worstMatches = worstRows.map(r => r.target_fomi);
+
+    // 4) Return everything
+    return res.json({
+      name: fomi.name,
+      photo_url: fomi.photo_url,
+      traits: fomi.traits,
+      bestMatches,
+      worstMatches
+    });
+  } catch (err) {
+    console.error('Error fetching Fomi details:', err);
     return res.status(500).json({ error: err.message });
   }
 });

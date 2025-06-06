@@ -1,0 +1,519 @@
+.main-grid {
+  display: flex;
+  gap: 40px;
+  width: 100%;
+  padding: 0 5%;
+  margin-top: 120px;
+  margin-bottom: 60px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.left-section,
+.right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.left-section {
+  gap: 40px; /* was 30px; now a bit more breathing room */
+}
+
+
+@media (max-width: 1200px) {
+  .main-grid {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .traits-upper,
+  .traits-lower {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .quick-metrics {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .traits-card {
+    width: 90%;
+  }
+
+  .profile-title,
+  .traits-title,
+  .section-title {
+    font-size: 24px;
+  }
+
+  .metric-card h2 {
+    font-size: 28px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fefbf8;
+  color: #333;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 40px 50px;
+}
+
+.profile-title,
+.traits-title,
+.section-title {
+  font-size: 34px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.profile-img {
+  display: block;
+  margin: 0 auto 20px;
+  height: 200px;
+}
+
+.profile-label {
+  text-align: center;
+  font-weight: 600;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.profile-desc {
+  text-align: center;
+  color: #666;
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 500px;
+  margin: 0 auto 30px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.bar-container {
+  flex: 1;
+  height: 48px;
+  background-color: #eee;
+  border-radius: 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.bar-left,
+.bar-right {
+  width: 70px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.bar-purple {
+  background-color: #b08ae4;
+  left: 0;
+  width: 90%;
+  border-radius: 24px 0 0 24px;
+}
+
+.bar-blue {
+  background-color: #47a8e8;
+  left: 0;
+  width: 95%;
+  border-radius: 24px 0 0 24px;
+}
+
+.bar-pink {
+  background-color: #f490c0;
+  right: 0;
+  width: 93%;
+  border-radius: 0 24px 24px 0;
+}
+
+.traits-grid {
+
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.traits-upper {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+}
+
+.traits-lower {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+}
+
+.traits-card {
+  position: relative;
+  padding: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 240px;
+  text-align: center;
+}
+
+.traits-card img {
+  width: 100%;
+  display: block;
+}
+
+.traits-card.cozy {
+  background: linear-gradient(135deg, #fdf6e3, #ffdad4);
+}
+
+.traits-card.disco {
+  background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+}
+
+.traits-label {
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 5px 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.tag:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.traits-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  transition: transform 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: scale(1.03);
+  transition: transform 1s ease;
+  cursor: default;
+}
+
+.quick-metrics {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.metric-card h2 {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f5e9db;
+  color: #c6884b;
+  font-size: 18px;
+  line-height: 50px;
+  text-align: center;
+  margin: 0;
+}
+
+.metric-card p {
+  margin: 0;
+  font-size: 14px;
+  color: #444;
+  font-weight: 500;
+}
+
+.match-item,
+.activity-item {
+  background-color: #f9f7f2;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.match-item:hover,
+.activity-item:hover {
+  background-color: #f1ede7;
+}
+
+.progress-bar {
+  background-color: #eee;
+  border-radius: 30px;
+  height: 24px;
+  overflow: hidden;
+  margin: 10px 0;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-fill {
+  height: 100%;
+  width: 70%;
+  /* Adjust dynamically if needed */
+  background: linear-gradient(90deg, #e8b370, #c6884b);
+  border-radius: 30px;
+  transition: width 0.4s ease-in-out;
+}
+
+.progress-text {
+  text-align: right;
+  font-size: 14px;
+  font-weight: 600;
+  color: #444;
+  margin-top: 5px;
+  margin-right: 5px;
+}
+
+.cta-container {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.cta-button {
+  background-color: #c6884b;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #a66e36;
+}
+
+/* Quote section card */
+.quote-card {
+  background-color: #fff8ef;
+  border-left: 4px solid #f4d19b;
+  padding: 24px 30px;
+  font-style: italic;
+  text-align: left;
+  color: #543310;
+}
+
+.quote-text {
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.quote-author {
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: right;
+}
+
+/* Badge card */
+.badge-card {
+  background: linear-gradient(to right, #ffd89b, #ffb347);
+  font-size: 14px;
+  font-weight: bold;
+  color: #543310;
+  padding: 16px;
+  text-align: center;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.quote-badge-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background-color: #fff8ef;
+  border-radius: 18px;
+  font-size: 15px;
+  color: #543310;
+  line-height: 1.6;
+  font-style: italic;
+}
+
+.quote {
+  position: relative;
+  padding-left: 16px;
+  border-left: 4px solid #f4d19b;
+}
+
+.author {
+  text-align: right;
+  font-size: 13px;
+  font-weight: bold;
+  font-style: normal;
+  margin-top: 8px;
+}
+
+.badge {
+  background: linear-gradient(to right, #ffd89b, #ffb347);
+  text-align: center;
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 14px;
+  font-style: normal;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.quotes {
+  background: white;
+  border-radius: 18px;
+  padding: 37px;
+}
+
+
+.partners-container {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+/* Each wrapper holds a header + the actual card */
+.partner-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 1 260px;  /* same minimum width as .partner-card */
+}
+
+.partner-header {
+  font-size: 18px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.partner-wrapper .partner-card {
+  margin-top: 0;
+}
+
+/* Common partner‐card styling */
+.partner-card {
+  flex: 1 1 260px;              /* grow/shrink, min-width: 260px */
+  background-color: #f0f0f0;    /* fallback; overwritten by .best-card / .worst-card */
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Hover effect to lift the card slightly */
+.partner-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+/* Best‐match card background (light green) */
+.best-card {
+  background: linear-gradient(
+    135deg,
+    rgba(210,250,210,0.9) 0%,
+    rgba(180,240,180,0.9) 100%
+  );
+}
+
+/* Worst‐match card background (light peach/orange) */
+.worst-card {
+  background: linear-gradient(
+    135deg,
+    rgba(255,235,215,0.9) 0%,
+    rgba(255,210,175,0.9) 100%
+  );
+}
+
+/* Container around the Fomi image */
+.partner-card img {
+  width: 100%;
+  max-width: 180px;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  object-fit: cover;
+}
+
+/* Fomi name styling */
+.partner-name {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* One‐line description under the name */
+.partner-desc {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+/* (Optional) A small separator line */
+.partner-card hr {
+  border: none;
+  height: 1px;
+  background-color: rgba(0,0,0,0.1);
+  margin: 12px auto;
+  width: 50%;
+}
