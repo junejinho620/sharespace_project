@@ -1,7 +1,51 @@
-// public/scripts/dashboard.js
-
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const compRes = await fetch('/api/users/me/completion', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (compRes.ok) {
+        const { percent } = await compRes.json();
+        document.querySelector('.progress-fill').style.width = `${percent}%`;
+        document.querySelector('.progress-text').innerText = `${percent}% Complete`;
+      } else {
+        console.warn('Failed to fetch completion status');
+      }
+    }
+
+    document.querySelector('.cta-button')?.addEventListener('click', async () => {
+      const res = await fetch('/api/users/me/completion', {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const { incompleteFields } = await res.json();
+
+      if (incompleteFields.length === 0) {
+        alert("✅ Your profile is already complete!");
+        return;
+      }
+
+      const fieldToPage = {
+        // step 1
+        gender: 1, age: 1, occupation: 1, wfh_days: 1, budget_min: 1, budget_max: 1, stay: 1,
+        // step 2
+        work_hours: 2, bedtime: 2, noise: 2, cleanliness: 2, clean_freq: 2,
+        // step 3
+        pets: 3, smoking: 3, alcohol: 3, diet: 3, kitchen_sharing: 3, bathroom: 3,
+        // step 4
+        own_guest_freq: 4, roommate_guest: 4, social_vibe: 4, roommate_gender: 4, lgbtq: 4, allergies: 4, allergy_custom: 4
+      };
+
+      let lowestStep = 5;
+      incompleteFields.forEach(field => {
+        if (fieldToPage[field] && fieldToPage[field] < lowestStep) {
+          lowestStep = fieldToPage[field];
+        }
+      });
+
+      window.location.href = `/userinfo-step${lowestStep}.html`;
+    });
+
     // 1) Grab matchedFomi from localStorage
     const matchedFomi = localStorage.getItem('matchedFomi');
     if (!matchedFomi) {
@@ -117,6 +161,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 7) Call the helper for both best and worst
     await renderPartnerCard('best-partner', bestName, 'best-card');
     await renderPartnerCard('worst-partner', worstName, 'worst-card');
+
+    // 8) Navigate user to pricing plan
+    document.getElementById('upgrade-button')?.addEventListener('click', () => {
+      window.location.href = '/pricing.html';
+    });
   }
   catch (err) {
     console.error('Error populating dashboard:', err);

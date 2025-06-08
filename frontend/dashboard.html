@@ -77,49 +77,100 @@
     </div>
 
     <div class="right-section">
+      <!-- ===== 1) Profile Completion ===== -->
       <div class="card">
         <div class="section-title">Profile Completion</div>
         <div class="progress-bar">
-          <div class="progress-fill"></div>
+          <div class="progress-fill" style="width: 0%;"></div>
         </div>
-        <div class="progress-text">70% Complete</div>
+        <div class="progress-text">--% Complete</div>
         <div class="cta-container">
           <button class="cta-button">Finish Set Up</button>
         </div>
       </div>
 
-      <div class="card">
-        <div class="profile-title">Quick Metrics</div>
-        <div class="quick-metrics">
-          <div class="metric-card">
-            <h2>5</h2>
-            <p>Matches</p>
+      <!-- ===== 2) Notifications & Inbox (Side-by-Side) ===== -->
+      <div class="side-by-side">
+
+        <!-- ──── 2a) Notifications ──── -->
+        <div class="card small-card">
+          <div class="section-title">Notifications</div>
+          <div class="activity-item">
+            <i class="fas fa-heart" style="color: #c6884b; margin-right: 8px;"></i>
+            John liked your profile
+            <span class="timestamp">2h ago</span>
           </div>
-          <div class="metric-card">
-            <h2>12</h2>
-            <p>Messages</p>
+          <div class="activity-item">
+            <i class="fas fa-user-friends" style="color: #47a8e8; margin-right: 8px;"></i>
+            Jane matched with you
+            <span class="timestamp">1d ago</span>
           </div>
-          <div class="metric-card">
-            <h2>2</h2>
-            <p>Veiws</p>
+          <div class="activity-item">
+            <i class="fas fa-eye" style="color: #b08ae4; margin-right: 8px;"></i>
+            Alex viewed your profile
+            <span class="timestamp">2d ago</span>
+          </div>
+        </div>
+
+        <!-- ──── 2b) Inbox ──── -->
+        <div class="card small-card">
+          <div class="section-title">Inbox</div>
+          <div class="message-preview">
+            <strong>Emma:</strong> Hey, I’m also a rising junior!
+          </div>
+          <div class="message-preview">
+            <strong>Kevin:</strong> I’d love to chat more!
+          </div>
+          <div class="cta-container" style="margin-top: 40px;">
+            <button class="cta-button">Go to Messages</button>
           </div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="section-title">Your Top Matches</div>
-        <div class="match-item">Jane, 24 — 92% Match</div>
-        <div class="match-item">Kevin, 27 — 89% Match</div>
-        <div class="match-item">Emma, 22 — 87% Match</div>
+      <!-- ===== 3) Insights & Suggestions (Paid-only, Blurred) ===== -->
+      <div class="card paid-section">
+        <!-- 3a) All content inside .paid-content is blurred for unpaid users -->
+        <div class="paid-content">
+
+          <!-- ──── 3a.i) Insights & Analytics ──── -->
+          <div class="insights">
+            <div class="section-title">Insights &amp; Analytics</div>
+            <ul class="insights-list">
+              <li>You’ve had <strong>12</strong> profile views this week (+30%)</li>
+              <li>Users who match your style are most active at <strong>10PM – 1AM</strong></li>
+              <li>You’re in the top <strong>10%</strong> of matches</li>
+            </ul>
+          </div>
+
+          <!-- ──── 3a.ii) Roommate Suggestions ──── -->
+          <div class="suggestions">
+            <div class="section-title">Roommate Suggestions</div>
+
+            <div class="suggestion-card">
+              <div class="suggestion-name">Maya, 24 — 89% Match</div>
+              <div class="suggestion-traits">Quiet & Tidy</div>
+              <button class="cta-button small">View Profile</button>
+            </div>
+
+            <div class="suggestion-card">
+              <div class="suggestion-name">Alex, 27 — 85% Match</div>
+              <div class="suggestion-traits">Balanced & Social</div>
+              <button class="cta-button small">View Profile</button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 3b) Semi-transparent overlay on top, prompting upgrade -->
+        <div class="paid-overlay">
+          <div class="lock-container">
+            <i class="fas fa-lock"></i>
+            <p>Unlock Insights &amp; Roommate Suggestions with Premium</p>
+            <button class="cta-button" id="upgrade-button">Upgrade Now</button>
+          </div>
+        </div>
       </div>
 
-      <div class="quotes">
-        <div class="section-title">Recent Activities</div>
-        <div class="activity-item">You matched with Jane.</div>
-        <div class="activity-item">John viewed your profile.</div>
-        <div class="activity-item">Anna liked your profile.</div>
-      </div>
-      
       <div class="card quote-badge-wrapper" id="quoteCard">
         <div class="quote" id="quoteText">“Loading quote...”</div>
         <div class="author" id="quoteAuthor"></div>

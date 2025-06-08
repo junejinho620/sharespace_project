@@ -183,7 +183,7 @@ router.put('/me', verifyToken, async (req, res) => {
 
     const user = await User.findByPk(req.user.id);
     if (!user) return res.status(404).json({ error: 'User not found' });
-    
+
     await user.update(updates);
     res.json({ message: 'User updated', user });
   } catch (err) {
@@ -369,7 +369,6 @@ router.post('/reset-password', async (req, res) => {
   }
 });
 
-
 // Multer setup for image upload
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -407,6 +406,67 @@ router.put('/:id/setup', verifyToken, upload.single('profile_picture'), async (r
   } catch (error) {
     console.error(error);
     res.status(400).json({ error: error.message });
+  }
+});
+
+// GET /api/users/me/completion - Calculate the user's profile completion percentage
+router.get('/me/completion', verifyToken, async (req, res) => {
+  try {
+    const userId = req.user.id;
+
+    // 1) Define your required core profile fields
+    const profileFields = [
+      'firstName',
+      'lastName',
+      'email',
+      'dateOfBirth',
+      'gender',
+      'photoUrl'
+    ];
+
+    // 2) Define your required preference fields (from userinfo-steps)
+    const prefFields = [
+      'work_hours',
+      'bedtime',
+      'noise',
+      'cleanliness',
+      'clean_freq'
+    ];
+
+    // 3) Fetch the user and their prefs
+    const [user, prefs] = await Promise.all([
+      User.findByPk(userId),
+      RoommatePref.findOne({ where: { user_id: userId } })
+    ]);
+
+    // 4) Count how many fields are non‐empty
+    let filled = 0;
+    const incomplete = [];
+
+
+    profileFields.forEach(f => {
+      if (user[f] !== null && user[f] !== '') {
+        filled++;
+      } else {
+        incomplete.push(f);
+      }
+    });
+
+    prefFields.forEach(f => {
+      if (prefs && prefs[f] !== null && prefs[f] !== '') { 
+        filled++;
+      } else {
+        incomplete.push(f);
+      }
+    });
+
+    const total = profileFields.length + prefFields.length;
+    const percent = Math.round((filled / total) * 100);
+
+    return res.json({ percent, incompleteFields: incomplete });
+  } catch (err) {
+    console.error('Error computing completion:', err);
+    return res.status(500).json({ error: 'Server error' });
   }
 });
 
