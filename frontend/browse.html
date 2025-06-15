@@ -55,15 +55,13 @@
         <!-- Age -->
         <div class="filter-group">
           <label>Age</label>
-          <div class="dual-slider">
-            <div class="slider-track"></div>
-            <input type="range" id="ageRangeMin" min="18" max="70" step="1" value="18">
-            <input type="range" id="ageRangeMax" min="18" max="70" step="1" value="70">
-          </div>
-          <div class="range-values">
-            <input type="number" id="ageInputMin" min="18" max="70" step="1" value="18">
-            <span>to</span>
-            <input type="number" id="ageInputMax" min="18" max="70" step="1" value="70">
+          <div class="checkbox-grid">
+            <label><input type="checkbox" value="18-20"> 18–20</label>
+            <label><input type="checkbox" value="21-25"> 21–25</label>
+            <label><input type="checkbox" value="26-30"> 26–30</label>
+            <label><input type="checkbox" value="31-35"> 31–35</label>
+            <label><input type="checkbox" value="36-40"> 36–40</label>
+            <label><input type="checkbox" value="over-40"> Over 40</label>
           </div>
           <button class="reset-btn">All ages</button>
         </div>
@@ -80,13 +78,26 @@
           </div>
         </div>
 
+        <!-- Nationality -->
+        <div class="filter-group">
+          <label>Nationality</label>
+          <div class="checkbox-list">
+            <!-- If you know your top N nationalities, hard-code those here; else load dynamically -->
+            <label><input type="checkbox" value="Korean"> Korean</label>
+            <label><input type="checkbox" value="Canadian"> Canadian</label>
+            <label><input type="checkbox" value="Indonesian"> Indonesian</label>
+            <label><input type="checkbox" value="Other"> Other</label>
+          </div>
+        </div>
+
         <!-- Gender -->
         <div class="filter-group">
           <label>Gender</label>
           <div class="radio-group">
-            <label><input type="radio" name="gender" value="Male" /> Male</label>
-            <label><input type="radio" name="gender" value="Female" /> Female</label>
-            <label><input type="radio" name="gender" value="Any" checked /> Any</label>
+            <label><input type="radio" name="gender" value="" checked> Any</label>
+            <label><input type="radio" name="gender" value="male"> Male</label>
+            <label><input type="radio" name="gender" value="female"> Female</label>
+            <label><input type="radio" name="gender" value="prefer-not-to-say"> Prefer not to say</label>
           </div>
         </div>
 
@@ -112,6 +123,8 @@
             <label><input type="checkbox" value="ISTJ" /> ISTJ</label>
           </div>
         </div>
+
+        <button id="clear-filters" class="btn">Clear All</button>
       </aside>
 
       <!-- Browse Results (Right) -->
@@ -132,9 +145,6 @@
           <li><a href="#home">Home</a></li>
           <li><a href="about-us.html">About Us</a></li>
           <li><a href="dashboard.html">Contact</a></li>
-          <!--<li><a href="browse.html">Browse</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="user-info.html" class="btn">User Info</a></li>-->
         </ul>
       </div>
 

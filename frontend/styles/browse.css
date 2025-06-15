@@ -66,7 +66,7 @@
   margin-bottom: 26px;
 }
 
-.filter-group > label {
+.filter-group label {
   display: block;
   font-size: 13.5px;
   font-weight: 600;
@@ -80,7 +80,8 @@
   margin-top: 6px;
 } */
 
-.reset-btn {
+.reset-btn,
+#clear-filters {
   display: inline-block;
   margin-top: 10px;
   font-size: 15px;
@@ -92,7 +93,8 @@
   font-weight: 500;
 }
 
-.reset-btn:hover {
+.reset-btn:hover,
+#clear-filters::hover {
   text-decoration: underline;
 }
 
@@ -117,6 +119,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 6px 12px;
+}
+
+.checkbox-list {
+  max-height: 150px;
+  overflow-y: auto;
 }
 
 /* (1)  wrapper for one min–max pair */
@@ -146,14 +153,17 @@
   height: 100%;
   transform: translateY(-50%);
   appearance: none;
-  pointer-events: none;  /* Prevent interaction unless on thumb */
-  background: transparent; /* Hides native track so your custom track is visible */
+  pointer-events: none;
+  /* Prevent interaction unless on thumb */
+  background: transparent;
+  /* Hides native track so your custom track is visible */
   border: none;
   outline: none;
   pointer-events: none;
   -webkit-appearance: none;
-          appearance: none;
-  z-index: 2; /* You want this above the custom track */
+  appearance: none;
+  z-index: 2;
+  /* You want this above the custom track */
 }
 
 /* --- native grey track (WebKit + Gecko) ----------------------- */
@@ -180,7 +190,7 @@
   cursor: pointer;
   margin-top: -5px;
   -webkit-appearance: none;
-          appearance: none;  
+  appearance: none;
   z-index: 3;
   position: relative;
 }

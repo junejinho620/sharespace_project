@@ -1,32 +1,47 @@
 'use strict';
 
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    const budgetOptions = [
-      '$500-$800',
-      '$700-$1000',
-      '$900-$1200',
-      '$1000-$1500',
-      '$1200-$1800'
-    ];
-
+  up: async (queryInterface, Sequelize) => {
     const prefs = [];
 
-    for (let i = 1; i <= 30; i++) {
+    for (let i = 1; i <= 50; i++) {
+      const min = 500 + Math.floor(Math.random() * 16) * 100;  // 500, 600, …, 2100
+      const max = min + (100 + Math.floor(Math.random() * 10) * 100); // at least +100
+
       prefs.push({
-        user_id: i,
-        gender_pref: i % 2 === 0 ? 'female' : 'male',
-        age_range: '20-30',
-        pet_friendly: i % 3 === 0,
-        smoking: i % 4 === 0,
-        budget_range: budgetOptions[i % budgetOptions.length]
+        user_id: i + 2,
+        budget_min: min,
+        budget_max: max,
+        stay: null,
+        work_hours: null,
+        wfh_days: null,
+        bedtime: null,
+        noise: null,
+        cleanliness: null,
+        clean_freq: null,
+        pets: null,
+        smoking: null,
+        alcohol: null,
+        diet: null,
+        bathroom: null,
+        own_guest_freq: null,
+        roommate_guest: null,
+        social_vibe: null,
+        roommate_gender: null,
+        lgbtq: null,
+        allergies: null,
+        allergy_custom: null,
+        created_at: new Date(),
+        updated_at: new Date()
       });
     }
 
-    await queryInterface.bulkInsert('roommate_prefs', prefs);
+    await queryInterface.bulkInsert('roommate_prefs', prefs, {});
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('roommate_prefs', null, {});
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('roommate_prefs', {
+      user_id: { [Sequelize.Op.between]: [1, 50] }
+    }, {});
   }
 };

@@ -1,39 +1,47 @@
 'use strict';
 
-const cities = [
-  'Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Ottawa',
-  'Seoul', 'New York', 'Los Angeles', 'Chicago', 'San Francisco'
-];
-
-const genders = ['male', 'female'];
-
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    const users = [];
+  up: async (queryInterface, Sequelize) => {
+    const bcrypt = require('bcryptjs');
+    const passwordHash = await bcrypt.hash('Password123', 10);
 
-    for (let i = 1; i <= 30; i++) {
+    const genders       = ['male','female','prefer-not-to-say'];
+    const ages          = ['18-20','21-25','26-30','31-35','36-40','over-40'];
+    const nationalities = ['Korean','Canadian','Indonesian','American','Other'];
+    const cities        = ['Toronto','Vancouver','Montreal','Calgary','Ottawa'];
+
+    const users = [];
+    for (let i = 1; i <= 50; i++) {
       users.push({
-        name: `TestUser${i}`,
-        email: `testuser${i}@example.com`,
-        password: '$2b$10$XzRHAbYjeEk1Fl9MWPeDd.O7VFE7Y8Ynr7uKiSEx23g8GJQJeRIJq',
-        age: Math.floor(Math.random() * 15) + 20, // age 20-34
-        gender: genders[i % 2],
-        phone_number: `123-456-78${String(i).padStart(2, '0')}`,
-        city: cities[i % cities.length],
-        created_at: new Date(),
-        updated_at: new Date(),
-        deleted_at: null,
+        username:             `testuser${i}`,
+        email:                `testuser${i}@example.com`,
+        password:             passwordHash,
+        name:                 `Test User ${i}`,
+        gender:               genders[Math.floor(Math.random()*genders.length)],
+        age:                  ages[Math.floor(Math.random()*ages.length)],
+        occupation:           `Occupation ${i}`,
+        nationality:          nationalities[Math.floor(Math.random()*nationalities.length)],
+        cultural:             null,
+        bio:                  `This is a bio for test user ${i}.`,
+        profile_picture_url:  null,
+        verification_token:   null,
+        verified:             false,
+        phone_number:         `555-000-${String(i).padStart(4,'0')}`,
+        city:                 cities[Math.floor(Math.random()*cities.length)],
+        reset_password_token: null,
+        reset_password_expires: null,
+        created_at:           new Date(),
+        updated_at:           new Date(),
+        deleted_at:           null
       });
     }
 
-    try {
-      await queryInterface.bulkInsert('users', users);
-    } catch (error) {
-      console.error('❌ Seeder failed:', error.errors || error);
-    }
+    await queryInterface.bulkInsert('users', users, {});
   },
 
-  async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('users', null, {});
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.bulkDelete('users', {
+      username: { [Sequelize.Op.like]: 'testuser%' }
+    }, {});
   }
 };

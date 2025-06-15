@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const centerContainer = document.querySelector('.center');
   let allUsers = [];
 
-  // Fetch users once
+  // ---- 1) Fetch & normalize users ----
   async function fetchUsers() {
     try {
       const res = await fetch('/api/users');
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // Render given list of users into cards
+  // ---- 2) Render user cards ----
   function renderUsers(users) {
     centerContainer.innerHTML = '';
     if (users.length === 0) {
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 
-  // Apply all current filters
+  // ---- 3) Grab all filter controls ----
   function applyFilters() {
     const bMin = parseInt(document.getElementById('budgetInputMin').value, 10);
     const bMax = parseInt(document.getElementById('budgetInputMax').value, 10);
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     age: {}
   };
 
-  // Wire up dual-slider syncing and track rendering
+  // ---- 5) Sync slider ↔ inputs & visual track ----
   function syncDualSlider(minSlider, maxSlider, minInput, maxInput, gap = 100) {
     const track = minSlider.parentElement.querySelector('.slider-track');
     const updateTrack = () => {
