@@ -1,182 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ShareSpace - Find Your Ideal Roommate</title>
-    <!-- <link rel="icon" type="image/png" href="styles/img/favicon-32x32.png"> -->
-    <link rel="stylesheet" href="styles/shared/general.css">
-    <link rel="stylesheet" href="styles/index.css">
-    <script src="scripts/index.js" defer></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="scripts/navbar.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShareSpace</title>
+   <!-- <link rel="stylesheet" href="styles/shared/general.css" /> -->
+    <link rel="stylesheet" href="styles/index.css" />
+  
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <!-- <script defer src="scripts/index.js"></script> -->
   </head>
   <body>
-    <div id="header-placeholder"></div>
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-      <img src="styles/img/index/background-image.png" class="background-image" alt="Background">
+    <!-- Header -->
+<!-- Update your navbar section in index.html -->
+<header class="navbar">
+  <div class="company-logo"><a href="#">ShareSpace</a></div>
+  <nav class="main-nav">
+    <ul class="nav-links">
+      <li><a href="#">HOME</a></li>
+      <li><a href="#">ABOUT US</a></li>
+      <li><a href="#">OUR SERVICES</a></li>
+      <li><a href="dashboard.html">DASHBOARD</a></li>
+      <li><a href="#">FIND SPACE</a></li>
+      <li><a href="browse.html">FIND MATE</a></li>
+    </ul>
+  </nav>
+  <div class="auth-actions">
+    <a href="login.html" class="login-link">
+      <img src="styles/img/index/Vector.png" alt="icon" class="login-icon" />
+      Login / Register
+    </a>
+  </div>
+  
+</header>
+
+    <!-- Hero -->
+    <section class="hero-section">
       <div class="hero-content">
-        <h1>Find Your Perfect Roommate Effortlessly</h1>
-        <p>Connecting you with like-minded roommates for a comfortable living experience.</p>
-        <p>Join ShareSpace today and connect with roommates in just a few clicks.</p>
-      </div>
-        <a href="signup.html" class="hero-btn">Sign Up Now</a>
-    </section>
+        <h1>SHARESPACE</h1>
+        <p>Where Strangers Become<br>Someone to Miss</p>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-      <h2>About ShareSpace</h2>
-      <p style="font-size: 18px; padding-bottom: 20px;">ShareSpace helps you find compatible roommates based on interests, budget, and lifestyle.</p>
-      <div class="feature-grid">
-        <!-- AI-Based Matching -->
-        <div class="feature-item">
-          <img src="styles/img/index/AI-Personality-Matching-icon.png" alt="feature" class="feature-image">
-          <h3>AI Personality Matching</h3>
-            <p>Our advanced algorithm uses MBTI and EGOGRAM assessments combined with lifestyle preferences to find your ideal roommate matches.</p>
+        <div class="property-types">
+          <span class="filter-option active">All</span>
+          <span class="filter-option">Location</span>
+          <span class="filter-option">University</span>
         </div>
-
-        <!-- Smart Filters -->
-        <div class="feature-item">
-          <img src="styles/img/index/Custon-Filters-icon.png" alt="feature" class="feature-image">
-          <h3>Custom Filters</h3>
-          <p>Filter by specific preferences like dietary habits, activity levels, noise tolerance, and personal interests to narrow your search.</p>
-        </div>
-
-        <!-- Compatibility Score -->
-        <div class="feature-item">
-            <img src="styles/img/index/Compatibility-Score-icon.png" alt="feature" class="feature-image">
-            <h3>Compatibility Score</h3>
-            <p>See a percentage match based on sleep patterns, cleanliness habits, social preferences, and daily routines.</p>
-        </div>
-
-        <!-- Group Chat -->
-        <div class="feature-item">
-            <img src="styles/img/index/Group-Coordination-icon.png" alt="feature" class="feature-image">
-            <h3>Group Coordination</h3>
-            <p>Built-in group chat functionality makes it easy to coordinate with multiple roommates and discuss shared living arrangements.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section id="how-it-works" class="how-it-works">
-      <div class="how-it-works-title">
-        <h2>How It Works</h2>
-      </div>
-
-      <div class="steps-grid">
-        <!-- Step 1: Sign Up -->
-        <div class="step-item">
-            <div class="step-icon"></div> <!-- Space for icon -->
-            <h3>1. Sign Up</h3>
-            <p>Create your account and verify your identity to get started.</p>
-        </div>
-
-        <!-- Step 2: Personalize Your Profile -->
-        <div class="step-item">
-            <div class="step-icon"></div> <!-- Space for icon -->
-            <h3>2. Personalize Your Profile</h3>
-            <p>Fill out your preferences, lifestyle habits, and roommate criteria.</p>
-        </div>
-
-        <!-- Step 3: Get Matched -->
-        <div class="step-item">
-            <div class="step-icon"></div> <!-- Space for icon -->
-            <h3>3. Get Matched</h3>
-            <p>Our AI algorithm finds compatible roommates based on your profile.</p>
-        </div>
-
-        <!-- Step 4: Chat Securely -->
-        <div class="step-item">
-            <div class="step-icon"></div> <!-- Space for icon -->
-            <h3>4. Chat Securely</h3>
-            <p>Connect with your matches through our secure in-app messaging system.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="testimonials">
-      <h2>What Our Users Say</h2>
-      <div class="testimonial-grid">
-        <!-- Testimonial 1 -->
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-            <p class="testimonial-text">"This was the first time I’ve used a roommate matching service, and ShareSpace made it so easy! The AI matching was spot on, and I found my perfect roommate in just a few days."</p>
-            <p class="testimonial-author">- Laura Groves</p>
-            </div>
-        </div>
-    
-        <!-- Testimonial 2 -->
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-            <p class="testimonial-text">"Our experience with ShareSpace was amazing! The filters helped us narrow down our search, and the compatibility score was incredibly accurate. Highly recommend!"</p>
-            <p class="testimonial-author">- Alex Merritt</p>
-            </div>
-        </div>
-    
-        <!-- Testimonial 3 -->
-        <div class="testimonial-item">
-            <div class="testimonial-content">
-            <p class="testimonial-text">"ShareSpace made finding a roommate effortless. The group chat feature was especially helpful for coordinating with my new roommates. Great platform!"</p>
-            <p class="testimonial-author">- Jessica Gibson</p>
-            </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="footer-content">
-        <!-- Navigation Links -->
-        <div class="footer-section">
-          <h3>Quick Links</h3>
-          <ul>
-            <li><a href="#home">Home</a></li>
-            -<li><a href="#about">About</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <!--<li><a href="browse.html">Browse</a></li>
-            <li><a href="faq.html">FAQ</a></li>
-            <li><a href="user-info.html" class="btn">User Info</a></li>-->
-          </ul>
-        </div>
-  
-        <!-- Contact Details -->
-        <div class="footer-section">
-          <h3>Contact Us</h3>
-          <ul>
-            <li>Email: <a href="mailto:sharespaceforinfo@gmail.com">sharespaceforinfo@gmail.com</a></li>
-            <li>Phone: +82 (010) 6744-5288</li>
-            <li>Address: 123 Roommate St, Suite 456, City, Country</li>
-          </ul>
-        </div>
-  
-        <!-- Social Media Icons -->
-        <div class="footer-section">
-          <h3>Follow Us</h3>
-          <div class="social-icons">
-            <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-            <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        
+        
+        <div class="search-wrapper">
+          <span class="icon-left"></span>
+          <input type="text" placeholder="an address, neighborhood, city, or ZIP code" />
+          <div class="search-right">
+            <button class="advanced"><i class="fas fa-sliders-h"></i> Advanced</button>
+            <button class="search-btn"><i class="fas fa-search"></i></button>
           </div>
         </div>
-  
-        <!-- Legal Information -->
-        <div class="footer-section">
-          <h3>Legal</h3>
+    
+        <div class="property-types">
+          <span><i class="fas fa-home"></i> Houses</span>
+          <span><i class="fas fa-building"></i> Apartments</span>
+          <span><i class="fas fa-camera"></i> Office</span>
+          <span><i class="fas fa-hotel"></i> Villa</span>
+        </div>
+      </div>
+    
+      <div class="hero-right">
+        <div class="house-container">
+          <div class="ellipse-stack">
+            <div class="ellipse ellipse-top"></div>
+            <div class="ellipse ellipse-bottom-left"></div>
+            <div class="ellipse ellipse-bottom-right"></div>
+          </div>
+          
+          <img src="styles/img/index/house.png" alt="house" class="house-img" />
+          <img src="styles/img/image_313.svg" alt="bot" class="bot-img" />
+        </div>
+      </div>
+    </section>
+    
+    
+
+    <!-- Roommate Profiles -->
+    <section class="profiles">
+      <h2>Meet Our Members</h2>
+      <div class="profile-grid">
+        <div class="profile-card">
+          <img src="/img/user1.jpg" alt="User photo" />
+          <h3>Amanda, 24</h3>
+          <p>📍 Toronto • 🎓 Student • 🧘 Yoga + Clean living</p>
+          <a href="profile.html" class="view-btn">View Profile</a>
+        </div>
+        <div class="profile-card">
+          <img src="/img/user2.jpg" alt="User photo" />
+          <h3>Kevin, 27</h3>
+          <p>📍 Vancouver • 👨‍💻 Software Dev • 🥗 Vegetarian</p>
+          <a href="profile.html" class="view-btn">View Profile</a>
+        </div>
+        <div class="profile-card">
+          <img src="/img/user3.jpg" alt="User photo" />
+          <h3>Sophia, 22</h3>
+          <p>📍 Montreal • 📚 Literature • 🐶 Dog lover</p>
+          <a href="profile.html" class="view-btn">View Profile</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="how-left">
+
+        <img src="styles/img/index/div.elementor-widget-wrap.png" class="how-it-works-img">
+      </div>
+    
+      <div class="how-right">
+        <div class="how-step">
+          <img src="styles/img/index/Icon.png" alt="Step 1" />
+          <div class="step-number">01</div>
+          <div class="step-title">Search Your Preferred Location</div>
+          <div class="step-description">Get ready to launch your real<br />estate website without...</div>
+        </div>
+        <div class="how-step">
+          <img src="styles/img/index/Icon_1.png" alt="Step 2" />
+          <div class="step-number">02</div>
+          <div class="step-title">Apply Lifestyle Filters</div>
+          <div class="step-description">Filter roommates by habits, budget,<br />sleep schedule, and more.</div>
+        </div>
+        <div class="how-step">
+          <img src="styles/img/index/Icon_2.png" alt="Step 3" />
+          <div class="step-number">03</div>
+          <div class="step-title">Compare Compatibility Scores</div>
+          <div class="step-description">Easily identify best matches with<br />our AI-powered algorithm.</div>
+        </div>
+        <div class="how-step">
+          <img src="styles/img/index/Icon_3.png" alt="Step 4" />
+          <div class="step-number">04</div>
+          <div class="step-title">Message & Connect</div>
+          <div class="step-description">Reach out and connect with<br />your ideal roommates.</div>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+      <h2>People Love Living with ShareSpace</h2>
+      <div class="testimonial-cards">
+        <div class="testimonial">
+          <p>"Great Work"</p><small>Ali Tufan, Marketing</small>
+        </div>
+        <div class="testimonial">
+          <p>"Good Job"</p><small>Albert Flores, Designer</small>
+        </div>
+        <div class="testimonial">
+          <p>"Perfect"</p><small>Robert Fox, Developer</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing Plans -->
+    <section class="pricing">
+      <h2>Membership Plans</h2>
+      <div class="plans">
+        <div class="plan-card standard">
+          <img src="styles/img/index/icon-business.png.svg" alt="Standard Icon" class="plan-icon" />
+          <h3>Standard</h3>
+          <div class="price">£9.99 <span class="billing">/Month</span></div>
+          <p class="description">Basic listing submission, active for 30 days</p>
           <ul>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms-of-service.html">Terms of Service</a></li>
+            <li>Up to 10 Free Profile Viewing</li>
+            <li>Up to 5 Message Sending</li>
+            <li class="disabled">No AI-Based Matching Service</li>
+            <li>Ad Removal</li>
           </ul>
+          <button class="select-btn">Select <span>↗</span></button>
+        </div>
+      
+        <div class="plan-card featured">
+          <img src="styles/img/index/icon-pro.png.svg" alt="Pro Icon" class="plan-icon" />
+          <h3>Pro</h3>
+          <div class="price">£19.99 <span class="billing">/Month</span></div>
+          <p class="description">Basic listing submission, active for 30 days</p>
+          <ul>
+            <li>Unlimited Profile Viewing</li>
+            <li>Unlimited Message Sending</li>
+            <li>Premium AI-Based Matching Service</li>
+            <li>Ad Removal</li>
+          </ul>
+          <button class="select-btn">Select <span>↗</span></button>
+        </div>
+      
+        <div class="plan-card basic">
+          <img src="styles/img/index/icon-basic.png.svg" alt="Basic Icon" class="plan-icon" />
+          <h3>Basic</h3>
+          <div class="price">Free</div>
+          <p class="description">Basic listing submission, active for 30 days</p>
+          <ul>
+            <li>Up to 3 Free Profile Viewing</li>
+            <li>Up to 2 Free Message Sending</li>
+            <li class="disabled">No AI-Based Matching Service</li>
+            <li class="disabled">No Ad Removal</li>
+          </ul>
+          <button class="select-btn">Select <span>↗</span></button>
+        </div>
+      </div>
+      
+      
+    
+    </section>
+
+    <section class="soulmate-section">
+      <div class="soulmate-bg-layer"></div>
+      <div class="soulmate-box left">
+        <h2 class="soulmate-title">Find Your Soul Mate</h2>
+        <p class="soulmate-subtext">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+        </p>
+        <a href="#" class="soulmate-btn">Get Started <span>↗</span></a>
+      </div>
+    
+      <img src="styles/img/index/roommate_laughing.svg" alt="Happy Roommates" class="soulmate-img"/>
+    
+      <div class="soulmate-box right">
+        <img src="styles/img/index/h44.png.svg" alt="decoration" class="soulmate-deco"/>
+      </div>
+    </section>
+    
+   <!-- Footer -->
+   <footer class="footer">
+    <div class="footer-content">
+      <!-- Navigation Links -->
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <!--<li><a href="browse.html">Browse</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="user-info.html" class="btn">User Info</a></li>-->
+        </ul>
+      </div>
+  
+      <!-- Contact Details -->
+      <div class="footer-section">
+        <h3>Contact Us</h3>
+        <ul>
+          <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
+          <li>Phone: +82 (010) 6744-5288</li>
+          <li>Address: 123 Roommate St, Suite 456, City, Country</li>
+        </ul>
+      </div>
+  
+      <!-- Social Media Icons -->
+      <div class="footer-section">
+        <h3>Follow Us</h3>
+        <div class="social-icons">
+          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+          <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
+          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
         </div>
       </div>
   
-      <!-- Copyright Notice -->
-      <div class="footer-bottom">
-        <p>&copy; 2025 ShareSpace. All rights reserved.</p>
+      <!-- Legal Information -->
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms-of-service.html">Terms of Service</a></li>
+        </ul>
       </div>
-    </footer>
-  </body>
+    </div>
+  
+    <!-- Copyright Notice -->
+    <div class="footer-bottom">
+      <p>&copy; 2025 ShareSpace. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</div>
+</body>
 </html>
