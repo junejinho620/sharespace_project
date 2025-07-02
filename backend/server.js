@@ -11,6 +11,10 @@ const path = require("path");
 // Load environment variables from .env file
 dotenv.config();
 
+// Passport setup
+const passport = require('passport');
+require('./config/passport');
+
 // Initialize Express app
 const app = express();
 const server = http.createServer(app);
@@ -24,7 +28,8 @@ const io = new Server(server, {
 // Middleware setup
 app.use(cors()); // Enable CORS for cross-origin requests
 app.use(morgan("dev")); // Log incoming HTTP requests
-app.use(express.json()); // Parses JSON request bodies
+app.use(express.json()); // Parse JSON request bodies
+app.use(passport.initialize()); // Initialize passport after body-parsing
 app.use(express.static(path.join(__dirname, "..", "frontend"))); // Serve HTML/CSS/JS
 app.use(express.static(path.join(__dirname, '..', 'public'))); // Serve public files
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Upload files statically
@@ -39,8 +44,10 @@ const hobbyRoutes = require("./routes/hobbyRoutes");
 const languageRoutes = require("./routes/languageRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const fomiRoutes = require("./routes/fomiRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/users", userRoutes);
+app.use("/api/users/auth", authRoutes);
 app.use("/api/prefs", roommatePrefRoutes);
 app.use("/api/recommendations", recommendRoutes);
 app.use("/api/messages", messageRoutes);
@@ -49,6 +56,7 @@ app.use("/api/hobbies", hobbyRoutes);
 app.use("/api/languages", languageRoutes);
 app.use("/api/feedbacks", feedbackRoutes);
 app.use("/api", fomiRoutes);
+
 
 // Connect to MySQL database
 sequelize.authenticate()

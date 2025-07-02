@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // ---- 3) Grab & wire up filter controls ----
-
   const bMinS = document.getElementById('budgetRangeMin');
   const bMaxS = document.getElementById('budgetRangeMax');
   const bMinI = document.getElementById('budgetInputMin');

@@ -16,7 +16,7 @@ const UserLanguage = require("./UserLanguage");
 const Fomi = require("./Fomi");
 const FomiRelation = require("./FomiRelation");
 const UserFomi = require("./UserFomi");
-
+const AuthProvider = require("./AuthProvider");
 
 // Initialize model associations
 const models = {
@@ -32,6 +32,7 @@ const models = {
   Fomi,
   FomiRelation,
   UserFomi,
+  AuthProvider,
 };
 
 // Call associate functions if defined

@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
-const { User, RoommatePref, Hobby, Language } = require('../models');
+const { User, RoommatePref, Hobby, Language, AuthProvider } = require('../models');
 const userController = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
@@ -16,12 +16,36 @@ require('dotenv').config(); // Loads JWT_SECRET
 // POST /api/users/signup - handle user registration and send verification email
 router.post("/signup", async (req, res) => {
   try {
-    const token = Math.floor(100000 + Math.random() * 900000).toString(); // 6-digit numeric code
-    const newUser = await User.create({ ...req.body, verification_token: token }); // Sequelize hooks handle hashing
+    // 1. Extract password (rest goes into User)
+    const { password, ...userData } = req.body;
 
-    await sendVerificationEmail(newUser.email, token);
+    // 2. Generate email verification token
+    const verificationToken = Math.floor(100000 + Math.random() * 900000).toString();
 
-    res.status(201).json({ message: "User registered! Please verify your email.", user: newUser });
+    // 3. Create the User WITHOUT password
+    const newUser = await User.create({
+      ...userData,
+      verification_token: verificationToken,
+      verified: false
+    });
+
+    // 4. Hash & store the local auth credentials
+    const password_hash = await bcrypt.hash(password, 10);
+    await AuthProvider.create({
+      user_id: newUser.id,
+      provider: 'local',
+      provider_user_id: null,
+      password_hash
+    });
+
+    // 5. Send verification email
+    await sendVerificationEmail(newUser.email, verificationToken);
+
+    // 6. Respond
+    res.status(201).json({
+      message: "User registered! Please verify your email.",
+      user: newUser
+    });
   } catch (error) {
     console.error("Signup error:", error);
     res.status(400).json({ error: error.message });
@@ -127,42 +151,42 @@ router.post('/resend-verification', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-  try {
-    // Bypass defaultScope to include password
-    const user = await User.unscoped().findOne({ where: { email } });
-
+    try {
+    // 1. Find the user by email
+    const user = await User.findOne({ where: { email } });
     if (!user) {
-      console.log("❌ User not found for email:", email);
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const isMatch = await user.comparePassword(password);
+    // 2. Fetch the local AuthProvider row
+    const auth = await AuthProvider.findOne({
+      where: { provider: 'local', user_id: user.id }
+    });
+    if (!auth) {
+      return res.status(401).json({ error: 'No local credentials. Please sign up first.' });
+    }
 
+    // 3. Compare password against the hash
+    const isMatch = await bcrypt.compare(password, auth.password_hash);
     if (!isMatch) {
       return res.status(401).json({ error: 'Invalid password' });
     }
 
-    // Check if the user's email has been verified
+    // 4. Check email verification
     if (!user.verified) {
       return res.status(403).json({ error: 'Please verify your email before logging in.' });
     }
 
-    // Prepare user data for token (you can add more fields if needed)
-    const payload = {
-      id: user.id,
-      email: user.email,
-    };
-
-    // Sign the JWT token
+    // 5. Issue JWT
+    const payload = { id: user.id, email: user.email };
     const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    // Remove password before sending user object
+    // 6. Return the token and user profile
     const userData = user.toJSON();
-    delete userData.password;
-
+    delete userData.password;  // if you still have a password field
     res.json({
       message: 'Login successful',
-      token, // Include token in response
+      token,
       user: userData,
     });
   } catch (err) {
@@ -323,36 +347,37 @@ router.post('/forgot-password', async (req, res) => {
 router.post('/reset-password', async (req, res) => {
   const { token, newPassword } = req.body;
 
+  // 1️⃣ Find the user by reset token
   const user = await User.unscoped().findOne({
     where: {
       reset_password_token: token,
       reset_password_expires: { [require('sequelize').Op.gt]: Date.now() }
     }
   });
+  if (!user) return res.status(400).json({ error: "Token invalid or expired." });
 
-  if (!user) {
-    return res.status(400).json({ error: "Token invalid or expired." });
-  }
+  // 2️⃣ Lookup their local AuthProvider row
+  const auth = await AuthProvider.findOne({
+    where: { provider: 'local', user_id: user.id }
+  });
+  if (!auth) return res.status(400).json({ error: "No local credentials found." });
 
-  // Compare newPassword vs old password
-  const isSamePassword = await bcrypt.compare(newPassword, user.password);
-  if (isSamePassword) {
+  // 3️⃣ Prevent reusing same password
+  const isSame = await bcrypt.compare(newPassword, auth.password_hash);
+  if (isSame) {
     return res.status(400).json({ error: "New password cannot be the same as the previous password." });
   }
 
-  user.password = newPassword;
+  // 4️⃣ Hash & save on AuthProvider
+  auth.password_hash = await bcrypt.hash(newPassword, 10);
+  await auth.save();
+
+  // 5️⃣ Clear reset fields on User
   user.reset_password_token = null;
   user.reset_password_expires = null;
+  await user.save();
 
-  user.changed('password', true);
-
-  try {
-    await user.save();
-    res.json({ message: "Password has been reset." });
-  } catch (err) {
-    console.error("Error saving new password:", err);
-    res.status(500).json({ error: "Failed to reset password." });
-  }
+  res.json({ message: "Password has been reset." });
 });
 
 // Multer setup for image upload
