@@ -14,9 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Toggle password visibility
   togglePassword.addEventListener('click', () => {
-    const type = passwordInput.type === 'password' ? 'text' : 'password';
-    passwordInput.type = type;
-    togglePassword.src = type === 'password' ? 'styles/img/eye.png' : 'styles/img/hidden.png';
+    const isHidden = passwordInput.type === 'password';
+    passwordInput.type = isHidden ? 'text' : 'password';
+    togglePassword.src = isHidden
+      ? 'styles/img/hidden.png'
+      : 'styles/img/eye.png';
   });
 
   // Handle login submit
@@ -72,5 +74,20 @@ document.addEventListener('DOMContentLoaded', () => {
       console.error(err);
       alert('Something went wrong.');
     }
+  });
+
+  // Social-login icon handlers
+  document.querySelectorAll('.social-icon').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      const icon = el.querySelector('i');
+      if (icon.classList.contains('fa-google')) {
+        window.location.href = '/api/users/auth/google';
+      } else if (icon.classList.contains('fa-facebook')) {
+        window.location.href = '/api/users/auth/facebook';
+      } else if (icon.classList.contains('fa-apple')) {
+        window.location.href = '/api/users/auth/apple';
+      }
+    });
   });
 });
