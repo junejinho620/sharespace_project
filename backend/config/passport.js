@@ -1,10 +1,10 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
-const AppleStrategy = require('passport-apple').Strategy;
+// const AppleStrategy = require('passport-apple').Strategy;
 const { User, AuthProvider } = require('../models');
-const fs = require('fs');
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 
 // ─── GOOGLE ─────────────────────────────────────────────────────
 passport.use(new GoogleStrategy({
@@ -25,21 +25,21 @@ passport.use(new FacebookStrategy({
   verifyOAuthUser('facebook')
 ));
 
-// ─── APPLE ──────────────────────────────────────────────────────
-passport.use(new AppleStrategy({
-    clientID:       process.env.APPLE_CLIENT_ID,
-    teamID:         process.env.APPLE_TEAM_ID,
-    keyID:          process.env.APPLE_KEY_ID,
-    privateKey:     fs.readFileSync(path.join(__dirname, '../keys/apple-private-key.p8')),
-    callbackURL:    '/api/users/auth/apple/callback',
-    scope:          ['name','email']
-  },
-  // Apple gives you idToken and profile
-  async (accessToken, refreshToken, idToken, profile, done) => {
-    // `profile.id` will be the subject (sub) from the idToken
-    return verifyOAuthUser('apple')(accessToken, refreshToken, profile, done);
-  }
-));
+// // ─── APPLE ──────────────────────────────────────────────────────
+// passport.use(new AppleStrategy({
+//     clientID:       process.env.APPLE_CLIENT_ID,
+//     teamID:         process.env.APPLE_TEAM_ID,
+//     keyID:          process.env.APPLE_KEY_ID,
+//     privateKey:     fs.readFileSync(path.join(__dirname, '../keys/apple-private-key.p8')),
+//     callbackURL:    '/api/users/auth/apple/callback',
+//     scope:          ['name','email']
+//   },
+//   // Apple gives you idToken and profile
+//   async (accessToken, refreshToken, idToken, profile, done) => {
+//     // `profile.id` will be the subject (sub) from the idToken
+//     return verifyOAuthUser('apple')(accessToken, refreshToken, profile, done);
+//   }
+// ));
 
 // ─── Generic verify callback factory ─────────────────────────────
 function verifyOAuthUser(provider) {
