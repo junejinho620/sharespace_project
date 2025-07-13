@@ -8,21 +8,12 @@
   <link rel="stylesheet" href="styles/shared/general.css" />
   <link rel="stylesheet" href="styles/browse.css" />
   <link rel="stylesheet" href="styles/browse-cards.css" />
+  <link rel="stylesheet" href="styles/header-footer.css" />
   <script src="scripts/navbar.js" defer></script>
 </head>
 
 <body>
-  <div id="header-placeholder">
-    <nav class="navbar">
-      <div class="company">
-        <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
-        <a href="index.html" class="company-name">ShareSpace</a>
-      </div>
-      <ul class="nav-links" id="nav-links">
-        <!-- Navigation items will be inserted by navbar.js -->
-      </ul>
-    </nav>
-  </div>
+  <div id="header-placeholder"></div>
 
   <section class="browse-header">
     <h1 class="browse-title">Meet Your Future Roommate</h1>
@@ -34,97 +25,99 @@
 
       <!-- Filter Sidebar (Left) -->
       <aside class="filters-sidebar">
-        <h3>Filter by:</h3>
-
-        <!-- Budget -->
-        <div class="filter-group">
-          <label>Budget ($)</label>
-          <div class="dual-slider">
-            <div class="slider-track"></div>
-            <input type="range" id="budgetRangeMin" min="0" max="5000" step="100" value="500">
-            <input type="range" id="budgetRangeMax" min="0" max="5000" step="100" value="4500">
-          </div>
-          <div class="range-values">
-            <input type="number" id="budgetInputMin" value="500" min="0" max="5000" step="100">
-            <span>to</span>
-            <input type="number" id="budgetInputMax" value="4500" min="0" max="5000" step="100">
-          </div>
-          <button class="reset-btn">All prices</button>
+        <div class="filters-header">
+          <h3>Filter by:</h3>
+          <button id="clear-filters" class="clear-all">Clear All</button>
         </div>
 
+        <!-- Budget -->
+    <div class="filter-group budget-group">
+      <label>Budget ($)</label>
+      <div class="dual-slider">
+        <div class="slider-rail"></div>
+        <div class="slider-track"></div>
+        <input type="range" id="budgetRangeMin" min="0" max="5000" step="100" value="500">
+        <input type="range" id="budgetRangeMax" min="0" max="5000" step="100" value="4500">
+      </div>
+      <div class="range-values">
+        <input type="number" id="budgetInputMin" value="500" min="0" max="5000" step="100">
+        <span>to</span>
+        <input type="number" id="budgetInputMax" value="4500" min="0" max="5000" step="100">
+      </div>
+      <button class="reset-btn">All budgets</button>
+    </div>
+
         <!-- Age -->
-        <div class="filter-group">
+        <div class="filter-group age-group">
           <label>Age</label>
-          <div class="checkbox-grid">
-            <label><input type="checkbox" value="18-20"> 18–20</label>
-            <label><input type="checkbox" value="21-25"> 21–25</label>
-            <label><input type="checkbox" value="26-30"> 26–30</label>
-            <label><input type="checkbox" value="31-35"> 31–35</label>
-            <label><input type="checkbox" value="36-40"> 36–40</label>
-            <label><input type="checkbox" value="over-40"> Over 40</label>
+          <div class="pill-group age-pills">
+            <button class="pill" data-value="18-20">18 – 20</button>
+            <button class="pill" data-value="21-25">21 – 25</button>
+            <button class="pill" data-value="26-30">26 – 30</button>
+            <button class="pill" data-value="31-35">31 – 35</button>
+            <button class="pill" data-value="36-40">36 – 40</button>
+            <button class="pill" data-value="over-40">Over 40</button>
           </div>
           <button class="reset-btn">All ages</button>
         </div>
 
         <!-- City -->
         <div class="filter-group">
-          <label>City</label>
-          <div class="radio-group">
-            <label><input type="radio" name="city" value="Toronto" /> Toronto</label>
-            <label><input type="radio" name="city" value="Vancouver" /> Vancouver</label>
-            <label><input type="radio" name="city" value="New York" /> New York</label>
-            <label><input type="radio" name="city" value="London" /> London</label>
-            <label><input type="radio" name="city" value="All" checked /> All</label>
-          </div>
+          <label for="citySelect">City</label>
+          <select id="citySelect">
+            <option value="all">All Cities</option>
+            <option value="Toronto">Toronto</option>
+            <option value="Vancouver">Vancouver</option>
+            <option value="New York">New York</option>
+            <option value="London">London</option>
+          </select>
         </div>
 
         <!-- Nationality -->
         <div class="filter-group">
-          <label>Nationality</label>
-          <div class="checkbox-list">
-            <!-- If you know your top N nationalities, hard-code those here; else load dynamically -->
-            <label><input type="checkbox" value="Korean"> Korean</label>
-            <label><input type="checkbox" value="Canadian"> Canadian</label>
-            <label><input type="checkbox" value="Indonesian"> Indonesian</label>
-            <label><input type="checkbox" value="Other"> Other</label>
-          </div>
+          <label for="nationSelect">Nationality</label>
+          <select id="nationSelect">
+            <option value="all">All Nationalities</option>
+            <option value="Korean">Korean</option>
+            <option value="Canadian">Canadian</option>
+            <option value="Indonesian">Indonesian</option>
+            <option value="American">American</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
 
         <!-- Gender -->
-        <div class="filter-group">
+        <div class="filter-group gender-group">
           <label>Gender</label>
-          <div class="radio-group">
-            <label><input type="radio" name="gender" value="" checked> Any</label>
-            <label><input type="radio" name="gender" value="male"> Male</label>
-            <label><input type="radio" name="gender" value="female"> Female</label>
-            <label><input type="radio" name="gender" value="prefer-not-to-say"> Prefer not to say</label>
+          <div class="pill-group gender-pills">
+            <button class="pill" data-value="male">Male</button>
+            <button class="pill" data-value="female">Female</button>
+            <button class="pill selected" data-value="">Any</button>
           </div>
         </div>
 
-        <!-- PMTI -->
+        <!-- FMTI -->
         <div class="filter-group">
-          <label>PMTI (Pomi Test)</label>
+          <label>Fomi Test</label>
           <div class="checkbox-grid">
-            <label><input type="checkbox" value="ENFP" /> ENFP</label>
-            <label><input type="checkbox" value="ENFJ" /> ENFJ</label>
-            <label><input type="checkbox" value="ENTP" /> ENTP</label>
-            <label><input type="checkbox" value="ENTJ" /> ENTJ</label>
-            <label><input type="checkbox" value="INFJ" /> INFJ</label>
-            <label><input type="checkbox" value="INFP" /> INFP</label>
-            <label><input type="checkbox" value="INTP" /> INTP</label>
-            <label><input type="checkbox" value="INTJ" /> INTJ</label>
-            <label><input type="checkbox" value="ESFP" /> ESFP</label>
-            <label><input type="checkbox" value="ESFJ" /> ESFJ</label>
-            <label><input type="checkbox" value="ESTP" /> ESTP</label>
-            <label><input type="checkbox" value="ESTJ" /> ESTJ</label>
-            <label><input type="checkbox" value="ISFJ" /> ISFJ</label>
-            <label><input type="checkbox" value="ISFP" /> ISFP</label>
-            <label><input type="checkbox" value="ISTP" /> ISTP</label>
-            <label><input type="checkbox" value="ISTJ" /> ISTJ</label>
+            <label><input type="checkbox" name="fomi" value="quiet-fomi"> Quiet Fomi</label>
+            <label><input type="checkbox" name="fomi" value="energy-fomi"> Energy Fomi</label>
+            <label><input type="checkbox" name="fomi" value="emotional-fomi"> Emotional Fomi</label>
+            <label><input type="checkbox" name="fomi" value="free-fomi"> Free Fomi</label>
+            <label><input type="checkbox" name="fomi" value="wanderer-fomi"> Wanderer Fomi</label>
+            <label><input type="checkbox" name="fomi" value="noisy-fomi"> Noisy Fomi</label>
+            <label><input type="checkbox" name="fomi" value="moderate-fomi"> Moderate Fomi</label>
+            <label><input type="checkbox" name="fomi" value="sensitive-fomi"> Sensitive Fomi</label>
+            <label><input type="checkbox" name="fomi" value="care-fomi"> Care Fomi</label>
+            <label><input type="checkbox" name="fomi" value="homebody-fomi"> Homebody Fomi</label>
+            <label><input type="checkbox" name="fomi" value="coexist-fomi"> Coexist Fomi</label>
+            <label><input type="checkbox" name="fomi" value="balanced-fomi"> Balanced Fomi</label>
+            <label><input type="checkbox" name="fomi" value="night-owl-fomi"> Night Owl Fomi</label>
+            <label><input type="checkbox" name="fomi" value="independent-fomi"> Independent Fomi</label>
+            <label><input type="checkbox" name="fomi" value="collab-fomi"> Collab Fomi</label>
+            <label><input type="checkbox" name="fomi" value="adaptive-fomi"> Adaptive Fomi</label>
           </div>
         </div>
-
-        <button id="clear-filters" class="btn">Clear All</button>
       </aside>
 
       <!-- Browse Results (Right) -->

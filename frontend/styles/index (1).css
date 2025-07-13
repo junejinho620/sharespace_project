@@ -1,0 +1,534 @@
+/* ============================================================= */
+/* ShareSpace  –  Responsive CSS inspired by Stripe + Toss       */
+/* Uses the existing class names from index (1).html             */
+/* ============================================================= */
+
+/* 0. Design Tokens */
+:root {
+  --clr-primary: #D3304D;
+  --clr-primary-dark: #B12A42;
+   --clr-secondary:      #FFE4A1;
+  --clr-secondary-dark: #FFD88F;
+  --clr-bg: #ffffff;
+  --clr-surface: #f8f9fc;
+  --clr-text: #181A20;
+  --clr-muted: #5e5e75;
+
+  --radius-lg: 20px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.05);
+
+  /* Container cap */
+  --max-container: 1280px;
+
+  /* Typography scale */
+  --fs-h1-min: 2.5rem;   /* 40px */
+  --fs-h1-max: 4.5rem;   /* 72px */
+  --fs-h1-fluid: 6vw;
+
+  --fs-body-min: 1rem;   /* 16px */
+  --fs-body-max: 1.2rem; /* 19px */
+  --fs-body-fluid: 2vw;
+
+  /* Breakpoints */
+  --bp-lg: 992px;   /* tablet */
+  --bp-sm: 576px;   /* phone  */
+}
+
+/* 1. Global reset & container */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', 'Poppins', sans-serif;
+  background: var(--clr-bg);
+  color: var(--clr-text);
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+.container {
+  width: 100%;
+  max-width: var(--max-container);
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 400;
+  font-size: clamp(var(--fs-h1-min), var(--fs-h1-fluid), var(--fs-h1-max));
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+p, li, .step-description {
+  font-size: clamp(var(--fs-body-min), var(--fs-body-fluid), var(--fs-body-max));
+  line-height: 1.5;
+  color: var(--clr-muted);
+}
+
+/* 2. Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--clr-bg);
+  transition: box-shadow 0.3s ease;
+}
+.navbar.scrolled { box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+
+.navbar .company-logo a {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  color: var(--clr-primary);
+}
+.company-logo {
+  font-family:'DM Serif Display',serif;
+  font-weight:600;
+  font-size:2rem;            /* slightly bigger */
+  letter-spacing:-.5px;
+  color:var(--clr-primary);
+}
+.nav-links {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+.nav-links a {
+  position: relative;
+  font-weight: 500;
+  color: var(--clr-text);
+  text-decoration: none;
+}
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 2px;
+  background: var(--clr-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.login-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--clr-text);
+  transition: color 0.25s ease;
+}
+.login-link:hover { color: var(--clr-primary); }
+
+/* 3. Hero */
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  gap: 3rem;
+  padding-block: 6rem;
+}
+.hero-content { flex: 1 1 520px; }
+.hero-content p { margin-block: 1rem 4rem; }
+
+.search-wrapper {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1rem;
+}
+.search-wrapper input {
+  flex: 1;
+  padding: 1rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid #ddd;
+}
+.search-btn {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  background: var(--clr-primary);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.search-btn:hover { background: var(--clr-primary-dark); transform: translateY(-2px); }
+
+.hero-right { flex: 1 1 480px; position: relative; display: flex; justify-content: flex-end; }
+
+
+/* 4. Profiles */
+.profiles { text-align: center; padding-block: 4rem; }
+.profile-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 2rem;
+}
+.profile-card {
+  background: var(--clr-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 1.5rem;
+  transition: transform 0.25s ease;
+}
+.profile-card:hover { transform: translateY(-6px); }
+.view-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background: var(--clr-primary);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.view-btn:hover { background: var(--clr-primary-dark); transform: translateY(-2px); }
+
+/* 5. How It Works */
+.how-it-works { display: flex; gap: 3rem; flex-wrap: wrap; padding-block: 4rem; }
+.how-left { flex: 1 1 360px; display:flex; align-items:center; justify-content:center; }
+.how-right { flex: 1 1 520px; display:grid; gap: 2rem; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
+.how-step {
+  background: var(--clr-bg);
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  position: relative;
+  transition: transform 0.25s ease;
+}
+.how-step:hover { transform: translateY(-6px); }
+.how-step img { position:absolute; top:1.5rem; right:1.5rem; width:40px; height:40px; }
+.step-number { color: var(--clr-primary); font-size: 1.75rem; font-weight: 600; }
+.step-title { font-weight: 600; margin-top: .5rem; margin-bottom: .25rem; }
+.step-description { color: var(--clr-muted); font-size: .9rem; }
+
+/* 6. Testimonials */
+.testimonials { padding-block:4rem; text-align:center; }
+.testimonial-cards { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; margin-top:2rem; }
+.testimonial {
+  background: var(--clr-surface);
+  border-radius: var(--radius-md);
+  padding:2rem;
+  max-width:320px;
+  box-shadow: var(--shadow-card);
+}
+.testimonial p { font-style: italic; color: var(--clr-text); margin-bottom:1rem; }
+
+/* 7. Pricing */
+.pricing { text-align:center; padding-block:4rem; }
+.plans { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; margin-top:2rem; }
+.plan-card { background:var(--clr-surface); border-radius:var(--radius-md); padding:2rem; max-width:340px; box-shadow:var(--shadow-card); transition:transform .25s ease; display:flex; flex-direction:column; gap:1.25rem; align-items:flex-start; }
+.plan-card:hover { transform: translateY(-8px); }
+.plan-card.featured { border:2px solid var(--clr-primary); }
+.plan-card .price { font-size:2rem; font-weight:700; }
+.select-btn { align-self:stretch; background:var(--clr-primary); color:#fff; padding:.75rem 1rem; border:none; border-radius:var(--radius-sm); font-weight:600; transition:background .25s ease, transform .25s ease; }
+.select-btn:hover { background:var(--clr-primary-dark); transform: translateY(-2px); }
+
+/* 8. Soulmate CTA */
+.soulmate-section { position:relative; margin-block:6rem; display:flex; align-items:center; justify-content:center; }
+.soulmate-bg-layer { position:absolute; inset:0; background:var(--clr-surface); border-radius:var(--radius-lg); z-index:0; }
+.soulmate-box { position:relative; z-index:1; padding:3rem; }
+.soulmate-title { font-size:2rem; margin-bottom:1rem; }
+.soulmate-btn { display:inline-flex; gap:6px; background:var(--clr-primary); color:#fff; padding:12px 20px; border-radius:var(--radius-sm); font-weight:600; transition:background .25s ease, transform .25s ease; }
+.soulmate-btn:hover { background:var(--clr-primary-dark); transform: translateY(-2px); }
+.soulmate-img { position:relative; z-index:1; width:40%; max-width:400px; margin-inline:auto; }
+
+/* 9. Footer */
+.footer { background:var(--clr-surface); padding-block:4rem 2rem; text-align:center; }
+.footer-content { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; }
+.footer-section h3 { margin-bottom:1rem; font-weight:600; }
+.footer-section ul { list-style:none; display:flex; flex-direction:column; gap:.5rem; }
+.footer-section a { color:var(--clr-text); transition:color .25s ease; }
+.footer-section a:hover { color:var(--clr-primary); }
+
+/* 10. Breakpoints */
+@media (max-width: var(--bp-lg)) {
+  .hero-section { flex-direction:column; align-items:center; gap:3rem; text-align:center; }
+  .hero-right { order:-1; }
+  .house-img, .bot-img { width:80%; max-width:320px; }
+  .bot-img { position:relative; top:0; right:0; margin-top:-2rem; }
+  .how-right { grid-template-columns: 1fr; }
+}
+@media (max-width: var(--bp-sm)) {
+  .nav-links { display:none; } /* hide desktop nav */
+  .ellipse-stack { display:none; }
+  .plans { flex-direction:column; }
+  .profile-grid { grid-template-columns: 1fr; }
+  h1 { font-size: clamp(1.75rem, 8vw, 2.25rem); }
+}
+/* 1. baseline alignment */
+/* ───────────────── NAVBAR FIXES & FLUID FONT ───────────────── */
+
+/* baseline alignment */
+.navbar--inner{
+  display:flex;
+  align-items:center;      /* logo, ul, auth share baseline */
+}
+
+/* push auth area to far right */
+.auth-actions{margin-left:auto;display:flex;align-items:center;}
+
+/* desktop underline (already existed) + add same to login link */
+.login-link{position:relative;}
+.login-link::after{
+  content:'';position:absolute;left:0;bottom:-4px;width:100%;height:2px;
+  background:var(--clr-primary);transform:scaleX(0);transform-origin:right;
+  transition:transform .3s ease;
+}
+.login-link:hover::after{transform:scaleX(1);transform-origin:left;}
+
+/* ❶ FLUID FONT-SIZE for nav links (16px → 13px between 1100-950 px) */
+.nav-links a{
+  font-size:clamp(.8125rem,       /* 13 px minimum on tiny desktop */
+                  1vw + .35rem,   /* fluid slope               */
+                  1rem);          /* 16 px default             */
+}
+
+/* ❷ Hamburger styles */
+.hamburger{display:none;flex-direction:column;gap:5px;background:none;border:0;padding:4px;cursor:pointer;}
+.hamburger span{width:24px;height:2px;background:var(--clr-text);transition:transform .3s ease,opacity .3s ease;}
+
+/* ❸ Drawer behaviour */
+@media(max-width:768px){
+  .hamburger{display:flex;}               /* show burger              */
+  .nav-links{
+    display:none;                         /* hide row                 */
+    position:absolute;top:100%;left:0;right:0;
+    flex-direction:column;gap:18px;
+    background:var(--clr-bg);padding:24px;
+    box-shadow:0 8px 24px rgba(0,0,0,.06);
+  }
+  .navbar.open .nav-links{display:flex;}  /* show drawer when open    */
+  /* burger → X animation */
+  .navbar.open .hamburger span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .navbar.open .hamburger span:nth-child(2){opacity:0;}
+  .navbar.open .hamburger span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+}
+
+.hero-section {
+  display:flex; align-items:center; justify-content:space-between; gap:3rem;
+  padding-block:6rem; background:linear-gradient(135deg,#f0f4ff 0%,#fff 40%);
+}
+.hero-device video { border-radius:var(--radius-lg); box-shadow:var(--shadow-card); }
+.micro { display:block; margin-top:.75rem; font-size:.8rem; color:var(--clr-muted); }
+
+@media (max-width:992px){
+  .hero-section{ flex-direction:column-reverse; text-align:center; }
+
+}
+/* ─────── HOW-IT-WORKS: always 2×2 on desktop ─────── */
+@media (min-width: 992px) {
+  .how-right {
+    grid-template-columns: repeat(2, 1fr) !important;
+    justify-items: center;
+  }
+}
+
+/* ─────── HAMBURGER-DROPDOWN at ≤768px ─────── */
+@media (max-width: 768px) {
+  /* hide inline row */
+  .nav-links {
+    display: none !important;
+  }
+
+  /* dropdown menu anchored under the hamburger */
+  .navbar.open .nav-links {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 24px;               /* lines up with container padding */
+    background: var(--clr-bg);
+    padding: 16px 24px;
+    gap: 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    z-index: 999;
+    width: auto;               /* shrink to fit content */
+  }
+
+  /* ensure the hamburger toggle lives in auth-actions */
+  .auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+/* —————— Logo & Container padding —————— */
+.container {
+  padding-inline: 16px; /* shrink left/right gutter so logo sits closer to left edge */
+}
+
+/* —————— Hamburger & dropdown —————— */
+.auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;          /* space between Login and burger */
+  margin-left: auto;  /* push both to right edge */
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--clr-text);
+  transition: transform .3s ease, opacity .3s ease;
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+
+  /* hide desktop row */
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%; right: 16px; /* align under the auth-actions */
+    background: var(--clr-bg);
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    z-index: 1000;
+  }
+  .navbar.open .nav-links {
+    display: flex;
+  }
+
+  /* animate burger to “X” */
+  .navbar.open .hamburger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .navbar.open .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  .navbar.open .hamburger span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+/* —————— Hover underline on all links —————— */
+.nav-links a,
+.login-link {
+  position: relative;
+}
+.nav-links a::after,
+.login-link::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 2px;
+  background: var(--clr-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .3s ease;
+}
+.nav-links a:hover::after,
+.login-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ————————————— Soulmate Section Update ————————————— */
+.soulmate-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding-block: 6rem;
+  position: relative;
+}
+
+.soulmate-box {
+  flex: 1 1 45%;
+  z-index: 1;
+}
+
+.soulmate-img.right {
+  flex: 1 1 45%;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  object-fit: contain;
+  z-index: 1;
+}
+
+/* Decorative background layer stays behind */
+.soulmate-bg-layer {
+  position: absolute;
+  inset: 0;
+  background: #fdf3f0;
+  border-radius: 24px;
+  z-index: 0;
+}
+
+/* ————————— Responsive tweaks ————————— */
+@media (max-width: 768px) {
+  .soulmate-section {
+    flex-direction: column-reverse;
+    padding-block: 4rem;
+    text-align: center;
+  }
+
+  .soulmate-img.right {
+    order: -1;        /* image above the text */
+    max-width: 80%;
+    margin: 0 auto;
+  }
+
+  .soulmate-box {
+    width: 100%;
+    padding: 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .soulmate-title {
+    font-size: 1.5rem;
+  }
+  .soulmate-subtext {
+    font-size: 0.9rem;
+  }
+  .soulmate-btn {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+}
+/* 1. Flush the logo a bit further left — reduce the container’s side padding */
+.container {
+  /* from padding-inline: 24px; */
+  padding-inline: 16px;   /* ← smaller gutters on left & right :contentReference[oaicite:5]{index=5} */
+}
+
+/* 2. Give the logo a little breathing room before the nav links */
+.company-logo {
+  margin-right: 2rem;     /* ← pushes the UL over from the logo :contentReference[oaicite:6]{index=6} */
+}
+
+/* 3. Narrow down the search bar */
+.search-wrapper {
+  max-width: 1000px;       /* ← caps the overall form width :contentReference[oaicite:7]{index=7} */
+  width: 100%;
+  margin-left: 0;         /* ← ensure it lines up flush with text above */
+}
+.search-wrapper input {
+  min-width: 0;           /* ← allow it to shrink below its flex basis */
+}
+
+/* 4. Slightly tighten up the nav-links group if you like */
+.nav-links {
+  gap: 2rem;              /* ← a bit less space between each link :contentReference[oaicite:8]{index=8} */
+}
