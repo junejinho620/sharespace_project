@@ -55,6 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   function syncDual(minS, maxS, minI, maxI, gap = 100) {
     const track = minS.parentElement.querySelector('.slider-track');
     const update = () => {
+
       // compute normalized positions (0…1)
       const range     = maxS.max - maxS.min;
       const fracMin   = (minS.value - minS.min) / range;
@@ -74,6 +75,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       track.style.left  = `${leftPx}px`;
       track.style.width = `${widthPx}px`;
     };
+
+
 
     const onMin = () => {
       if (+maxS.value - +minS.value < gap) minS.value = +maxS.value - gap;

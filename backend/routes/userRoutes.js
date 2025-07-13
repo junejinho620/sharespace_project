@@ -213,7 +213,7 @@ router.put('/:id', verifyToken, async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     const users = await User.findAll({
-      attributes: ['id', 'name', 'age', 'city', 'gender', 'bio', 'email', 'profile_picture_url', 'created_at'],
+      attributes: ['id', 'username', 'name', 'age', 'city', 'gender', 'nationality', 'bio', 'email', 'profile_picture_url', 'created_at'],
       include: [
         {
           model: Hobby,
@@ -223,7 +223,7 @@ router.get('/', async (req, res) => {
         }, {
           model: RoommatePref,
           as: 'roommatePref',
-          attributes: ['budget_range']
+          attributes: ['budget_min', 'budget_max']
         }
       ]
     });
@@ -232,34 +232,20 @@ router.get('/', async (req, res) => {
     const formatted = users.map(u => {
       const json = u.toJSON();
 
-      // Default numeric bounds for budget_range
-      let budget_min = 0, budget_max = 0;
-
-      if (json.roommatePref && json.roommatePref.budget_range) {
-        // 1) (\d+)        → first number
-        // 2) (?:\D+(\d+))? → optionally: non-digits + second number
-        const m = json.roommatePref.budget_range.match(/(\d+)(?:\D+(\d+))?/);
-
-        if (m) {
-          budget_min = parseInt(m[1], 10);
-          // if there was a second number, use it; otherwise treat budget_max = budget_min
-          budget_max = m[2] ? parseInt(m[2], 10) : budget_min;
-        }
-      }
-
       return {
         id: json.id,
+        username: json.username,
         name: json.name,
         age: json.age,
         city: json.city || 'Unknown',
         gender: json.gender,
+        nationality: json.nationality,
         bio: json.bio,
         profile_picture_url: json.profile_picture_url,
         joined_at: json.created_at,
         interests: (json.hobbies || []).map(h => h.name).join(', '),
-        budget_min,
-        budget_max,
-        budget_range: json.roommatePref?.budget_range || '',
+        budget_min: json.roommatePref?.budget_min ?? 0,
+        budget_max: json.roommatePref?.budget_max ?? 0
       };
     });
 
@@ -453,7 +439,7 @@ router.get('/me/completion', verifyToken, async (req, res) => {
     });
 
     prefFields.forEach(f => {
-      if (prefs && prefs[f] !== null && prefs[f] !== '') { 
+      if (prefs && prefs[f] !== null && prefs[f] !== '') {
         filled++;
       } else {
         incomplete.push(f);
