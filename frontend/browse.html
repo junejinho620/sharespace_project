@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="styles/shared/general.css" />
   <link rel="stylesheet" href="styles/browse.css" />
   <link rel="stylesheet" href="styles/browse-cards.css" />
-  <link rel="stylesheet" href="styles/header-footer.css" />
   <script src="scripts/navbar.js" defer></script>
 </head>
 
@@ -31,21 +30,20 @@
         </div>
 
         <!-- Budget -->
-    <div class="filter-group budget-group">
-      <label>Budget ($)</label>
-      <div class="dual-slider">
-        <div class="slider-rail"></div>
-        <div class="slider-track"></div>
-        <input type="range" id="budgetRangeMin" min="0" max="5000" step="100" value="500">
-        <input type="range" id="budgetRangeMax" min="0" max="5000" step="100" value="4500">
-      </div>
-      <div class="range-values">
-        <input type="number" id="budgetInputMin" value="500" min="0" max="5000" step="100">
-        <span>to</span>
-        <input type="number" id="budgetInputMax" value="4500" min="0" max="5000" step="100">
-      </div>
-      <button class="reset-btn">All budgets</button>
-    </div>
+        <div class="filter-group budget-group">
+          <label>Budget ($)</label>
+          <div class="dual-slider">
+            <div class="slider-track"></div>
+            <input type="range" id="budgetRangeMin" min="0" max="5000" step="100" value="500">
+            <input type="range" id="budgetRangeMax" min="0" max="5000" step="100" value="4500">
+          </div>
+          <div class="range-values">
+            <input type="number" id="budgetInputMin" value="500" min="0" max="5000" step="100">
+            <span>to</span>
+            <input type="number" id="budgetInputMax" value="4500" min="0" max="5000" step="100">
+          </div>
+          <button class="reset-btn">All budgets</button>
+        </div>
 
         <!-- Age -->
         <div class="filter-group age-group">

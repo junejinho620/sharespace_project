@@ -54,29 +54,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   function syncDual(minS, maxS, minI, maxI, gap = 100) {
     const track = minS.parentElement.querySelector('.slider-track');
     const update = () => {
-
-      // compute normalized positions (0…1)
-      const range     = maxS.max - maxS.min;
-      const fracMin   = (minS.value - minS.min) / range;
-      const fracMax   = (maxS.value - maxS.min + minS.min - minS.min) / range; 
-      // note: you can simplify the above to (maxS.value - minS.min)/range
-
-      // measure actual slider width
-      const sliderW   = minS.parentElement.clientWidth;
-      const thumbW    = 16;
-      const halfThumb = thumbW / 2;
-
-      // compute pixel positions
-      const leftPx  = fracMin * (sliderW - thumbW) + halfThumb;
-      const widthPx = (fracMax - fracMin) * (sliderW - thumbW);
-
-      // apply inset track
-      track.style.left  = `${leftPx}px`;
-      track.style.width = `${widthPx}px`;
+      const range = maxS.max - maxS.min;
+      const p0 = ((minS.value - minS.min) / range) * 100;
+      const p1 = ((maxS.value - minS.min) / range) * 100;
+      track.style.left = p0 + '%';
+      track.style.width = (p1 - p0) + '%';
     };
-
-
-
     const onMin = () => {
       if (+maxS.value - +minS.value < gap) minS.value = +maxS.value - gap;
       minI.value = minS.value; update(); applyFilters();
