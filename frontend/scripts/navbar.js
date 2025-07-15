@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const headerPlaceholder = document.getElementById('header-placeholder');
 
   try {
-    const res = await fetch('/frontend/components/header.html');
+    const res = await fetch('/components/header.html');
     const html = await res.text();
     headerPlaceholder.innerHTML = html;
     renderNavLinks();
@@ -23,7 +23,7 @@ async function renderNavLinks() {
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="browse.html">Browse Matches</a></li>
       <li><a href="messages.html">Messages</a></li>
-    
+      <li><a href="login.html" class="login">Log in</a></li>
     `;
     return;
   }
@@ -68,7 +68,7 @@ async function renderNavLinks() {
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="browse.html">Browse Matches</a></li>
       <li><a href="messages.html">Messages</a></li>
- 
+      <li><a href="login.html" class="login">Log in</a></li>
     `;
   }
 }
