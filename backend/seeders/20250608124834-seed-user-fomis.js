@@ -12,7 +12,7 @@ module.exports = {
     const userFomis = [];
     for (let i = 1; i <= 50; i++) {
       userFomis.push({
-        user_id: i + 2,
+        user_id: i,
         fomi_name: FOMIS[Math.floor(Math.random() * FOMIS.length)]
       });
     }

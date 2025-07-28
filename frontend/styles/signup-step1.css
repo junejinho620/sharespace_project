@@ -3,12 +3,36 @@ body {
   font-family: 'Inter', sans-serif;
   background-color: #fff;
   color: #222;
-  padding: 40px 80px;
   box-sizing: border-box;
 }
 
 .header {
   margin-bottom: 80px;
+}
+
+.logo {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: #bda98b;
+  cursor: pointer;
+}
+
+.left-panel {
+  width: 40%;
+  padding: 80px 80px;
+  /* ⬆ increased padding */
+  box-sizing: border-box;
+  position: relative;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 
 .brand {

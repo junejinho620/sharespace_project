@@ -4,17 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sign-up - ShareSpace</title>
+    
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/header-footer.css">
   <link rel="stylesheet" href="styles/signup.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
 </head>
+
 <body>
   <div class="page">
     <!-- Left Side -->
     <div class="left-panel">
-      <div class="logo" type="button" onclick="location.href='index.html'">ShareSpace</div>
+      <div class="navbar--inner container">
+        <a href="index.html" class="company-logo">
+          <img src="styles/img/logo.png" alt="ShareSpace Logo" />
+        </a>
+        <div class="company-name" type="button" onclick="location.href='index.html'">ShareSpace</div>
+      </div>
+
       <div class="left-content">
-        <img src="styles/img/image 315.png" class="pomi-logo">
+        <img src="styles/img/image_315.png" class="pomi-logo">
         <p class="subtitle">Where Strangers Become <br> Someone to Miss</p>
       </div>
     </div>
@@ -34,11 +44,6 @@
           Continue with Facebook
         </button>
 
-        <!-- <button class="social-btn apple">
-          <img src="https://img.icons8.com/ios-filled/16/ffffff/mac-os.png" />
-          Continue with Apple
-        </button> -->
-
         <p class="terms">
           By creating an account, you agree to the
           <a href="terms-of-service.html">Terms of use</a> and <a href="privacy-policy.html">Privacy Policy</a>.
@@ -48,9 +53,10 @@
 
         <button class="email-btn" type="button" onclick="location.href='signup-step1.html'">Sign up with Email</button>
 
-        <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+        <p class="log-in-link">Already have an account? <a href="login.html">Log in</a></p>
       </div>
     </div>
   </div>
 </body>
+
 </html>

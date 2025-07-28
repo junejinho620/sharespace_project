@@ -3,7 +3,7 @@
   text-align: center;
   padding: 40px 20px;
   max-width: 1100px;
-  margin: 50px auto 0px;
+  margin: 0px auto;
 }
 
 .browse-title {
@@ -60,6 +60,28 @@
   font-weight: bold;
   margin-bottom: 25px;
   color: #000;
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.filters-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.clear-all {
+  background: none;
+  border: none;
+  color: #2e6ff1;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0;
 }
 
 .filter-group {
@@ -133,79 +155,93 @@
   width: 100%;
 }
 
-/* (2) decorative selected‑range bar */
-.slider-track {
-  position: absolute;
-  height: 6px;
-  background: #2e6ff1;
-  top: 50%;
-  transform: translateY(-50%);
-  border-radius: 5px;
-  z-index: 1;
-}
-
-/* (3) native input[type=range] – one for min, one for max */
-.dual-slider input[type="range"] {
+/* 2) bottom: grey rail */
+.dual-slider .slider-rail {
   position: absolute;
   top: 50%;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 5px;
   transform: translateY(-50%);
-  appearance: none;
-  pointer-events: none;
-  /* Prevent interaction unless on thumb */
+  z-index: 1;
+}
+
+/* 3) middle: blue selected-range */
+.dual-slider .slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* you can adjust left/width via JS */
+  width: 100%;
+  height: 6px;
+  background: #2e6ff1;
+  border-radius: 5px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+/* 4) top: both inputs only show thumbs */
+.dual-slider input[type="range"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: transparent;
-  /* Hides native track so your custom track is visible */
   border: none;
   outline: none;
   pointer-events: none;
+  /* disable clicks on the track itself */
   -webkit-appearance: none;
   appearance: none;
-  z-index: 2;
-  /* You want this above the custom track */
+  z-index: 3;
 }
 
-/* --- native grey track (WebKit + Gecko) ----------------------- */
-.dual-slider input[type="range"]::-webkit-slider-runnable-track {
-  height: 6px;
-  background: #e0e0e0;
-  border-radius: 5px;
-}
-
+/* hide both native tracks */
+.dual-slider input[type="range"]::-webkit-slider-runnable-track,
 .dual-slider input[type="range"]::-moz-range-track {
-  height: 6px;
-  background: #e0e0e0;
-  border-radius: 5px;
+  background: transparent;
+  pointer-events: none;
 }
 
-/* (4) thumb styling – foreground layer -------------------------- */
+/* show only the thumbs */
 .dual-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
   pointer-events: all;
+  /* re-enable pointer on the thumb */
+  position: relative;
+  margin-top: -5px;
+  /* center it vertically */
   width: 16px;
   height: 16px;
   background: #543310;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  margin-top: -5px;
-  -webkit-appearance: none;
-  appearance: none;
   z-index: 3;
-  position: relative;
 }
 
-/* Same thing but for Firefox */
 .dual-slider input[type="range"]::-moz-range-thumb {
   pointer-events: all;
+  position: relative;
   width: 16px;
   height: 16px;
   background: #543310;
   border-radius: 50%;
   border: none;
   cursor: pointer;
-  position: relative;
   z-index: 3;
+}
+
+/* optional: elevate active thumb above the other */
+.dual-slider input[type="range"]:focus::-webkit-slider-thumb,
+.dual-slider input[type="range"]:active::-webkit-slider-thumb,
+.dual-slider input[type="range"]:focus::-moz-range-thumb,
+.dual-slider input[type="range"]:active::-moz-range-thumb {
+  z-index: 4;
 }
 
 /* ====== Inline value boxes under each slider =================== */
@@ -224,4 +260,73 @@
   border-radius: 6px;
   font-size: 15px;
   text-align: center;
+}
+
+.range-values span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* ====== Pill Toggles ====== */
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pill.selected {
+  background: #543310;
+  color: #fff;
+  border-color: #543310;
+}
+
+/* ====== Dropdowns ====== */
+.filters-sidebar select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* ====== Fomi Checkbox Grid ====== */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.checkbox-grid label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+/* ====== Browse Results ====== */
+.browse-results {
+  flex: 1;
+}
+
+.center {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
+  padding: 20px;
 }

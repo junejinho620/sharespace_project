@@ -1,22 +1,3 @@
-/* ========== Global Layout ========== */
-body {
-  font-family: 'Inter', sans-serif;
-  background-color: #fff;
-  color: #222;
-  margin: 0;
-  padding: 40px 80px;
-  box-sizing: border-box;
-}
-
-/* Header */
-.brand {
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  color: #bda98b;
-  cursor: pointer;
-  margin-bottom: 40px;
-}
-
 /* Full-viewport flex container */
 .loading-page {
   display: flex;

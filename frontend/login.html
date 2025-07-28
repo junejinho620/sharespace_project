@@ -5,6 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Login - ShareSpace</title>
+  
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/header-footer.css">
   <link rel="stylesheet" href="styles/login.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Playfair+Display:wght@600&display=swap"
@@ -16,9 +19,15 @@
   <div class="page">
     <!-- Left Side -->
     <div class="left-panel">
-      <div class="logo" type="button" onclick="location.href='index.html'">ShareSpace</div>
+      <div class="navbar--inner container">
+        <a href="index.html" class="company-logo">
+          <img src="styles/img/logo.png" alt="ShareSpace Logo" />
+        </a>
+        <div class="company-name" type="button" onclick="location.href='index.html'">ShareSpace</div>
+      </div>
+
       <div class="left-content">
-        <img src="styles/img/image 315.png" class="pomi-logo">
+        <img src="styles/img/image_315.png" class="pomi-logo">
         <p class="subtitle">Where Strangers Become <br> Someone to Miss</p>
       </div>
     </div>
@@ -56,14 +65,14 @@
             <div class="social-icons">
               <a href="#" class="social-icon"><i class="fab fa-google"></i></a>
               <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
-              <!-- <a href="#" class="social-icon"><i class="fab fa-apple"></i></a> -->
             </div>
           </div>
-
-          <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
         </form>
+        
+        <p class="signup-link">Don't have an account? <a href="signup.html">Sign up</a></p>
       </div>
     </div>
   </div>
 </body>
+
 </html>

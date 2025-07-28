@@ -79,7 +79,6 @@
   font-size: 16px;
 }
 
-
 .connected-service {
   display: flex;
   justify-content: space-between;
@@ -158,6 +157,7 @@
 .hidden {
   display: none;
 }
+
 .button-row {
   display: flex;
   gap: 20px;
@@ -187,9 +187,6 @@
 .button-row .danger-btn:hover {
   background-color: #a93226;
 }
-
-
-
 
 /* Slide Switch */
 .switch-row {
@@ -244,8 +241,7 @@
 .settings-wrapper {
   display: grid;
   grid-template-columns: 240px 1fr;
-  height: 100vh;
-  padding-top: 80px;
+  height: 60vh;
 }
 
 .settings-sidebar {
@@ -285,4 +281,3 @@
   padding: 40px;
   overflow-y: auto;
 }
-

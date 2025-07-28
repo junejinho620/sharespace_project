@@ -1,13 +1,11 @@
 body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #fdfaf7;
     color: #543310;
-    padding: 40px 20px;
-    line-height: 1.7;
+
   }
   .privacy-container {
     max-width: 900px;
-    margin: auto;
+    margin: 40px auto 120px;
   }
   h1, h2 {
     color: #543310;
@@ -15,6 +13,8 @@ body {
   h1 {
     text-align: center;
     margin-bottom: 40px;
+    font-size: 42px;
+    font-weight: 600;
   }
   h2 {
     margin-top: 30px;
@@ -22,7 +22,4 @@ body {
   a {
     color: #AF8F6F;
     text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
   }

@@ -54,11 +54,25 @@ document.addEventListener('DOMContentLoaded', async () => {
   function syncDual(minS, maxS, minI, maxI, gap = 100) {
     const track = minS.parentElement.querySelector('.slider-track');
     const update = () => {
-      const range = maxS.max - maxS.min;
-      const p0 = ((minS.value - minS.min) / range) * 100;
-      const p1 = ((maxS.value - minS.min) / range) * 100;
-      track.style.left = p0 + '%';
-      track.style.width = (p1 - p0) + '%';
+      const min   = +minS.min;
+      const max   = +maxS.max;
+      const curMin= +minS.value;
+      const curMax= +maxS.value;
+      const range = max - min;
+
+      // get 0–100% positions
+      const startPct = ((curMin - min) / range) * 100;
+      const endPct   = ((curMax - min) / range) * 100;
+
+      // half your thumb width (16px total)
+      const thumbW   = 16;
+      const halfThumb= thumbW / 2;
+
+      // **anchor under the center of each knob**
+      track.style.left  = `calc(${startPct}% + ${halfThumb}px)`;
+      track.style.width = `calc(${endPct - startPct}% - ${thumbW}px)`;
+
+      // sync your number inputs & filters…
     };
     const onMin = () => {
       if (+maxS.value - +minS.value < gap) minS.value = +maxS.value - gap;

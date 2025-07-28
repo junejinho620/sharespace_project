@@ -1,10 +1,25 @@
-<!-- frontend/components/header.html -->
-<nav class="navbar">
-  <div class="company">
-    <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo" />
-    <a href="index.html" class="company-name">ShareSpace</a>
-  </div>
+<!-- components/header.html -->
+<header class="navbar">
+  <div class="navbar--inner container">
+    <a href="index.html" class="company-logo">
+      <img src="styles/img/logo.png" alt="ShareSpace Logo" />
+    </a>
+    <div class="company-name" type="button" onclick="location.href='index.html'">ShareSpace</div>
 
-  <!-- navbar.js will fill this list -->
-  <ul id="nav-links" class="nav-links"></ul>
-</nav>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="browse.html">Browse Matches</a></li>
+      <li><a href="messages.html">Messages</a></li>
+    </ul>
+
+    <div class="auth-actions" id="auth-actions">
+      <a href="login.html" class="login-link">
+        <img src="styles/img/index/Vector.png" class="login-icon" alt="Login Icon" />
+        Login / Register
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>

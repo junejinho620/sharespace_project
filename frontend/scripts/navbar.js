@@ -1,47 +1,48 @@
-document.addEventListener('DOMContentLoaded', async () => {
-  const headerPlaceholder = document.getElementById('header-placeholder');
-
-  try {
-    const res = await fetch('/components/header.html');
-    const html = await res.text();
-    headerPlaceholder.innerHTML = html;
-    renderNavLinks();
-  } catch (err) {
-    console.error('Failed to load header:', err);
-  }
+// scripts/navbar.js
+document.addEventListener('DOMContentLoaded', () => {
+  // load header & then set up links
+  loadComponent('header-placeholder', 'components/header.html').then(renderNavLinks);
+  // load footer
+  loadComponent('footer-placeholder', 'components/footer.html');
 });
+
+async function loadComponent(id, url) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  try {
+    const res = await fetch(url);
+    el.innerHTML = await res.text();
+  } catch (err) {
+    console.error(`Failed to load ${url}:`, err);
+  }
+}
 
 async function renderNavLinks() {
   const navLinks = document.getElementById('nav-links');
-  const token = localStorage.getItem('token');
-
+  const authActions = document.getElementById('auth-actions');
   if (!navLinks) return;
-
+  const token = localStorage.getItem('token');
   if (!token) {
-    // Not logged in
     navLinks.innerHTML = `
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="browse.html">Browse Matches</a></li>
       <li><a href="messages.html">Messages</a></li>
-      <li><a href="login.html" class="login">Log in</a></li>
     `;
     return;
   }
-
   try {
     const res = await fetch('/api/users/me', {
       headers: { Authorization: `Bearer ${token}` }
     });
-
     if (!res.ok) throw new Error('Unauthorized');
-
     const { user } = await res.json();
     const username = user.username || user.name || user.email.split('@')[0];
-
     navLinks.innerHTML = `
       <li><a href="dashboard.html">Dashboard</a></li>
       <li><a href="browse.html">Browse Matches</a></li>
       <li><a href="messages.html">Messages</a></li>
+    `;
+    authActions.innerHTML = `
       <li id="login-li" class="user-dropdown">
         <span class="username">${username} ▼</span>
         <div class="dropdown-content">
@@ -50,25 +51,21 @@ async function renderNavLinks() {
           <a href="#" id="logoutButton">Log Out</a>
         </div>
       </li>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
     `;
-
-    const loginLi = document.getElementById('login-li');
-    loginLi.addEventListener('click', function (e) {
-      if (e.target && e.target.id === 'logoutButton') {
-        e.preventDefault();
-        localStorage.clear();
-        loginLi.classList.remove('user-dropdown');
-        loginLi.innerHTML = `<a href="login.html" class="login">Log in</a>`;
-      }
-    });
+    document.getElementById('login-li')
+      .addEventListener('click', e => {
+        if (e.target.id === 'logoutButton') {
+          e.preventDefault();
+          localStorage.clear();
+          renderNavLinks();
+        }
+      });
   } catch (err) {
-    // Token is invalid or expired
+    console.error(err);
     localStorage.clear();
-    navLinks.innerHTML = `
-      <li><a href="dashboard.html">Dashboard</a></li>
-      <li><a href="browse.html">Browse Matches</a></li>
-      <li><a href="messages.html">Messages</a></li>
-      <li><a href="login.html" class="login">Log in</a></li>
-    `;
+    renderNavLinks();
   }
 }

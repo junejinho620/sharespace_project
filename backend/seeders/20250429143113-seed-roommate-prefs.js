@@ -9,7 +9,7 @@ module.exports = {
       const max = min + (100 + Math.floor(Math.random() * 10) * 100); // at least +100
 
       prefs.push({
-        user_id: i + 2,
+        user_id: i,
         budget_min: min,
         budget_max: max,
         stay: null,

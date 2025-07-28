@@ -1,7 +1,4 @@
-/* My Profile Styling */
 body {
-  margin: 0;
-  padding-top: 80px;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
@@ -11,8 +8,8 @@ body {
 
 .profile-container {
   max-width: 800px;
-  margin: 40px auto 0px;
-  padding: 40px 20px;
+  margin: 60px auto 100px;
+  padding: 90px 80px;
   background-color: #fff;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -75,7 +72,7 @@ body {
 .profile-stats {
   display: flex;
   justify-content: space-around;
-  margin: 30px 0;
+  margin: 50px 0;
 }
 
 .profile-stats div {
@@ -135,9 +132,4 @@ body {
 
 .message-btn i {
   margin-right: 8px;
-}
-
-/* Push footer to the bottom */
-.footer.footer {
-  margin-top: auto;
 }

@@ -1,72 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Profile - ShareSpace</title>
-    <link rel="stylesheet" href="styles/shared/general.css" />
-    <link rel="stylesheet" href="styles/profile.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <script src="scripts/profile.js"></script>
-    <script src="scripts/navbar.js" defer></script>
-  </head>
-  <body>
-    <div id="header-placeholder">
-      <nav class="navbar">
-        <div class="company">
-          <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
-          <a href="index.html" class="company-name">ShareSpace</a>
-        </div>
-        <ul class="nav-links" id="nav-links">
-          <!-- Navigation items will be inserted by navbar.js -->
-        </ul>
-      </nav>
-    </div>
 
-    <div class="profile-container">
-      <div class="profile-header">
-        <img id="profilePic" class="profile-img" src="styles/img/default.jpg" alt="Profile Picture" />
-        <div class="profile-info">
-          <h2 id="profileName"></h2>
-          <p id="profileCity"></p>
-          <div id="profileHobbies" class="tags"></div>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>View Profile - ShareSpace</title>
 
-      <div class="profile-bio">
-        <h3>About Me</h3>
-        <p id="profileBio"></p>
-      </div>
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/header-footer.css">
+  <link rel="stylesheet" href="styles/profile.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script defer src="scripts/navbar.js"></script>
+  <script defer src="scripts/profile.js"></script>
+</head>
 
-      <div class="profile-stats">
-        <div>
-          <h4>Matches</h4>
-          <p>12</p>
-        </div>
-        <div>
-          <h4>Chats</h4>
-          <p>7</p>
-        </div>
-        <div>
-          <h4>Favorites</h4>
-          <p>5</p>
-        </div>
-      </div>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
 
-      <div class="profile-contact">
-        <button class="like-btn" id="like-btn">
-          <i class="fa-solid fa-heart"></i> Like
-        </button>
-        <button class="message-btn" onclick="queueNewChat()">
-          <i class="fas fa-comment-alt"></i> Message
-        </button>
+  <div class="profile-container">
+    <div class="profile-header">
+      <img id="profilePic" class="profile-img" src="styles/img/default.jpg" alt="Profile Picture" />
+      <div class="profile-info">
+        <h2 id="profileName"></h2>
+        <p id="profileCity"></p>
+        <div id="profileHobbies" class="tags"></div>
       </div>
     </div>
 
-    <footer class="footer">
-      
-    </footer>
+    <div class="profile-bio">
+      <h3>About Me</h3>
+      <p id="profileBio"></p>
+    </div>
 
-    
-  </body>
+    <div class="profile-stats">
+      <div>
+        <h4>Matches</h4>
+        <p>12</p>
+      </div>
+      <div>
+        <h4>Chats</h4>
+        <p>7</p>
+      </div>
+      <div>
+        <h4>Favorites</h4>
+        <p>5</p>
+      </div>
+    </div>
+
+    <div class="profile-contact">
+      <button class="like-btn" id="like-btn">
+        <i class="fa-solid fa-heart"></i> Like
+      </button>
+      <button class="message-btn" onclick="queueNewChat()">
+        <i class="fas fa-comment-alt"></i> Message
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
+</body>
+
 </html>

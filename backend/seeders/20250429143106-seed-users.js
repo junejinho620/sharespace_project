@@ -15,7 +15,6 @@ module.exports = {
       users.push({
         username:             `testuser${i}`,
         email:                `testuser${i}@example.com`,
-        password:             passwordHash,
         name:                 `Test User ${i}`,
         gender:               genders[Math.floor(Math.random()*genders.length)],
         age:                  ages[Math.floor(Math.random()*ages.length)],
