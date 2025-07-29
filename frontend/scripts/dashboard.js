@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bestName = Array.isArray(data.bestMatches) ? data.bestMatches[0] : null;
     const worstName = Array.isArray(data.worstMatches) ? data.worstMatches[0] : null;
 
-    // A small helper to build the inner HTML of one partner‐card
+    // Helper 1) Build the inner HTML of one partner‐card
     async function renderPartnerCard(cardId, fomiName, cardType) {
       if (!fomiName) {
         // If no name found, hide the card entirely
@@ -162,12 +162,61 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderPartnerCard('best-partner', bestName, 'best-card');
     await renderPartnerCard('worst-partner', worstName, 'worst-card');
 
-    // 8) Navigate user to pricing plan
+    // 8) Navigate user to messages
+    document.getElementById('messages-button')?.addEventListener('click', () => {
+      window.location.href = '/messages.html';
+    });
+
+    // 9) Navigate user to pricing plan
     document.getElementById('upgrade-button')?.addEventListener('click', () => {
       window.location.href = '/pricing.html';
     });
-  }
-  catch (err) {
+
+    // Helper 2) format "2h ago", "5m ago", etc. ───
+    async function timeAgo(date) {
+      const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+      const units = [
+        { label: 'd', secs: 86400 },
+        { label: 'h', secs: 3600 },
+        { label: 'm', secs: 60 },
+      ];
+      for (const { label, secs } of units) {
+        const val = Math.floor(seconds / secs);
+        if (val > 0) return `${val}${label} ago`;
+      }
+      return `${seconds}s ago`;
+    }
+
+    if (token) {
+      const inboxContainer = document.getElementById('inbox-previews');
+      try {
+        const res = await fetch('/api/messages/inbox', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const previews = await res.json();
+          inboxContainer.innerHTML = '';                   // clear placeholder
+          // Show up to 5 chats
+          previews.slice(0, 5).forEach(({ user, lastMessage, sentAt }) => {
+            const el = document.createElement('div');
+            el.className = 'message-preview';
+            el.innerHTML = `
+              <strong>${user.name}:</strong> ${lastMessage}
+              <span class="timestamp">${timeAgo(new Date(sentAt))}</span>
+            `;
+            inboxContainer.appendChild(el);
+          });
+          if (previews.length === 0) {
+            inboxContainer.innerHTML = '<div class="message-preview">No messages yet.</div>';
+          }
+        } else {
+          console.warn('Failed to fetch inbox messages');
+        }
+      } catch (err) {
+        console.error('Error loading inbox:', err);
+      }
+    }
+  } catch (err) {
     console.error('Error populating dashboard:', err);
   }
 });
