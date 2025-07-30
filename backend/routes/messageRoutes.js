@@ -56,8 +56,8 @@ router.get('/inbox', verifyToken, async (req, res) => {
         ],
       },
       include: [
-        { model: User, as: 'sender',   attributes: ['id', 'name', 'username', 'profile_picture_url'] },
-        { model: User, as: 'receiver', attributes: ['id', 'name', 'username', 'profile_picture_url'] }
+        { model: User, as: 'sender',   attributes: ['id', 'username', 'profile_picture_url'] },
+        { model: User, as: 'receiver', attributes: ['id', 'username', 'profile_picture_url'] }
       ],
       order: [['sent_at', 'DESC']],
     });

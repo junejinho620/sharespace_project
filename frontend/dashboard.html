@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Dashboard - ShareSpace</title>
 
   <link rel="stylesheet" href="styles/shared/general.css">
   <link rel="stylesheet" href="styles/shared/header-footer.css">
@@ -98,20 +98,22 @@
         <!-- ──── 2a) Notifications ──── -->
         <div class="card small-card">
           <div class="section-title">Notifications</div>
-          <div class="activity-item">
-            <i class="fas fa-heart" style="color: #c6884b; margin-right: 8px;"></i>
-            John liked your profile
-            <span class="timestamp">2h ago</span>
+          <div id="notifications-preview">
+            <div class="activity-item">Loading notifications…</div>
           </div>
-          <div class="activity-item">
-            <i class="fas fa-user-friends" style="color: #47a8e8; margin-right: 8px;"></i>
-            Jane matched with you
-            <span class="timestamp">1d ago</span>
+          <div class="cta-container" style="margin-top: 20px;">
+            <button class="cta-button" id="notifications-button">View All</button>
           </div>
-          <div class="activity-item">
-            <i class="fas fa-eye" style="color: #b08ae4; margin-right: 8px;"></i>
-            Alex viewed your profile
-            <span class="timestamp">2d ago</span>
+        </div>
+
+        <!-- Modal overlay for Notifications -->
+        <div id="notif-modal" class="modal-overlay hidden">
+          <div class="modal-content">
+            <button class="close-button" id="notif-close">&times;</button>
+            <h2>Notifications</h2>
+            <div id="notif-items">
+              <!-- JS will inject notifications here -->
+            </div>
           </div>
         </div>
 
