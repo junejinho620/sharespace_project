@@ -43,6 +43,47 @@ router.post('/', verifyToken, verifyMatch, async (req, res) => {
   }
 });
 
+// GET /api/messages/inbox - fetch all messages involving the logged-in user, sort them newest-first, then pick out the most recent one per chat partner
+router.get('/inbox', verifyToken, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    // 1) Fetch all messages where the user is sender OR receiver, newest first
+    const messages = await Message.findAll({
+      where: {
+        [Op.or]: [
+          { sender_id: userId },
+          { receiver_id: userId },
+        ],
+      },
+      include: [
+        { model: User, as: 'sender',   attributes: ['id', 'username', 'profile_picture_url'] },
+        { model: User, as: 'receiver', attributes: ['id', 'username', 'profile_picture_url'] }
+      ],
+      order: [['sent_at', 'DESC']],
+    });
+
+    // 2) Build a deduplicated list of previews (one per partner)
+    const seen = new Set();
+    const previews = [];
+    for (const msg of messages) {
+      const other = msg.sender_id === userId ? msg.receiver : msg.sender;
+      if (!seen.has(other.id)) {
+        seen.add(other.id);
+        previews.push({
+          user: other,
+          lastMessage: msg.message_text,
+          sentAt: msg.sent_at,
+        });
+      }
+    }
+
+    return res.json(previews);
+  } catch (err) {
+    console.error('❌ Failed to fetch inbox messages:', err);
+    return res.status(500).json({ error: 'Failed to fetch inbox messages', details: err.message });
+  }
+});
+
 // GET /api/messages/:otherUserId - fetch conversation history between logged-in user and another user
 router.get('/:otherUserId', verifyToken, async (req, res) => {
   const userId = req.user.id;

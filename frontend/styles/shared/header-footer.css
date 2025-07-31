@@ -1,0 +1,322 @@
+/* styles/shared/header-footer.css */
+/* ── HEADER ── */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 25px 6%;
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--clr-bg);
+  transition: box-shadow 0.3s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.navbar--inner {
+  display: flex;
+  align-items: center;
+}
+
+.company-logo {
+  max-width: 48px;
+  margin-right: 8px;
+}
+
+.company-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--clr-primary);
+  cursor: pointer;
+  margin-right: 72px;
+  letter-spacing: 0.5px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+  list-style: none;
+}
+
+.nav-links a {
+  position: relative;
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(.8125rem,
+      1vw + .35rem,
+      1rem);
+  font-weight: 500;
+  line-height: 16px;
+  color: var(--clr-text);
+  text-decoration: none;
+  letter-spacing: 0.5px;
+  word-wrap: break-word;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--clr-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.3s ease;
+}
+
+.nav-links a:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.auth-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.login-link {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Lato', sans-serif;
+  font-size: clamp(.8125rem,
+      1vw + .35rem,
+      1rem);
+  font-weight: 500;
+  color: var(--clr-text);
+  transition: color 0.25s ease;
+  text-decoration: none;
+  gap: 6px;
+  position: relative;
+}
+
+.login-link:hover {
+  color: var(--clr-primary);
+}
+
+.login-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--clr-primary);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .3s ease;
+}
+
+.login-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.login-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  vertical-align: middle;
+  position: relative;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 24px;
+  height: 2px;
+  background: var(--clr-text);
+  transition: transform .3s ease, opacity .3s ease;
+}
+
+/* Username Dropdown Styling */
+.user-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.username {
+  padding: 10px 15px;
+  color: var(--clr-text);
+  font-size: 18px;
+  font-weight: 700;
+  display: inline-block;
+  text-decoration: none;
+}
+
+/* Dropdown menu positioning fixed to ensure hover */
+.dropdown-content {
+  position: absolute;
+  z-index: 9999;
+  padding: 5px 0;
+  display: none; /* Hidden initially */
+  transition: color 0.25s ease;
+  text-align: right;
+  margin-left: 16px;
+}
+
+.dropdown-content a {
+  display: block;
+  text-decoration: none;
+  color: var(--clr-text);
+  font-size: clamp(.8125rem,
+      1vw + .35rem,
+      1rem);
+  font-weight: 500;
+  padding: 6px 12px;
+  transition: background-color 0.2s;
+}
+
+.dropdown-content a:hover {
+  color: var(--clr-primary);
+}
+
+/* Show dropdown on hover of entire li.user-dropdown element */
+.user-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* ── Responsive Nav Drawer ── */
+@media(max-width:768px) {
+  .hamburger {
+    display: flex;
+  }
+
+  /* show burger              */
+  .nav-links {
+    display: none !important;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 16px;
+    flex-direction: column;
+    gap: 18px;
+    background: var(--clr-bg);
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .06);
+    z-index: 1000;
+  }
+
+  .navbar.open .nav-links {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 24px;
+    background: var(--clr-bg);
+    padding: 16px 24px;
+    gap: 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    z-index: 999;
+    width: auto;
+    display: flex;
+  }
+
+  .navbar.open .hamburger span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+
+  .navbar.open .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .navbar.open .hamburger span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  .auth-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+}
+
+/* ── FOOTER ── */
+.footer {
+  background-color: var(--clr-surface);
+  padding-block: 64px 32px;
+  text-align: center;
+}
+
+.footer-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 200px;
+  margin-bottom: 30px;
+}
+
+.footer-section h3 {
+  font-weight: 600;
+  margin-bottom: 32px;
+}
+
+.footer-section ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+  color: var(--clr-text);
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.footer-section ul li a:hover {
+  color: var(--clr-primary);
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+}
+
+/* Update social icons to use white color */
+.social-icons a {
+  color: var(--clr-text);
+  text-decoration: none;
+  font-size: 24px;
+  transition: transform 0.25s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.2);
+}
+
+.footer-bottom {
+  margin-top: 30px;
+  border-top: 1px solid var(--clr-primary);
+  padding-top: 40px;
+}

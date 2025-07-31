@@ -18,18 +18,6 @@ const User = db.define('User', {
     allowNull: false,
     validate: { isEmail: { msg: 'Must be a valid email address' } },
   },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      isStrongPassword(value) {
-        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-        if (!regex.test(value)) {
-          throw new Error('Password must include uppercase, lowercase, and a number.');
-        }
-      },
-    },
-  },
   name: { type: DataTypes.STRING(100), allowNull: true },
   gender: {
     type: DataTypes.ENUM('male', 'female', 'prefer-not-to-say'),
@@ -62,28 +50,6 @@ const User = db.define('User', {
     attributes: { exclude: ['password'] },
   },
 });
-
-// Hooks
-User.beforeCreate(async (user) => {
-  user.email = user.email.toLowerCase().trim();
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(user.password, salt);
-});
-
-User.beforeUpdate(async (user) => {
-  if (user.changed('email')) {
-    user.email = user.email.toLowerCase().trim();
-  }
-  if (user.changed('password')) {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(user.password, salt);
-  }
-});
-
-// Compare password method
-User.prototype.comparePassword = async function (input) {
-  return await bcrypt.compare(input, this.password);
-};
 
 // Associations
 User.associate = (models) => {
@@ -134,6 +100,12 @@ User.associate = (models) => {
   User.hasMany(models.Feedback, {
     foreignKey: 'user_id',
     as: 'feedbacks',
+    onDelete: 'CASCADE',
+  });
+
+  User.hasMany(models.AuthProvider, {
+    foreignKey: 'user_id',
+    as: 'authProviders',
     onDelete: 'CASCADE',
   });
 };

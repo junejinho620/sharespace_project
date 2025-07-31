@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Signing you in…</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const token = params.get('token');
+      if (token) {
+        localStorage.setItem('token', token);
+        window.location.href = '/signup-step1.html';
+      } else {
+        window.location.href = '/login.html?error=social';
+      }
+    });
+  </script>
+</head>
+<body>
+  <p>Signing you in…</p>
+</body>
+</html>

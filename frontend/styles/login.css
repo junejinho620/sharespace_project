@@ -24,7 +24,6 @@ body {
   width: 40%;
   background-color: #f5e8d6;
   padding: 80px 80px;
-  /* ⬆ increased padding */
   box-sizing: border-box;
   position: relative;
 }
@@ -48,9 +47,7 @@ body {
 
 .pomi-logo {
   width: 200px;
-  /* or any px, %, or rem */
   height: auto;
-  /* keeps aspect ratio */
   display: block;
   margin-left: auto;
   margin-right: auto;

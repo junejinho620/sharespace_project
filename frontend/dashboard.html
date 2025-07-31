@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<!--I am testing github lol-->
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="styles/dashboard.css" />
+  <title>Dashboard - ShareSpace</title>
+
   <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/header-footer.css">
+  <link rel="stylesheet" href="styles/dashboard.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <script src="scripts/navbar.js" defer></script>
   <script src="scripts/dashboard.js" defer></script>
 </head>
 
 <body>
+  <!-- Header -->
   <div id="header-placeholder"></div>
 
   <div class="main-grid">
@@ -96,34 +98,33 @@
         <!-- ──── 2a) Notifications ──── -->
         <div class="card small-card">
           <div class="section-title">Notifications</div>
-          <div class="activity-item">
-            <i class="fas fa-heart" style="color: #c6884b; margin-right: 8px;"></i>
-            John liked your profile
-            <span class="timestamp">2h ago</span>
+          <div id="notifications-preview">
+            <div class="activity-item">Loading notifications…</div>
           </div>
-          <div class="activity-item">
-            <i class="fas fa-user-friends" style="color: #47a8e8; margin-right: 8px;"></i>
-            Jane matched with you
-            <span class="timestamp">1d ago</span>
+          <div class="cta-container" style="margin-top: 20px;">
+            <button class="cta-button" id="notifications-button">View All</button>
           </div>
-          <div class="activity-item">
-            <i class="fas fa-eye" style="color: #b08ae4; margin-right: 8px;"></i>
-            Alex viewed your profile
-            <span class="timestamp">2d ago</span>
+        </div>
+
+        <!-- Modal overlay for Notifications -->
+        <div id="notif-modal" class="modal-overlay hidden">
+          <div class="modal-content">
+            <button class="close-button" id="notif-close">&times;</button>
+            <h2>Notifications</h2>
+            <div id="notif-items">
+              <!-- JS will inject notifications here -->
+            </div>
           </div>
         </div>
 
         <!-- ──── 2b) Inbox ──── -->
         <div class="card small-card">
           <div class="section-title">Inbox</div>
-          <div class="message-preview">
-            <strong>Emma:</strong> Hey, I’m also a rising junior!
-          </div>
-          <div class="message-preview">
-            <strong>Kevin:</strong> I’d love to chat more!
+          <div class="message-preview" id="inbox-previews">
+            <div class="message-preview">Loading messages…</div>
           </div>
           <div class="cta-container" style="margin-top: 40px;">
-            <button class="cta-button">Go to Messages</button>
+            <button class="cta-button" id="messages-button">Go to Messages</button>
           </div>
         </div>
       </div>
@@ -179,6 +180,8 @@
     </div>
   </div>
 
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
 </body>
 
 </html>

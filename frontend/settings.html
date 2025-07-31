@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings - ShareSpace</title>
-  <link rel="stylesheet" href="styles/shared/general.css" />
+
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/header-footer.css">
   <link rel="stylesheet" href="styles/settings.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <script src="scripts/navbar.js" defer></script>
   <script src="scripts/settings.js" defer></script>
 </head>
-<body>
-    <nav class="navbar">
-    <div class="company">
-      <img src="styles/img/shared/sharespace-logo.png" class="sharespace-logo">
-      <a href="index.html" class="company-name">ShareSpace</a>
-    </div>
 
-  </nav>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
 
   <div class="settings-wrapper">
     <!-- Sidebar -->
@@ -34,14 +34,14 @@
       <!-- Account Settings -->
       <section id="account" class="settings-section">
         <h2>Account Settings</h2>
-      
+
         <!-- Align all three buttons together -->
         <div class="button-row">
           <button class="toggle-form-btn" data-target="emailForm">Change Email</button>
           <button class="toggle-form-btn" data-target="passwordForm">Change Password</button>
           <button id="deleteAccountBtn" class="danger-btn">Delete Account</button>
         </div>
-      
+
         <form id="emailForm" class="settings-form hidden">
           <label>New Email:
             <input type="email" required />
@@ -51,7 +51,7 @@
           </label>
           <button type="submit">Update Email</button>
         </form>
-      
+
         <form id="passwordForm" class="settings-form hidden">
           <label>Current Password:
             <input type="password" required />
@@ -65,7 +65,7 @@
           <button type="submit">Update Password</button>
         </form>
       </section>
-      
+
 
       <!-- Notification Settings -->
       <section id="notifications" class="settings-section hidden">
@@ -116,5 +116,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
 </body>
+
 </html>

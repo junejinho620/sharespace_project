@@ -1,285 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ShareSpace</title>
-   <!-- <link rel="stylesheet" href="styles/shared/general.css" /> -->
-    <link rel="stylesheet" href="styles/index.css" />
-  
-  
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-    <!-- <script defer src="scripts/index.js"></script> -->
-  </head>
-  <body>
-    <!-- Header -->
-<!-- Update your navbar section in index.html -->
-<header class="navbar">
-  <div class="company-logo"><a href="#">ShareSpace</a></div>
-  <nav class="main-nav">
-    <ul class="nav-links">
-      <li><a href="#">HOME</a></li>
-      <li><a href="#">ABOUT US</a></li>
-      <li><a href="#">OUR SERVICES</a></li>
-      <li><a href="dashboard.html">DASHBOARD</a></li>
-      <li><a href="#">FIND SPACE</a></li>
-      <li><a href="browse.html">FIND MATE</a></li>
-    </ul>
-  </nav>
-  <div class="auth-actions">
-    <a href="login.html" class="login-link">
-      <img src="styles/img/index/Vector.png" alt="icon" class="login-icon" />
-      Login / Register
-    </a>
-  </div>
-  
-</header>
 
-    <!-- Hero -->
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1>SHARESPACE</h1>
-        <p>Where Strangers Become<br>Someone to Miss</p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShareSpace</title>
 
-        <div class="property-types">
-          <span class="filter-option active">All</span>
-          <span class="filter-option">Location</span>
-          <span class="filter-option">University</span>
-        </div>
-        
-        
-        <div class="search-wrapper">
-          <span class="icon-left"></span>
-          <input type="text" placeholder="an address, neighborhood, city, or ZIP code" />
-          <div class="search-right">
-            <button class="advanced"><i class="fas fa-sliders-h"></i> Advanced</button>
-            <button class="search-btn"><i class="fas fa-search"></i></button>
-          </div>
-        </div>
-    
-        <div class="property-types">
-          <span><i class="fas fa-home"></i> Houses</span>
-          <span><i class="fas fa-building"></i> Apartments</span>
-          <span><i class="fas fa-camera"></i> Office</span>
-          <span><i class="fas fa-hotel"></i> Villa</span>
-        </div>
-      </div>
-    
-      <div class="hero-right">
-        <div class="house-container">
-          <div class="ellipse-stack">
-            <div class="ellipse ellipse-top"></div>
-            <div class="ellipse ellipse-bottom-left"></div>
-            <div class="ellipse ellipse-bottom-right"></div>
-          </div>
-          
-          <img src="styles/img/index/house.png" alt="house" class="house-img" />
-          <img src="styles/img/image_313.svg" alt="bot" class="bot-img" />
-        </div>
-      </div>
-    </section>
-    
-    
+  <link rel="stylesheet" href="styles/shared/general.css">
+  <link rel="stylesheet" href="styles/shared/header-footer.css">
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <script defer src="scripts/navbar.js"></script>
+  <script defer src="scripts/index.js"></script>
+</head>
 
-    <!-- Roommate Profiles -->
-    <section class="profiles">
-      <h2>Meet Our Members</h2>
-      <div class="profile-grid">
-        <div class="profile-card">
-          <img src="/img/user1.jpg" alt="User photo" />
-          <h3>Amanda, 24</h3>
-          <p>📍 Toronto • 🎓 Student • 🧘 Yoga + Clean living</p>
-          <a href="profile.html" class="view-btn">View Profile</a>
-        </div>
-        <div class="profile-card">
-          <img src="/img/user2.jpg" alt="User photo" />
-          <h3>Kevin, 27</h3>
-          <p>📍 Vancouver • 👨‍💻 Software Dev • 🥗 Vegetarian</p>
-          <a href="profile.html" class="view-btn">View Profile</a>
-        </div>
-        <div class="profile-card">
-          <img src="/img/user3.jpg" alt="User photo" />
-          <h3>Sophia, 22</h3>
-          <p>📍 Montreal • 📚 Literature • 🐶 Dog lover</p>
-          <a href="profile.html" class="view-btn">View Profile</a>
-        </div>
-      </div>
-    </section>
+<body>
+  <!-- Header -->
+  <div id="header-placeholder"></div>
 
-    <section class="how-it-works">
-      <div class="how-left">
+  <!-- Hero -->
+  <section class="hero-section container">
+    <div class="hero-content">
+      <h1>Find a roommate you’ll love.</h1>
+      <p>AI-powered matching, verified profiles, and real-time chat in one place.</p>
 
-        <img src="styles/img/index/div.elementor-widget-wrap.png" class="how-it-works-img">
-      </div>
-    
-      <div class="how-right">
-        <div class="how-step">
-          <img src="styles/img/index/Icon.png" alt="Step 1" />
-          <div class="step-number">01</div>
-          <div class="step-title">Search Your Preferred Location</div>
-          <div class="step-description">Get ready to launch your real<br />estate website without...</div>
-        </div>
-        <div class="how-step">
-          <img src="styles/img/index/Icon_1.png" alt="Step 2" />
-          <div class="step-number">02</div>
-          <div class="step-title">Apply Lifestyle Filters</div>
-          <div class="step-description">Filter roommates by habits, budget,<br />sleep schedule, and more.</div>
-        </div>
-        <div class="how-step">
-          <img src="styles/img/index/Icon_2.png" alt="Step 3" />
-          <div class="step-number">03</div>
-          <div class="step-title">Compare Compatibility Scores</div>
-          <div class="step-description">Easily identify best matches with<br />our AI-powered algorithm.</div>
-        </div>
-        <div class="how-step">
-          <img src="styles/img/index/Icon_3.png" alt="Step 4" />
-          <div class="step-number">04</div>
-          <div class="step-title">Message & Connect</div>
-          <div class="step-description">Reach out and connect with<br />your ideal roommates.</div>
-        </div>
-      </div>
-    </section>
-    
+      <form class="search-wrapper">
+        <input placeholder="Enter city or university" />
+        <button class="search-btn"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </section>
 
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <h2>People Love Living with ShareSpace</h2>
-      <div class="testimonial-cards">
-        <div class="testimonial">
-          <p>"Great Work"</p><small>Ali Tufan, Marketing</small>
-        </div>
-        <div class="testimonial">
-          <p>"Good Job"</p><small>Albert Flores, Designer</small>
-        </div>
-        <div class="testimonial">
-          <p>"Perfect"</p><small>Robert Fox, Developer</small>
-        </div>
+  <!-- Roommate Profiles -->
+  <section class="profiles container">
+    <h2>Meet Our Members</h2>
+    <div class="profile-grid">
+      <div class="profile-card">
+        <img src="styles/img/default.jpg" alt="User photo" />
+        <h3>Jinho Choi</h3>
+        <p>📍Toronto • 🎓Electrical Engineering</p>
+        <a href="profile.html" class="view-btn">View Profile</a>
       </div>
-    </section>
-
-    <!-- Pricing Plans -->
-    <section class="pricing">
-      <h2>Membership Plans</h2>
-      <div class="plans">
-        <div class="plan-card standard">
-          <img src="styles/img/index/icon-business.png.svg" alt="Standard Icon" class="plan-icon" />
-          <h3>Standard</h3>
-          <div class="price">£9.99 <span class="billing">/Month</span></div>
-          <p class="description">Basic listing submission, active for 30 days</p>
-          <ul>
-            <li>Up to 10 Free Profile Viewing</li>
-            <li>Up to 5 Message Sending</li>
-            <li class="disabled">No AI-Based Matching Service</li>
-            <li>Ad Removal</li>
-          </ul>
-          <button class="select-btn">Select <span>↗</span></button>
-        </div>
-      
-        <div class="plan-card featured">
-          <img src="styles/img/index/icon-pro.png.svg" alt="Pro Icon" class="plan-icon" />
-          <h3>Pro</h3>
-          <div class="price">£19.99 <span class="billing">/Month</span></div>
-          <p class="description">Basic listing submission, active for 30 days</p>
-          <ul>
-            <li>Unlimited Profile Viewing</li>
-            <li>Unlimited Message Sending</li>
-            <li>Premium AI-Based Matching Service</li>
-            <li>Ad Removal</li>
-          </ul>
-          <button class="select-btn">Select <span>↗</span></button>
-        </div>
-      
-        <div class="plan-card basic">
-          <img src="styles/img/index/icon-basic.png.svg" alt="Basic Icon" class="plan-icon" />
-          <h3>Basic</h3>
-          <div class="price">Free</div>
-          <p class="description">Basic listing submission, active for 30 days</p>
-          <ul>
-            <li>Up to 3 Free Profile Viewing</li>
-            <li>Up to 2 Free Message Sending</li>
-            <li class="disabled">No AI-Based Matching Service</li>
-            <li class="disabled">No Ad Removal</li>
-          </ul>
-          <button class="select-btn">Select <span>↗</span></button>
-        </div>
+      <div class="profile-card">
+        <img src="styles/img/default.jpg" alt="User photo" />
+        <h3>Kevin, 27</h3>
+        <p>📍 Vancouver • 👨‍💻 Software Dev • 🥗 Vegetarian</p>
+        <a href="profile.html" class="view-btn">View Profile</a>
       </div>
-      
-      
-    
-    </section>
-
-    <section class="soulmate-section">
-      <div class="soulmate-bg-layer"></div>
-      <div class="soulmate-box left">
-        <h2 class="soulmate-title">Find Your Soul Mate</h2>
-        <p class="soulmate-subtext">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
-        </p>
-        <a href="#" class="soulmate-btn">Get Started <span>↗</span></a>
-      </div>
-    
-      <img src="styles/img/index/roommate_laughing.svg" alt="Happy Roommates" class="soulmate-img"/>
-    
-      <div class="soulmate-box right">
-        <img src="styles/img/index/h44.png.svg" alt="decoration" class="soulmate-deco"/>
-      </div>
-    </section>
-    
-   <!-- Footer -->
-   <footer class="footer">
-    <div class="footer-content">
-      <!-- Navigation Links -->
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#how-it-works">How It Works</a></li>
-          <!--<li><a href="browse.html">Browse</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="user-info.html" class="btn">User Info</a></li>-->
-        </ul>
-      </div>
-  
-      <!-- Contact Details -->
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <ul>
-          <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
-          <li>Phone: +82 (010) 6744-5288</li>
-          <li>Address: 123 Roommate St, Suite 456, City, Country</li>
-        </ul>
-      </div>
-  
-      <!-- Social Media Icons -->
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
-          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-  
-      <!-- Legal Information -->
-      <div class="footer-section">
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-of-service.html">Terms of Service</a></li>
-        </ul>
+      <div class="profile-card">
+        <img src="styles/img/default.jpg" alt="User photo" />
+        <h3>Sophia, 22</h3>
+        <p>📍 Montreal • 📚 Literature • 🐶 Dog lover</p>
+        <a href="profile.html" class="view-btn">View Profile</a>
       </div>
     </div>
-  
-    <!-- Copyright Notice -->
-    <div class="footer-bottom">
-      <p>&copy; 2025 ShareSpace. All rights reserved.</p>
-    </div>
-  </footer>
+  </section>
 
-  <!-- Font Awesome for Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</div>
+  <section class="how-it-works container">
+    <div class="how-left">
+      <img src="styles/img/index/how-it-works.png" class="how-it-works-img">
+    </div>
+
+    <div class="how-right">
+      <div class="how-step">
+        <img src="styles/img/index/Icon.png" alt="Step 1" />
+        <div class="step-number">01</div>
+        <div class="step-title">Search Your Preferred Location</div>
+        <div class="step-description">Get ready to launch your real estate website without...</div>
+      </div>
+      <div class="how-step">
+        <img src="styles/img/index/Icon_1.png" alt="Step 2" />
+        <div class="step-number">02</div>
+        <div class="step-title">Apply Lifestyle Filters</div>
+        <div class="step-description">Filter roommates by habits, budget, sleep schedule, and more.</div>
+      </div>
+      <div class="how-step">
+        <img src="styles/img/index/Icon_2.png" alt="Step 3" />
+        <div class="step-number">03</div>
+        <div class="step-title">Compare Compatibility Scores</div>
+        <div class="step-description">Easily identify best matches with our AI-powered algorithm.</div>
+      </div>
+      <div class="how-step">
+        <img src="styles/img/index/Icon_3.png" alt="Step 4" />
+        <div class="step-number">04</div>
+        <div class="step-title">Message & Connect</div>
+        <div class="step-description">Reach out and connect with your ideal roommates.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials container">
+    <h2>People Love Living with ShareSpace</h2>
+    <div class="testimonial-cards">
+      <div class="testimonial">
+        <p>"Great Work"</p><small>Ali Tufan, Marketing</small>
+      </div>
+      <div class="testimonial">
+        <p>"Good Job"</p><small>Albert Flores, Designer</small>
+      </div>
+      <div class="testimonial">
+        <p>"Perfect"</p><small>Robert Fox, Developer</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Plans -->
+  <section class="pricing container">
+    <h2>Membership Plans</h2>
+    <div class="plans">
+      <div class="plan-card standard">
+        <img src="styles/img/index/icon-business.png.svg" alt="Standard Icon" class="plan-icon" />
+        <h3>Standard</h3>
+        <div class="price">$9.99 <span class="billing">/ Month</span></div>
+        <p class="description">Basic listing submission, active for 30 days</p>
+        <ul>
+          <li>Up to 10 Free Profile Viewing</li>
+          <li>Up to 5 Message Sending</li>
+          <li class="disabled">No AI-Based Matching Service</li>
+          <li>Ad Removal</li>
+        </ul>
+        <button class="select-btn">Select <span>↗</span></button>
+      </div>
+
+      <div class="plan-card featured">
+        <img src="styles/img/index/icon-pro.png.svg" alt="Pro Icon" class="plan-icon" />
+        <h3>Pro</h3>
+        <div class="price">$19.99 <span class="billing">/ Month</span></div>
+        <p class="description">Basic listing submission, active for 30 days</p>
+        <ul>
+          <li>Unlimited Profile Viewing</li>
+          <li>Unlimited Message Sending</li>
+          <li>Premium AI-Based Matching Service</li>
+          <li>Ad Removal</li>
+        </ul>
+        <button class="select-btn">Select <span>↗</span></button>
+      </div>
+
+      <div class="plan-card basic">
+        <img src="styles/img/index/icon-basic.png.svg" alt="Basic Icon" class="plan-icon" />
+        <h3>Basic</h3>
+        <div class="price">Free</div>
+        <p class="description">Basic listing submission, active for 30 days</p>
+        <ul>
+          <li>Up to 3 Free Profile Viewing</li>
+          <li>Up to 2 Free Message Sending</li>
+          <li class="disabled">No AI-Based Matching Service</li>
+          <li class="disabled">No Ad Removal</li>
+        </ul>
+        <button class="select-btn">Select <span>↗</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="soulmate-section container">
+    <div class="soulmate-bg-layer"></div>
+    <div class="soulmate-box left">
+      <h2 class="soulmate-title">Find Your Soul Mate</h2>
+      <p class="soulmate-subtext">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+      </p>
+      <a href="#" class="soulmate-btn">Get Started <span>↗</span></a>
+    </div>
+    <img src="styles/img/index/find-your-soulmate.png" alt="Happy Roommates" class="soulmate-img" />
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-placeholder"></div>
 </body>
+
 </html>

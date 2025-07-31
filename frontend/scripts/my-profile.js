@@ -46,7 +46,7 @@ async function fetchRoommatePrefs(token) {
 // Helper: Fill user data
 function populateProfile(user, pref = {}) {
   // Header
-  document.getElementById('profileName').textContent = user.name || '';
+  document.getElementById('profileName').textContent = user.name || user.username || '';
   document.getElementById('profileCity').textContent = user.city || '';
   if (user.profile_picture_url) {
     document.getElementById('profilePic').src = user.profile_picture_url;

@@ -1,5 +1,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+
+    // ———————————————————————————————————————————————————————————
+    // PROFILE COMPLETION PROGRESS
+    // ———————————————————————————————————————————————————————————
+
     const token = localStorage.getItem('token');
     if (token) {
       const compRes = await fetch('/api/users/me/completion', {
@@ -45,6 +50,10 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       window.location.href = `/userinfo-step${lowestStep}.html`;
     });
+
+    // ———————————————————————————————————————————————————————————
+    // FOMI SNAPSHOT & TRAITS
+    // ———————————————————————————————————————————————————————————
 
     // 1) Grab matchedFomi from localStorage
     const matchedFomi = localStorage.getItem('matchedFomi');
@@ -130,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const bestName = Array.isArray(data.bestMatches) ? data.bestMatches[0] : null;
     const worstName = Array.isArray(data.worstMatches) ? data.worstMatches[0] : null;
 
-    // A small helper to build the inner HTML of one partner‐card
+    // Helper 1) Build the inner HTML of one partner‐card
     async function renderPartnerCard(cardId, fomiName, cardType) {
       if (!fomiName) {
         // If no name found, hide the card entirely
@@ -162,12 +171,147 @@ document.addEventListener('DOMContentLoaded', async () => {
     await renderPartnerCard('best-partner', bestName, 'best-card');
     await renderPartnerCard('worst-partner', worstName, 'worst-card');
 
-    // 8) Navigate user to pricing plan
+    // 8) Navigate user to messages
+    document.getElementById('messages-button')?.addEventListener('click', () => {
+      window.location.href = '/messages.html';
+    });
+
+    // 9) Navigate user to pricing plan
     document.getElementById('upgrade-button')?.addEventListener('click', () => {
       window.location.href = '/pricing.html';
     });
-  }
-  catch (err) {
+
+    // ———————————————————————————————————————————————————————————
+    // INBOX PREVIEWS
+    // ———————————————————————————————————————————————————————————
+
+    // Helper 2) format "2h ago", "5m ago", etc. ───
+    function timeAgo(date) {
+      const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+      const units = [
+        { label: 'd', secs: 86400 },
+        { label: 'h', secs: 3600 },
+        { label: 'm', secs: 60 },
+      ];
+      for (const { label, secs } of units) {
+        const val = Math.floor(seconds / secs);
+        if (val > 0) return `${val}${label} ago`;
+      }
+      return `${seconds}s ago`;
+    }
+
+    if (token) {
+      const inboxContainer = document.getElementById('inbox-previews');
+      try {
+        const res = await fetch('/api/messages/inbox', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res.ok) {
+          const previews = await res.json();
+          inboxContainer.innerHTML = '';                   // clear placeholder
+          // Show up to 5 chats
+          previews.slice(0, 5).forEach(({ user, lastMessage, sentAt }) => {
+            const el = document.createElement('div');
+            el.className = 'message-preview';
+            el.innerHTML = `
+              <strong>${user.username}:</strong> ${lastMessage}
+              <span class="timestamp">${timeAgo(new Date(sentAt))}</span>
+            `;
+            inboxContainer.appendChild(el);
+          });
+          if (previews.length === 0) {
+            inboxContainer.innerHTML = '<div class="message-preview">No messages yet.</div>';
+          }
+        } else {
+          console.warn('Failed to fetch inbox messages');
+        }
+      } catch (err) {
+        console.error('Error loading inbox:', err);
+      }
+    }
+
+    // ———————————————————————————————————————————————————————————
+    // NOTIFICATIONS: fetch, preview (top-3) + modal overlay (full list)
+    // ———————————————————————————————————————————————————————————
+    
+    async function fetchNotifications() {
+      const [likesRes, matchesRes] = await Promise.all([
+        fetch('/api/likes/incoming', { headers: { 'Authorization': `Bearer ${token}` } }),
+        fetch('/api/likes/matches', { headers: { 'Authorization': `Bearer ${token}` } })
+      ]);
+      if (!likesRes.ok || !matchesRes.ok) {
+        throw new Error('Failed to fetch notifications');
+      }
+      const likesData = await likesRes.json();
+      const matchesData = (await matchesRes.json()).matches;
+      return [
+        ...likesData.map(l => ({
+          type: 'like',
+          user: l.liker,
+          timestamp: l.createdAt
+        })),
+        ...matchesData.map(m => ({
+          type: 'match',
+          user: { id: m.id, username: m.username, profile_picture_url: m.profile_picture_url },
+          timestamp: m.matched_at
+        }))
+      ]
+      .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+    }
+
+    function renderList(container, events, limit = events.length) {
+      container.innerHTML = '';
+      if (events.length === 0) {
+        container.innerHTML = '<div class="activity-item">No notifications yet.</div>';
+        return;
+      }
+      events.slice(0, limit).forEach(ev => {
+        const div = document.createElement('div');
+        div.className = 'activity-item';
+        div.innerHTML = `
+          <i class="fas fa-${ev.type === 'like' ? 'heart' : 'user-friends'}" style="margin-right:8px;"></i>
+          ${ev.user.username} ${ev.type === 'like' ? 'liked your profile' : 'matched with you'}
+          <span class="timestamp">${timeAgo(new Date(ev.timestamp))}</span>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // 2) Preview on load (top-3)
+    const previewContainer = document.getElementById('notifications-preview');
+    if (previewContainer) {
+      try {
+        const events = await fetchNotifications();
+        renderList(previewContainer, events, 3);
+      } catch (err) {
+        console.error('Error loading notification preview:', err);
+        previewContainer.innerHTML =
+          '<div class="activity-item">Failed to load notifications.</div>';
+      }
+    }
+
+    // 3) Modal logic
+    const notifBtn = document.getElementById('notifications-button');
+    const notifModal = document.getElementById('notif-modal');
+    const notifClose = document.getElementById('notif-close');
+    const notifItems = document.getElementById('notif-items');
+
+    notifBtn?.addEventListener('click', async () => {
+      try {
+        const allEvents = await fetchNotifications();
+        renderList(notifItems, allEvents);
+      } catch (err) {
+        console.error('Error loading notifications:', err);
+        notifItems.textContent = 'Failed to load notifications.';
+      }
+      notifModal.classList.remove('hidden');
+    });
+    notifClose?.addEventListener('click', () => notifModal.classList.add('hidden'));
+    notifModal?.addEventListener('click', e => {
+      if (e.target === notifModal) notifModal.classList.add('hidden');
+    });
+
+  } catch (err) {
     console.error('Error populating dashboard:', err);
   }
 });

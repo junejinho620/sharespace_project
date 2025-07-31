@@ -23,7 +23,7 @@ body {
 .left-panel {
   width: 40%;
   background-color: #f5e8d6;
-  padding: 80px 80px; /* ⬆ increased padding */
+  padding: 80px 80px;
   box-sizing: border-box;
   position: relative;
 }
@@ -46,8 +46,8 @@ body {
 }
 
 .pomi-logo{
-  width: 200px;    /* or any px, %, or rem */
-  height: auto;    /* keeps aspect ratio */
+  width: 200px;   
+  height: auto; 
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -196,19 +196,19 @@ body {
 }
 
 /* LOGIN LINK */
-.login-link {
+.log-in-link {
   font-size: 14px;
   color: #333;
   text-align: center;
 }
 
-.login-link a {
+.log-in-link a {
   font-weight: 500;
   color: #a48d65;
   text-decoration: none;
 }
 
-.login-link a:hover {
+.log-in-link a:hover {
   text-decoration: underline;
 }
 

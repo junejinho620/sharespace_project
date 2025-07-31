@@ -47,7 +47,7 @@ router.get('/matches', verifyToken, async (req, res) => {
     // Fetch matched users
     const matchedUsers = await User.findAll({
       where: { id: matchedUserIds },
-      attributes: ['id', 'name', 'profile_picture_url'], // Adjust to fit your frontend
+      attributes: ['id', 'username', 'profile_picture_url'], // Adjust to fit your frontend
     });
 
     // For each matched user, find latest message
@@ -63,11 +63,15 @@ router.get('/matches', verifyToken, async (req, res) => {
           order: [['sent_at', 'DESC']],
         });
 
+        const mutualLike = await Like.findOne({
+          where: { liker_id: user.id, liked_id: userId }
+        });
         return {
           id: user.id,
-          name: user.name,
+          username: user.username,
           profile_picture_url: user.profile_picture_url,
           last_message: lastMessage ? lastMessage.message_text : null, // Include last message if exists
+          matched_at: mutualLike ? mutualLike.created_at : null
         };
       })
     );
@@ -77,6 +81,27 @@ router.get('/matches', verifyToken, async (req, res) => {
   } catch (err) {
     console.error("❌ Error fetching matches:", err);
     res.status(500).json({ error: 'Failed to fetch matched users' });
+  }
+});
+
+// GET /api/likes/incoming - who has liked *you*
+router.get('/incoming', verifyToken, async (req, res) => {
+  const likedId = req.user.id;
+  try {
+    const incoming = await Like.findAll({
+      where: { liked_id: likedId },
+      include: [{ model: User, as: 'liker', attributes: ['id', 'username', 'profile_picture_url'] }],
+      order: [['created_at', 'DESC']]
+    });
+    // map to a simple shape
+    const likes = incoming.map(l => ({
+      liker: l.liker,
+      createdAt: l.created_at
+    }));
+    res.json(likes);
+  } catch (err) {
+    console.error('❌ Error fetching incoming likes:', err);
+    res.status(500).json({ error: 'Failed to fetch incoming likes' });
   }
 });
 

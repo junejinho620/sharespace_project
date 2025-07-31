@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 // Helper: Fill profile data into page
 function populateProfile(user) {
-  document.getElementById('profileName').textContent = `${user.name || 'Name not set'}, ${user.age || '-'}`;
+  document.getElementById('profileName').textContent = `${user.name || user.username}, ${user.age || '-'}`;
   document.getElementById('profileCity').textContent = user.city || "Unknown";
   loadAndDisplayHobbies(user.id, 'profileHobbies');
   document.getElementById('profileBio').textContent = user.bio || "No bio available.";
