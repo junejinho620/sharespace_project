@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       card.innerHTML = `
         <img src="${user.profile_picture_url || 'styles/img/default.jpg'}" alt="${user.username}" class="profile-avatar">
         <h1>${user.username}, ${user.age || ''}</h1>
-        <div class="coords">${user.city || 'Unknown'} | Joined ${new Date(user.created_at).toLocaleDateString()}</div>
+        <div class="coords">${user.city || 'Unknown'} | Joined ${new Date(user.joined_at).toLocaleDateString()}</div>
         <div class="tags">
           ${user.interests
           ? user.interests.split(',').map(i => `<span class="tag">${i.trim()}</span>`).join('')
