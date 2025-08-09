@@ -28,6 +28,15 @@ async function renderNavLinks() {
       <li><a href="browse.html">Browse Matches</a></li>
       <li><a href="messages.html">Messages</a></li>
     `;
+    authActions.innerHTML = `
+      <a href="login.html" class="login-link">
+        <img src="styles/img/index/Vector.png" class="login-icon" alt="Login Icon" />
+        Login / Register
+      </a>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    `;
     return;
   }
   try {
