@@ -103,6 +103,12 @@ User.associate = (models) => {
     onDelete: 'CASCADE',
   });
 
+  User.hasOne(models.UserFomi, {
+    foreignKey: 'user_id',
+    as: 'fomiResult',
+    onDelete: 'CASCADE',
+  });
+
   User.hasMany(models.AuthProvider, {
     foreignKey: 'user_id',
     as: 'authProviders',

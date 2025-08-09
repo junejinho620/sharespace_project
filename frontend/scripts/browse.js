@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const natSel = document.getElementById('nationSelect');
   const agePills = document.querySelectorAll('.age-pills .pill');
   const genderPills = document.querySelectorAll('.gender-pills .pill');
+  const fomiChecks = document.querySelectorAll('input[name="fomi"]');
   const resetBtns = document.querySelectorAll('.reset-btn');
   const clearAll = document.getElementById('clear-filters');
 
@@ -105,6 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const selA = Array.from(agePills).filter(b => b.classList.contains('selected')).map(b => b.dataset.value);
     const selG = Array.from(genderPills).find(b => b.classList.contains('selected')).dataset.value;
     const selC = citySel.value, selN = natSel.value;
+    const selF = Array.from(fomiChecks).filter(c => c.checked).map(c => c.value);
 
     const filtered = allUsers.filter(u => {
       if (u.budget_max < minB || u.budget_min > maxB) return false;
@@ -112,6 +114,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (selC !== 'all' && u.city !== selC) return false;
       if (selN !== 'all' && u.nationality !== selN) return false;
       if (selG && u.gender !== selG) return false;
+      if (selF.length && (!u.fomi || !selF.includes(u.fomi))) return false;
       return true;
     });
     renderUsers(filtered);
@@ -127,6 +130,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     p.classList.add('selected');
     applyFilters();
   }));
+
+  fomiChecks.forEach(c => c.addEventListener('change', applyFilters));
 
   // dropdowns
   citySel.addEventListener('change', applyFilters);
@@ -155,6 +160,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // gender
     genderPills.forEach(p => p.classList.remove('selected'));
     genderPills[2].classList.add('selected'); // “Any”
+    // fomi
+    fomiChecks.forEach(c => c.checked = false);
     applyFilters();
   });
 

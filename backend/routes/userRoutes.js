@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
-const { User, RoommatePref, Hobby, Language, AuthProvider } = require('../models');
+const { User, RoommatePref, Hobby, Language, AuthProvider, UserFomi } = require('../models');
 const userController = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
 require('dotenv').config(); // Loads JWT_SECRET
@@ -248,6 +248,10 @@ router.get('/', async (req, res) => {
           model: RoommatePref,
           as: 'roommatePref',
           attributes: ['budget_min', 'budget_max']
+        }, {
+          model: UserFomi,
+          as:"fomiResult",
+          attributes: ['fomi_name']
         }
       ]
     });
@@ -269,7 +273,10 @@ router.get('/', async (req, res) => {
         joined_at: json.created_at,
         interests: (json.hobbies || []).map(h => h.name).join(', '),
         budget_min: json.roommatePref?.budget_min ?? 0,
-        budget_max: json.roommatePref?.budget_max ?? 0
+        budget_max: json.roommatePref?.budget_max ?? 0,
+        fomi: json.fomiResult?.fomi_name
+          ? json.fomiResult.fomi_name.toLowerCase().replace(/\s+/g, '-')
+          : null
       };
     });
 
