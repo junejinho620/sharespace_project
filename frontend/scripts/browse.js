@@ -1,11 +1,17 @@
 document.addEventListener('DOMContentLoaded', async () => {
   const centerContainer = document.querySelector('.center');
   let allUsers = [];
+  let countries = [];
+
+  const slugifyCountry = str => str.toLowerCase().replace(/\s+/g, '-');
 
   // ---- 1) Fetch users ----
-  async function fetchUsers() {
+  async function fetchUsers(nations = []) {
     try {
-      const res = await fetch('/api/users');
+      const params = new URLSearchParams();
+      nations.forEach(n => params.append('nationality', n));
+      const url = '/api/users' + (params.toString() ? `?${params.toString()}` : '');
+      const res = await fetch(url);
       return (await res.json()) || [];
     } catch {
       return [];
@@ -44,14 +50,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   const bMinI = document.getElementById('budgetInputMin');
   const bMaxI = document.getElementById('budgetInputMax');
   const citySel = document.getElementById('citySelect');
-  const natSel = document.getElementById('nationSelect');
+  const nationInput = document.getElementById('nationInput');
+  const nationSelected = document.getElementById('selectedNations');
+  const nationSuggestions = document.getElementById('nationSuggestions');
   const agePills = document.querySelectorAll('.age-pills .pill');
   const genderPills = document.querySelectorAll('.gender-pills .pill');
   const fomiChecks = document.querySelectorAll('input[name="fomi"]');
   const resetBtns = document.querySelectorAll('.reset-btn');
   const clearAll = document.getElementById('clear-filters');
 
-  // ---- 4) Budget dual-slider setup ----
+  // ---- 4a) Budget dual-slider setup ----
   function syncDual(minS, maxS, minI, maxI, gap = 100) {
     const track = minS.parentElement.querySelector('.slider-track');
     const update = () => {
@@ -100,19 +108,88 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   syncDual(bMinS, bMaxS, bMinI, bMaxI, 200);
 
+  // ---- 4b) Load country list ----
+  async function loadCountries() {
+    try {
+      const res = await fetch('scripts/countries.json');
+      countries = await res.json();
+    } catch {
+      countries = [];
+    }
+  }
+
+  function getSelectedNations() {
+    return Array.from(document.querySelectorAll('.selected-nation')).map(el => el.dataset.value);
+  }
+
+  function addNation(name) {
+    const slug = slugifyCountry(name);
+    if (getSelectedNations().includes(slug)) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'pill selected selected-nation';
+    btn.dataset.value = slug;
+    btn.innerHTML = `${name}<span class="remove">×</span>`;
+    btn.addEventListener('click', () => {
+      btn.remove();
+      applyFilters();
+    });
+    nationSelected.appendChild(btn);
+    applyFilters();
+  }
+
+  await loadCountries();
+
+  nationInput.addEventListener('input', () => {
+    const q = nationInput.value.toLowerCase().replace(/-/g, ' ');
+    nationSuggestions.innerHTML = '';
+    if (!q) {
+      nationSuggestions.classList.add('hidden');
+      return;
+    }
+    const matches = countries.filter(c => c.toLowerCase().includes(q) && !getSelectedNations().includes(slugifyCountry(c)));
+    matches.slice(0, 5).forEach(c => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      li.addEventListener('click', () => {
+        addNation(c);
+        nationInput.value = '';
+        nationSuggestions.innerHTML = '';
+        nationSuggestions.classList.add('hidden');
+      });
+      nationSuggestions.appendChild(li);
+    });
+    nationSuggestions.classList.toggle('hidden', matches.length === 0);
+  });
+
+  nationInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && nationSuggestions.firstChild) {
+      e.preventDefault();
+      nationSuggestions.firstChild.click();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.multi-select')) {
+      nationSuggestions.classList.add('hidden');
+    }
+  });
+
   // ---- 5) Main filtering logic ----
-  function applyFilters() {
+  async function applyFilters() {
     const minB = +bMinI.value, maxB = +bMaxI.value;
     const selA = Array.from(agePills).filter(b => b.classList.contains('selected')).map(b => b.dataset.value);
     const selG = Array.from(genderPills).find(b => b.classList.contains('selected')).dataset.value;
-    const selC = citySel.value, selN = natSel.value;
+    const selC = citySel.value;
+    const selN = getSelectedNations();
     const selF = Array.from(fomiChecks).filter(c => c.checked).map(c => c.value);
+
+    allUsers = await fetchUsers(selN);
 
     const filtered = allUsers.filter(u => {
       if (u.budget_max < minB || u.budget_min > maxB) return false;
       if (selA.length && !selA.includes(u.age)) return false;
       if (selC !== 'all' && u.city !== selC) return false;
-      if (selN !== 'all' && u.nationality !== selN) return false;
       if (selG && u.gender !== selG) return false;
       if (selF.length && (!u.fomi || !selF.includes(u.fomi))) return false;
       return true;
@@ -133,9 +210,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   fomiChecks.forEach(c => c.addEventListener('change', applyFilters));
 
-  // dropdowns
+  // dropdown
   citySel.addEventListener('change', applyFilters);
-  natSel.addEventListener('change', applyFilters);
 
   // reset buttons
   resetBtns.forEach(btn => btn.addEventListener('click', e => {
@@ -156,7 +232,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // age
     agePills.forEach(p => p.classList.remove('selected'));
     // city & nation
-    citySel.value = 'all'; natSel.value = 'all';
+    citySel.value = 'all';
+    nationSelected.innerHTML = '';
+    nationInput.value = '';
+    nationSuggestions.innerHTML = '';
+    nationSuggestions.classList.add('hidden');
     // gender
     genderPills.forEach(p => p.classList.remove('selected'));
     genderPills[2].classList.add('selected'); // “Any”

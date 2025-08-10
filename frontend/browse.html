@@ -76,15 +76,14 @@
 
         <!-- Nationality -->
         <div class="filter-group">
-          <label for="nationSelect">Nationality</label>
-          <select id="nationSelect">
-            <option value="all">All Nationalities</option>
-            <option value="Korean">Korean</option>
-            <option value="Canadian">Canadian</option>
-            <option value="Indonesian">Indonesian</option>
-            <option value="American">American</option>
-            <option value="Other">Other</option>
-          </select>
+          <label for="nationInput">Nationality</label>
+          <div id="nationSelect">
+            <div class="multi-select">
+              <input type="text" id="nationInput" placeholder="Type to search..." autocomplete="off" />
+              <ul id="nationSuggestions" class="suggestions hidden"></ul>
+            </div>
+            <div id="selectedNations" class="pill-group"></div>
+          </div>
         </div>
 
         <!-- Gender -->
