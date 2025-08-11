@@ -23,10 +23,7 @@ const User = db.define('User', {
     type: DataTypes.ENUM('male', 'female', 'prefer-not-to-say'),
     allowNull: true,
   },
-  age: {
-    type: DataTypes.ENUM('18-20', '21-25', '26-30', '31-35', '36-40', 'over-40'),
-    allowNull: true,
-  },
+  age: { type: DataTypes.INTEGER, allowNull: true },
   occupation: { type: DataTypes.STRING(64), allowNull: true },
   nationality: { type: DataTypes.STRING(64), allowNull: true },
   cultural: { type: DataTypes.STRING(64), allowNull: true },
