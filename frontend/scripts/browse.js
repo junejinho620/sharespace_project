@@ -53,7 +53,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nationInput = document.getElementById('nationInput');
   const nationSelected = document.getElementById('selectedNations');
   const nationSuggestions = document.getElementById('nationSuggestions');
-  const agePills = document.querySelectorAll('.age-pills .pill');
+  const aMinS = document.getElementById('ageRangeMin');
+  const aMaxS = document.getElementById('ageRangeMax');
+  const aMinI = document.getElementById('ageInputMin');
+  const aMaxI = document.getElementById('ageInputMax');
   const genderPills = document.querySelectorAll('.gender-pills .pill');
   const fomiChecks = document.querySelectorAll('input[name="fomi"]');
   const resetBtns = document.querySelectorAll('.reset-btn');
@@ -63,25 +66,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   function syncDual(minS, maxS, minI, maxI, gap = 100) {
     const track = minS.parentElement.querySelector('.slider-track');
     const update = () => {
-      const min   = +minS.min;
-      const max   = +maxS.max;
-      const curMin= +minS.value;
-      const curMax= +maxS.value;
+      const min = +minS.min;
+      const max = +maxS.max;
+      const curMin = +minS.value;
+      const curMax = +maxS.value;
       const range = max - min;
 
       // get 0–100% positions
       const startPct = ((curMin - min) / range) * 100;
-      const endPct   = ((curMax - min) / range) * 100;
+      const endPct = ((curMax - min) / range) * 100;
 
       // half your thumb width (16px total)
-      const thumbW   = 16;
-      const halfThumb= thumbW / 2;
+      const thumbW = 16;
+      const halfThumb = thumbW / 2;
 
       // **anchor under the center of each knob**
-      track.style.left  = `calc(${startPct}% + ${halfThumb}px)`;
+      track.style.left = `calc(${startPct}% + ${halfThumb}px)`;
       track.style.width = `calc(${endPct - startPct}% - ${thumbW}px)`;
-
-      // sync your number inputs & filters…
     };
     const onMin = () => {
       if (+maxS.value - +minS.value < gap) minS.value = +maxS.value - gap;
@@ -104,9 +105,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     minI.addEventListener('change', onMinI);
     maxI.addEventListener('change', onMaxI);
     update();
+
+    return () => {
+      minS.value = minS.min;
+      maxS.value = maxS.max;
+      minI.value = minS.min;
+      maxI.value = maxS.max;
+      update();
+    };
   }
 
-  syncDual(bMinS, bMaxS, bMinI, bMaxI, 200);
+  const resetBudget = syncDual(bMinS, bMaxS, bMinI, bMaxI, 200);
+  const resetAge = syncDual(aMinS, aMaxS, aMinI, aMaxI, 1);
 
   // ---- 4b) Load country list ----
   async function loadCountries() {
@@ -178,7 +188,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // ---- 5) Main filtering logic ----
   async function applyFilters() {
     const minB = +bMinI.value, maxB = +bMaxI.value;
-    const selA = Array.from(agePills).filter(b => b.classList.contains('selected')).map(b => b.dataset.value);
+    const minA = +aMinI.value, maxA = +aMaxI.value;
     const selG = Array.from(genderPills).find(b => b.classList.contains('selected')).dataset.value;
     const selC = citySel.value;
     const selN = getSelectedNations();
@@ -188,7 +198,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const filtered = allUsers.filter(u => {
       if (u.budget_max < minB || u.budget_min > maxB) return false;
-      if (selA.length && !selA.includes(u.age)) return false;
+      const age = Number(u.age);
+      if (!Number.isNaN(age) && (age < minA || age > maxA)) return false;
       if (selC !== 'all' && u.city !== selC) return false;
       if (selG && u.gender !== selG) return false;
       if (selF.length && (!u.fomi || !selF.includes(u.fomi))) return false;
@@ -198,10 +209,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // pill toggles
-  agePills.forEach(p => p.addEventListener('click', () => {
-    p.classList.toggle('selected');
-    applyFilters();
-  }));
   genderPills.forEach(p => p.addEventListener('click', () => {
     genderPills.forEach(x => x.classList.remove('selected'));
     p.classList.add('selected');
@@ -216,21 +223,20 @@ document.addEventListener('DOMContentLoaded', async () => {
   // reset buttons
   resetBtns.forEach(btn => btn.addEventListener('click', e => {
     const grp = e.target.closest('.filter-group');
-    if (grp.classList.contains('age-group'))
-      agePills.forEach(p => p.classList.remove('selected'));
-    else // budget-group
-      syncDual(bMinS, bMaxS, bMinI, bMaxI, 200);
+    if (grp.classList.contains('age-group')) {
+      resetAge();
+    } else if (grp.classList.contains('budget-group')) {
+      resetBudget();
+    }
     applyFilters();
   }));
 
   // clear all
   clearAll.addEventListener('click', () => {
     // budget
-    bMinS.value = bMinS.min; bMaxS.value = bMaxS.max;
-    bMinI.value = bMinS.min; bMaxI.value = bMaxS.max;
-    syncDual(bMinS, bMaxS, bMinI, bMaxI, 200);
+    resetBudget();
     // age
-    agePills.forEach(p => p.classList.remove('selected'));
+    resetAge();
     // city & nation
     citySel.value = 'all';
     nationSelected.innerHTML = '';
