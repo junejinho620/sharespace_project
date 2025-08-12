@@ -67,14 +67,14 @@
 
         <!-- City -->
         <div class="filter-group">
-          <label for="citySelect">City</label>
-          <select id="citySelect">
-            <option value="all">All Cities</option>
-            <option value="Toronto">Toronto</option>
-            <option value="Vancouver">Vancouver</option>
-            <option value="New York">New York</option>
-            <option value="London">London</option>
-          </select>
+          <label for="cityInput">City</label>
+          <div id="citySelect">
+            <div class="multi-select">
+              <input type="text" id="cityInput" placeholder="Type to search..." autocomplete="off" />
+              <ul id="citySuggestions" class="suggestions hidden"></ul>
+            </div>
+            <div id="selectedCity" class="pill-group"></div>
+          </div>
         </div>
 
         <!-- Nationality -->
