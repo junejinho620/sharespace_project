@@ -317,7 +317,8 @@ hr.solid {
   z-index: 2;
 }
 
-#languages-input {
+#languages-input,
+#cityInput {
   width: 100%;
   padding: 8px;
   font-size: 16px;
@@ -325,7 +326,8 @@ hr.solid {
   background: #fafafa;
 }
 
-#languages-input:focus {
+#languages-input:focus, 
+#cityInput:focus {
   outline: none;
   border: none;
 }
@@ -380,7 +382,8 @@ hr.solid {
 }
 
 /* Scrollable options area */
-#language-options {
+#language-options,
+#citySuggestions {
   border: 1px solid #ccc;
   border-radius: 8px;
   background: #fafafa;
@@ -394,7 +397,8 @@ hr.solid {
   flex: 1;
 }
 
-#language-options li {
+#language-options li,
+#citySuggestions li {
   padding: 8px 12px;
   border-radius: 6px;
   cursor: pointer;
@@ -405,11 +409,13 @@ hr.solid {
   display: block;
 }
 
-#language-options li:hover {
+#language-options li:hover,
+#citySuggestions li:hover {
   background: #f0f0f0;
 }
 
-#language-options li.selected {
+#language-options li.selected,
+#citySuggestions li.selected {
   background: #6366f1;
   color: white;
 }
@@ -483,6 +489,7 @@ hr.solid {
   background: #6366f1;
   color: #fff;
 }
+
 .button--primary:hover {
   background: #4f46e5;
 }
@@ -492,6 +499,7 @@ hr.solid {
   opacity: 0.6;
   position: relative;
 }
+
 .button--primary.loading::after {
   content: "";
   position: absolute;
@@ -505,6 +513,7 @@ hr.solid {
   animation: spin 0.6s linear infinite;
   transform: translateY(-50%);
 }
+
 @keyframes spin {
   to { transform: translateY(-50%) rotate(360deg); }
 }
@@ -514,6 +523,7 @@ hr.solid {
   color: #6366f1;
   border: 1px solid #6366f1;
 }
+
 .button--secondary:hover {
   background: rgba(99,102,241,0.1);
 }

@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const centerContainer = document.querySelector('.center');
   let allUsers = [];
   let countries = [];
+  let cities = [];
+  let selectedCity = '';
 
   const slugifyCountry = str => str.toLowerCase().replace(/\s+/g, '-');
 
@@ -49,7 +51,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const bMaxS = document.getElementById('budgetRangeMax');
   const bMinI = document.getElementById('budgetInputMin');
   const bMaxI = document.getElementById('budgetInputMax');
-  const citySel = document.getElementById('citySelect');
+  const cityInput = document.getElementById('cityInput');
+  const citySelected = document.getElementById('selectedCity');
+  const citySuggestions = document.getElementById('citySuggestions');
   const nationInput = document.getElementById('nationInput');
   const nationSelected = document.getElementById('selectedNations');
   const nationSuggestions = document.getElementById('nationSuggestions');
@@ -148,7 +152,63 @@ document.addEventListener('DOMContentLoaded', async () => {
     applyFilters();
   }
 
-  await loadCountries();
+  function renderSelectedCity() {
+    citySelected.innerHTML = '';
+    if (!selectedCity) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'pill selected selected-city';
+    btn.dataset.value = selectedCity;
+    btn.innerHTML = `${selectedCity}<span class="remove">×</span>`;
+    btn.addEventListener('click', () => {
+      selectedCity = '';
+      renderSelectedCity();
+      applyFilters();
+    });
+    citySelected.appendChild(btn);
+  }
+
+  async function loadCities() {
+    try {
+      const res = await fetch('scripts/cities.json');
+      cities = await res.json();
+    } catch {
+      cities = [];
+    }
+  }
+
+  await Promise.all([loadCountries(), loadCities()]);
+
+  cityInput.addEventListener('input', () => {
+    const q = cityInput.value.toLowerCase();
+    citySuggestions.innerHTML = '';
+    if (!q) {
+      citySuggestions.classList.add('hidden');
+      return;
+    }
+    const matches = cities.filter(c => c.toLowerCase().includes(q) && c.toLowerCase() !== selectedCity.toLowerCase());
+    matches.slice(0, 5).forEach(c => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      li.addEventListener('click', () => {
+        selectedCity = c;
+        renderSelectedCity();
+        cityInput.value = '';
+        citySuggestions.innerHTML = '';
+        citySuggestions.classList.add('hidden');
+        applyFilters();
+      });
+      citySuggestions.appendChild(li);
+    });
+    citySuggestions.classList.toggle('hidden', matches.length === 0);
+  });
+
+  cityInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && citySuggestions.firstChild) {
+      e.preventDefault();
+      citySuggestions.firstChild.click();
+    }
+  });
 
   nationInput.addEventListener('input', () => {
     const q = nationInput.value.toLowerCase().replace(/-/g, ' ');
@@ -182,6 +242,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   document.addEventListener('click', e => {
     if (!e.target.closest('.multi-select')) {
       nationSuggestions.classList.add('hidden');
+      citySuggestions.classList.add('hidden');
     }
   });
 
@@ -190,17 +251,21 @@ document.addEventListener('DOMContentLoaded', async () => {
     const minB = +bMinI.value, maxB = +bMaxI.value;
     const minA = +aMinI.value, maxA = +aMaxI.value;
     const selG = Array.from(genderPills).find(b => b.classList.contains('selected')).dataset.value;
-    const selC = citySel.value;
     const selN = getSelectedNations();
     const selF = Array.from(fomiChecks).filter(c => c.checked).map(c => c.value);
 
     allUsers = await fetchUsers(selN);
+    if (selectedCity && !cities.some(c => c.toLowerCase() === selectedCity.toLowerCase())) {
+      selectedCity = '';
+      renderSelectedCity();
+    }
+    const selC = selectedCity;
 
     const filtered = allUsers.filter(u => {
       if (u.budget_max < minB || u.budget_min > maxB) return false;
       const age = Number(u.age);
       if (!Number.isNaN(age) && (age < minA || age > maxA)) return false;
-      if (selC !== 'all' && u.city !== selC) return false;
+      if (selC && (!u.city || u.city.toLowerCase() !== selC.toLowerCase())) return false;
       if (selG && u.gender !== selG) return false;
       if (selF.length && (!u.fomi || !selF.includes(u.fomi))) return false;
       return true;
@@ -216,9 +281,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }));
 
   fomiChecks.forEach(c => c.addEventListener('change', applyFilters));
-
-  // dropdown
-  citySel.addEventListener('change', applyFilters);
 
   // reset buttons
   resetBtns.forEach(btn => btn.addEventListener('click', e => {
@@ -238,7 +300,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     // age
     resetAge();
     // city & nation
-    citySel.value = 'all';
+    selectedCity = '';
+    renderSelectedCity();
+    cityInput.value = '';
+    citySuggestions.innerHTML = '';
+    citySuggestions.classList.add('hidden');
     nationSelected.innerHTML = '';
     nationInput.value = '';
     nationSuggestions.innerHTML = '';
@@ -254,4 +320,4 @@ document.addEventListener('DOMContentLoaded', async () => {
   // initial load
   allUsers = await fetchUsers();
   renderUsers(allUsers);
-});
+})

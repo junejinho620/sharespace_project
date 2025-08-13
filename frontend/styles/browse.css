@@ -319,17 +319,20 @@
   outline: none;
 }
 
-#selectedNations {
+#selectedNations,
+#selectedCity { 
   margin-top: 8px;
 }
 
-#selectedNations .pill {
+#selectedNations .pill,
+#selectedCity .pill {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-#selectedNations .remove {
+#selectedNations .remove,
+#selectedCity .remove {
   font-weight: bold;
   cursor: pointer;
 }

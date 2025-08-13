@@ -47,6 +47,22 @@
 
   <main class="container">
     <form>
+      <section class="question-card">
+        <h2 class="question-title">Which city are you planning to live in?</h2>
+        <div id="citySelect" class="custom-multiselect">
+          <div class="custom-multiselect-box">
+            <div class="multiselect-header">
+              <input type="text" id="cityInput" placeholder="Type to search..." autocomplete="off" />
+              <hr class="divider" />
+              <div id="selectedCity" class="selected-tags"></div>
+            </div>
+          </div>
+          <ul id="citySuggestions" class="hidden"></ul>
+          <input type="hidden" name="city" id="cityHidden" required />
+          <small class="error" hidden>This field is required.</small>
+        </div>
+      </section>
+
       <h2 class="section-header">Essential Info</h2>
 
       <!-- Gender -->
@@ -394,7 +410,7 @@
         <label for="languages">Languages you speak:</label>
         <div class="custom-multiselect-box" id="languages-box">
           <div class="multiselect-header">
-            <input type="text" id="languages-input" placeholder="Select languages"/>
+            <input type="text" id="languages-input" placeholder="Select languages" />
             <hr class="divider">
             <div id="selected-languages" class="selected-tags"></div>
           </div>
