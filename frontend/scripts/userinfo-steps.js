@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (document.body.dataset.step === '1') {
       populateStep1(user, prefs, hobbies, languages);
+      setupCitySelector(user.city);
       setupLanguageSelector(languages);
       setupHobbySelector(hobbies);
     }
@@ -87,6 +88,7 @@ function populateStep1(user, prefs, hobbies, languages) {
   setCheckboxValue('gender', user.gender);
   setCheckboxValue('age', user.age);
   setInputValue('occupation', user.occupation);
+  setInputValue('city', user.city);
   setInputValue('wfh_days', prefs.wfh_days);
   setInputValue('budget_min', prefs.budget_min);
   setInputValue('budget_max', prefs.budget_max);
@@ -217,15 +219,19 @@ async function handleFormSubmit(e) {
     const prefPayload = {};
 
     for (const [key, value] of formData.entries()) {
-      if (['gender', 'age', 'occupation', 'nationality', 'cultural'].includes(key)) {
+      if (['gender', 'age', 'occupation', 'nationality', 'cultural', 'city'].includes(key)) {
         userPayload[key] = value;
       } else {
         prefPayload[key] = value;
       }
     }
 
+    // Ensure city comes from the selector's hidden field
+    const cityField = document.getElementById('cityHidden');
+    if (cityField) userPayload.city = cityField.value || '';
+
     // Send user fields
-    await fetch('/api/users/me', {
+    const userRes = await fetch('/api/users/me', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -233,9 +239,10 @@ async function handleFormSubmit(e) {
       },
       body: JSON.stringify(userPayload),
     });
+    if (!userRes.ok) throw new Error('Failed to update user');
 
     // Send pref fields
-    await fetch('/api/prefs/me', {
+    const prefRes = await fetch('/api/prefs/me', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -243,6 +250,7 @@ async function handleFormSubmit(e) {
       },
       body: JSON.stringify(prefPayload),
     });
+    if (!prefRes.ok) throw new Error('Failed to update preferences');
 
     // Send hobby fields
     const hobbyIds = getSelectedHobbyIds();
@@ -256,7 +264,7 @@ async function handleFormSubmit(e) {
     });
 
     // Send language fields
-    const languageIds  = getSelectedLanguages();
+    const languageIds = getSelectedLanguages();
     await fetch(`/api/users/${user.id}/languages`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -359,7 +367,68 @@ function setupValidation() {
   }));
 }
 
-// 5️⃣ Language selector widget
+// 5️⃣ City selector widget
+function setupCitySelector(initialCity = '') {
+  const input = document.getElementById('cityInput');
+  const suggestions = document.getElementById('citySuggestions');
+  const selectedBox = document.getElementById('selectedCity');
+  const hidden = document.getElementById('cityHidden');
+  let cities = [];
+  let selectedCity = initialCity || '';
+
+  function render() {
+    selectedBox.innerHTML = '';
+    hidden.value = selectedCity;
+    if (!selectedCity) return;
+    const pill = document.createElement('span');
+    pill.className = 'language-tag';
+    pill.innerHTML = `${selectedCity}<span class="remove">×</span>`;
+    pill.addEventListener('click', () => {
+      selectedCity = '';
+      render();
+    });
+    selectedBox.appendChild(pill);
+  }
+
+  fetch('scripts/cities.json')
+    .then(res => res.json())
+    .then(data => { cities = data; });
+
+  input.addEventListener('input', () => {
+    const q = input.value.toLowerCase();
+    suggestions.innerHTML = '';
+    if (!q) { suggestions.classList.add('hidden'); return; }
+    const matches = cities.filter(c => c.toLowerCase().includes(q) && c.toLowerCase() !== selectedCity.toLowerCase());
+    matches.slice(0, 5).forEach(c => {
+      const li = document.createElement('li');
+      li.textContent = c;
+      li.addEventListener('click', () => {
+        selectedCity = c;
+        render();
+        input.value = '';
+        suggestions.innerHTML = '';
+        suggestions.classList.add('hidden');
+      });
+      suggestions.appendChild(li);
+    });
+    suggestions.classList.toggle('hidden', matches.length === 0);
+  });
+
+  input.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && suggestions.firstChild) {
+      e.preventDefault();
+      suggestions.firstChild.click();
+    }
+  });
+
+  document.addEventListener('click', e => {
+    if (!e.target.closest('#citySelect')) suggestions.classList.add('hidden');
+  });
+
+  render();
+}
+
+// 6️⃣ Language selector widget
 function setupLanguageSelector(selectedLanguages) {
   const optionsList = document.getElementById("language-options");
   const selectedBox = document.getElementById("selected-languages");
@@ -432,7 +501,7 @@ function setupLanguageSelector(selectedLanguages) {
   window.getSelectedLanguages = () => [...selected];
 }
 
-// 6️⃣ Hobby selection widget (limit 3)
+// 7️⃣ Hobby selection widget (limit 3)
 function setupHobbySelector(selectedHobbies) {
   const hobbyTags = document.getElementById('hobby-tags');
   const hobbyDrop = document.getElementById('hobby-dropdown');
