@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailInput = document.getElementById('email');
   const passwordInput = document.getElementById('password');
   const togglePassword = document.getElementById('togglePassword');
+  const params = new URLSearchParams(window.location.search);
+  const redirect = params.get('redirect');
 
   // Prefill remembered email
   const saved = localStorage.getItem('rememberedEmail');
@@ -68,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       if (!user.username) return window.location.href = 'signup-step3.html';
       if (/*!user.name || */ !user.age || !user.gender) return window.location.href = 'userinfo-step1.html';
-      window.location.href = 'index.html';
+      window.location.href = redirect || 'index.html';
 
     } catch (err) {
       console.error(err);
