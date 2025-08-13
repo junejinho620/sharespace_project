@@ -85,7 +85,7 @@ function authHeader() {
 // Populate form steps
 function populateStep1(user, prefs, hobbies, languages) {
   setCheckboxValue('gender', user.gender);
-  setCheckboxValue('age', user.age);
+  setInputValue('age', user.age);
   setInputValue('occupation', user.occupation);
   setInputValue('wfh_days', prefs.wfh_days);
   setInputValue('budget_min', prefs.budget_min);
@@ -191,7 +191,7 @@ async function handleFormSubmit(e) {
       formData.append(cb.name, null);
     }
   });
-  ['budget_min', 'budget_max', 'wfh_days', 'noise', 'social_vibe', 'satisfaction'].forEach((key) => {
+  ['age', 'budget_min', 'budget_max', 'wfh_days', 'noise', 'social_vibe', 'satisfaction'].forEach((key) => {
     if (formData.has(key)) {
       const val = formData.get(key);
       formData.set(key, val === '' ? null : Number(val));

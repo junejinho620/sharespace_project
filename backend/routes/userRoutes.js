@@ -8,9 +8,10 @@ const path = require('path');
 const fs = require('fs');
 const sendVerificationEmail = require('../utils/sendVerificationEmail');
 const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
-const { User, RoommatePref, Hobby, Language, AuthProvider } = require('../models');
+const { User, RoommatePref, Hobby, Language, AuthProvider, UserFomi } = require('../models');
 const userController = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
+const { Op } = require('sequelize');
 require('dotenv').config(); // Loads JWT_SECRET
 
 // POST /api/users/signup - handle user registration and send verification email
@@ -151,7 +152,7 @@ router.post('/resend-verification', async (req, res) => {
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
-    try {
+  try {
     // 1. Find the user by email
     const user = await User.findOne({ where: { email } });
     if (!user) {
@@ -236,7 +237,16 @@ router.put('/:id', verifyToken, async (req, res) => {
 // GET /api/users - Fetch all users (basic info)
 router.get('/', async (req, res) => {
   try {
+    const { nationality } = req.query;
+    const where = {};
+    if (nationality) {
+      const list = Array.isArray(nationality) ? nationality : nationality.split(',');
+      const normalized = list.map(n => n.toLowerCase().replace(/\s+/g, '-'));
+      where.nationality = { [Op.in]: normalized };
+    }
+    
     const users = await User.findAll({
+      where,
       attributes: ['id', 'username', 'name', 'age', 'city', 'gender', 'nationality', 'bio', 'email', 'profile_picture_url', 'created_at'],
       include: [
         {
@@ -248,6 +258,10 @@ router.get('/', async (req, res) => {
           model: RoommatePref,
           as: 'roommatePref',
           attributes: ['budget_min', 'budget_max']
+        }, {
+          model: UserFomi,
+          as: "fomiResult",
+          attributes: ['fomi_name']
         }
       ]
     });
@@ -269,7 +283,10 @@ router.get('/', async (req, res) => {
         joined_at: json.created_at,
         interests: (json.hobbies || []).map(h => h.name).join(', '),
         budget_min: json.roommatePref?.budget_min ?? 0,
-        budget_max: json.roommatePref?.budget_max ?? 0
+        budget_max: json.roommatePref?.budget_max ?? 0,
+        fomi: json.fomiResult?.fomi_name
+          ? json.fomiResult.fomi_name.toLowerCase().replace(/\s+/g, '-')
+          : null
       };
     });
 
