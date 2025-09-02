@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     try {
       // POST data to backend
-      const res = await fetch("http://localhost:5000/api/users/signup", {
+      const res = await fetch("http://localhost:5001/api/users/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),

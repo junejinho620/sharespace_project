@@ -60,7 +60,7 @@ resetForm.addEventListener("submit", async (e) => {
   }
 
   try {
-    const res = await fetch("http://localhost:5000/api/users/reset-password", {
+    const res = await fetch("http://localhost:5001/api/users/reset-password", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ token, newPassword })
@@ -77,7 +77,7 @@ resetForm.addEventListener("submit", async (e) => {
       setTimeout(() => {
         formError.style.opacity = '0';
         formError.textContent = '';
-      }, 5000);
+      }, 5001);
     }
   } catch (err) {
     formError.textContent = "❌ Something went wrong. Please try again.";
@@ -86,7 +86,7 @@ resetForm.addEventListener("submit", async (e) => {
     setTimeout(() => {
       formError.style.opacity = '0';
       formError.textContent = '';
-    }, 5000);
+    }, 5001);
   }
 });
 

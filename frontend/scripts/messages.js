@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   // ✅ Setup WebSocket connection
-  const socket = io("http://localhost:5000"); // Connect to socket.io server
+  const socket = io("http://localhost:5001"); // Connect to socket.io server
 
   socket.emit("join", userId); // Join your own user room
 

@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    const res = await fetch(`http://localhost:5000/api/users/check-username?username=${encodeURIComponent(username)}`);
+    const res = await fetch(`http://localhost:5001/api/users/check-username?username=${encodeURIComponent(username)}`);
     const data = await res.json();
 
     usernameError.textContent = data.exists ? '❌ The username already exists.' : '';
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const userId = localStorage.getItem("userId");
 
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${userId}/setup`, {
+      const res = await fetch(`http://localhost:5001/api/users/${userId}/setup`, {
         method: 'PUT',
         headers: { "Authorization": `Bearer ${token}` },
         body: formData,

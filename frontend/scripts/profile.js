@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   try {
     // Fetch user details from backend
-    const res = await fetch(`http://localhost:5000/api/users/${userId}`);
+    const res = await fetch(`http://localhost:5001/api/users/${userId}`);
 
     // If user not found, go to 404 page
     if (res.status === 404) {

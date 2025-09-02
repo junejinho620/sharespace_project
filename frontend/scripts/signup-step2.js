@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
   resendLink.addEventListener('click', async e => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5000/api/users/resend-verification', {
+      const res = await fetch('http://localhost:5001/api/users/resend-verification', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: userEmail })
@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const email = localStorage.getItem('userEmail');
 
     try {
-      const res = await fetch('http://localhost:5000/api/users/verify-code', {
+      const res = await fetch('http://localhost:5001/api/users/verify-code', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, token })
