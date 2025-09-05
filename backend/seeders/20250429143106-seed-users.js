@@ -6,9 +6,8 @@ module.exports = {
     const passwordHash = await bcrypt.hash('Password123', 10);
 
     const genders       = ['male','female','prefer-not-to-say'];
-    const ages          = ['18-20','21-25','26-30','31-35','36-40','over-40'];
-    const nationalities = ['Korean','Canadian','Indonesian','American','Other'];
-    const cities        = ['Toronto','Vancouver','Montreal','Calgary','Ottawa'];
+    const nationalities = ['South Korea','Canada','Indonesia','United States','Belarus'];
+    const cities        = ['Toronto','Vancouver','New York','London'];
 
     const users = [];
     for (let i = 1; i <= 50; i++) {
@@ -17,7 +16,7 @@ module.exports = {
         email:                `testuser${i}@example.com`,
         name:                 `Test User ${i}`,
         gender:               genders[Math.floor(Math.random()*genders.length)],
-        age:                  ages[Math.floor(Math.random()*ages.length)],
+        age:                  Math.floor(Math.random()*43) + 18, // 18-60
         occupation:           `Occupation ${i}`,
         nationality:          nationalities[Math.floor(Math.random()*nationalities.length)],
         cultural:             null,

@@ -159,18 +159,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       const item = document.createElement("div");
       item.className = "chat-item";
       item.dataset.userid = user.id;
-      item.dataset.username = user.name;
+      item.dataset.username = user.username;
 
       const previewText = user.last_message
         ? user.last_message
         : "Click to start chat";
 
       item.innerHTML = `
-        <img src="${
-          user.profile_picture_url || "styles/img/default.jpg"
-        }" alt="${user.name}" class="avatar" />
+        <img src="${user.profile_picture_url || 'styles/img/default.jpg'}" alt="${user.username}" class="avatar" />
         <div class="chat-info">
-          <p class="chat-name">${user.name}</p>
+          <p class="chat-name">${user.username}</p>
           <p class="chat-preview">${previewText}</p>
         </div>
         <span class="chat-time"></span>

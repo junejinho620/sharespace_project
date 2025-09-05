@@ -47,6 +47,22 @@
 
   <main class="container">
     <form>
+      <section class="question-card">
+        <h2 class="question-title">Which city are you planning to live in?</h2>
+        <div id="citySelect" class="custom-multiselect">
+          <div class="custom-multiselect-box">
+            <div class="multiselect-header">
+              <input type="text" id="cityInput" placeholder="Type to search..." autocomplete="off" />
+              <hr class="divider" />
+              <div id="selectedCity" class="selected-tags"></div>
+            </div>
+          </div>
+          <ul id="citySuggestions" class="hidden"></ul>
+          <input type="hidden" name="city" id="cityHidden" required />
+          <small class="error" hidden>This field is required.</small>
+        </div>
+      </section>
+
       <h2 class="section-header">Essential Info</h2>
 
       <!-- Gender -->
@@ -71,19 +87,8 @@
       <!-- Age -->
       <section class="question-card">
         <h2 class="question-title">What's your age?</h2>
-        <div class="options-grid">
-          <label class="option"><input type="checkbox" name="age" value="18-20" /><span
-              class="option-label">18 – 20</span></label>
-          <label class="option"><input type="checkbox" name="age" value="21-25" /><span
-              class="option-label">21 – 25</span></label>
-          <label class="option"><input type="checkbox" name="age" value="26-30" /><span
-              class="option-label">26 – 30</span></label>
-          <label class="option"><input type="checkbox" name="age" value="31-35" /><span
-              class="option-label">31 – 35</span></label>
-          <label class="option"><input type="checkbox" name="age" value="36-40" /><span
-              class="option-label">36 – 40</span></label>
-          <label class="option"><input type="checkbox" name="age" value="over-40" /><span
-              class="option-label">Over 40</span></label>
+        <div class="text-input-group">
+          <input type="number" name="age" min="18" max="100" placeholder="Enter your age" required />
         </div>
       </section>
 
@@ -405,7 +410,7 @@
         <label for="languages">Languages you speak:</label>
         <div class="custom-multiselect-box" id="languages-box">
           <div class="multiselect-header">
-            <input type="text" id="languages-input" placeholder="Select languages"/>
+            <input type="text" id="languages-input" placeholder="Select languages" />
             <hr class="divider">
             <div id="selected-languages" class="selected-tags"></div>
           </div>

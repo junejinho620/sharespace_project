@@ -142,6 +142,237 @@
   grid-template-columns: 1fr 1fr;
   gap: 8px 10px;
 }
+
+.checkbox-list {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+/* (1)  wrapper for one min–max pair */
+.dual-slider {
+  position: relative;
+  height: 36px;
+  width: 100%;
+}
+
+/* 2) bottom: grey rail */
+.dual-slider .slider-rail {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* 3) middle: blue selected-range */
+.dual-slider .slider-track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  /* you can adjust left/width via JS */
+  width: 100%;
+  height: 6px;
+  background: #2e6ff1;
+  border-radius: 5px;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+/* 4) top: both inputs only show thumbs */
+.dual-slider input[type="range"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  pointer-events: none;
+  /* disable clicks on the track itself */
+  -webkit-appearance: none;
+  appearance: none;
+  z-index: 3;
+}
+
+/* hide both native tracks */
+.dual-slider input[type="range"]::-webkit-slider-runnable-track,
+.dual-slider input[type="range"]::-moz-range-track {
+  background: transparent;
+  pointer-events: none;
+}
+
+/* show only the thumbs */
+.dual-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  pointer-events: all;
+  /* re-enable pointer on the thumb */
+  position: relative;
+  margin-top: -5px;
+  /* center it vertically */
+  width: 16px;
+  height: 16px;
+  background: #543310;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.dual-slider input[type="range"]::-moz-range-thumb {
+  pointer-events: all;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background: #543310;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  z-index: 3;
+}
+
+/* optional: elevate active thumb above the other */
+.dual-slider input[type="range"]:focus::-webkit-slider-thumb,
+.dual-slider input[type="range"]:active::-webkit-slider-thumb,
+.dual-slider input[type="range"]:focus::-moz-range-thumb,
+.dual-slider input[type="range"]:active::-moz-range-thumb {
+  z-index: 4;
+}
+
+/* ====== Inline value boxes under each slider =================== */
+.range-values {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.range-values input[type="number"] {
+  width: 70px;
+  padding: 4px 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.range-values span {
+  font-size: 14px;
+  color: #333;
+}
+
+/* ====== Pill Toggles ====== */
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: #fff;
+  color: #333;
+  cursor: pointer;
+  user-select: none;
+}
+
+.pill.selected {
+  background: #543310;
+  color: #fff;
+  border-color: #543310;
+}
+
+/* ====== Dropdowns ====== */
+.filters-sidebar select {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  background: #fff;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* ====== Nationality multi-select ====== */
+.multi-select {
+  position: relative;
+}
+
+.multi-select input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  outline: none;
+}
+
+#selectedNations,
+#selectedCity { 
+  margin-top: 8px;
+}
+
+#selectedNations .pill,
+#selectedCity .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#selectedNations .remove,
+#selectedCity .remove {
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.suggestions li {
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background: #f3e6d6;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ====== Fomi Checkbox Grid ====== */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
 .checkbox-grid label {
   display: flex; align-items: center; gap: 8px;
   font-size: 13px; color: var(--clr-text, #181A20);

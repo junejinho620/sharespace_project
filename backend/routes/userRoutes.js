@@ -1,23 +1,18 @@
 const express = require("express");
 const router = express.Router();
-const jwt = require("jsonwebtoken"); // For generating JWT
-const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
-const multer = require("multer"); // For image upload
-const path = require("path");
-const fs = require("fs");
-const sendVerificationEmail = require("../utils/sendVerificationEmail");
-const sendResetPasswordEmail = require("../utils/sendResetPasswordEmail");
-const {
-  User,
-  RoommatePref,
-  Hobby,
-  Language,
-  AuthProvider,
-} = require("../models");
-const userController = require("../controllers/userController");
-const verifyToken = require("../middleware/authMiddleware"); // Middleware to protect routes
-require("dotenv").config(); // Loads JWT_SECRET
+const jwt = require('jsonwebtoken'); // For generating JWT
+const bcrypt = require('bcryptjs')
+const crypto = require('crypto');
+const multer = require('multer'); // For image upload
+const path = require('path');
+const fs = require('fs');
+const sendVerificationEmail = require('../utils/sendVerificationEmail');
+const sendResetPasswordEmail = require('../utils/sendResetPasswordEmail');
+const { User, RoommatePref, Hobby, Language, AuthProvider, UserFomi } = require('../models');
+const userController = require('../controllers/userController');
+const verifyToken = require('../middleware/authMiddleware'); // Middleware to protect routes
+const { Op } = require('sequelize');
+require('dotenv').config(); // Loads JWT_SECRET
 
 // POST /api/users/signup - handle user registration and send verification email
 router.post("/signup", async (req, res) => {
@@ -269,20 +264,17 @@ router.put("/:id", verifyToken, async (req, res) => {
 // GET /api/users - Fetch all users (basic info)
 router.get("/", async (req, res) => {
   try {
+    const { nationality } = req.query;
+    const where = {};
+    if (nationality) {
+      const list = Array.isArray(nationality) ? nationality : nationality.split(',');
+      const normalized = list.map(n => n.toLowerCase().replace(/\s+/g, '-'));
+      where.nationality = { [Op.in]: normalized };
+    }
+    
     const users = await User.findAll({
-      attributes: [
-        "id",
-        "username",
-        "name",
-        "age",
-        "city",
-        "gender",
-        "nationality",
-        "bio",
-        "email",
-        "profile_picture_url",
-        "created_at",
-      ],
+      where,
+      attributes: ['id', 'username', 'name', 'age', 'city', 'gender', 'nationality', 'bio', 'email', 'profile_picture_url', 'created_at'],
       include: [
         {
           model: Hobby,
@@ -292,10 +284,14 @@ router.get("/", async (req, res) => {
         },
         {
           model: RoommatePref,
-          as: "roommatePref",
-          attributes: ["budget_min", "budget_max"],
-        },
-      ],
+          as: 'roommatePref',
+          attributes: ['budget_min', 'budget_max']
+        }, {
+          model: UserFomi,
+          as: "fomiResult",
+          attributes: ['fomi_name']
+        }
+      ]
     });
 
     // Flatten interests
@@ -316,6 +312,9 @@ router.get("/", async (req, res) => {
         interests: (json.hobbies || []).map((h) => h.name).join(", "),
         budget_min: json.roommatePref?.budget_min ?? 0,
         budget_max: json.roommatePref?.budget_max ?? 0,
+        fomi: json.fomiResult?.fomi_name
+          ? json.fomiResult.fomi_name.toLowerCase().replace(/\s+/g, '-')
+          : null
       };
     });
 
