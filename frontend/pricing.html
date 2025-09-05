@@ -8,7 +8,7 @@
 
   <link rel="stylesheet" href="styles/shared/general.css" />
   <link rel="stylesheet" href="styles/shared/header-footer.css">
-  <link rel="stylesheet" href="styles/pricing.css" />
+  <link rel="stylesheet" href="styles/index.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <script src="scripts/navbar.js" defer></script>
   <script src="scripts/pricing.js" defer></script>
@@ -18,54 +18,53 @@
   <div id="header-placeholder"></div>
 
   <!-- Pricing Section -->
-  <section id="pricing" class="pricing-section">
-    <div class="pricing-container">
-      <h2 class="pricing-title">Pricing Plans</h2>
-      <div class="pricing-grid">
-        <!-- Starter Plan -->
-        <div class="pricing-card">
-          <h3 class="plan-title">Starter</h3>
-          <p class="plan-price">$0<span>/month</span></p>
-          <p class="plan-description">A free account grants you access to exclusive free content.</p>
-          <ul class="plan-features">
-            <li>✔️ Free Components</li>
-            <li>✔️ Chrome Extension</li>
-            <li>✔️ Basic Customer Support</li>
-            <li>✔️ Single User License</li>
-          </ul>
-          <a href="index.html" class="plan-btn">Get Started</a>
-        </div>
+  <section class="pricing container">
+    <h2>Membership Plans</h2>
+    <div class="plans">
+      <div class="plan-card standard">
+        <img src="styles/img/index/icon-business.png.svg" alt="Standard Icon" class="plan-icon" />
+        <h3>Standard</h3>
+        <div class="price">$9.99 <span class="billing">/ Month</span></div>
+        <p class="description">Basic listing submission, active for 30 days</p>
+        <ul>
+          <li>Up to 10 Free Profile Viewing</li>
+          <li>Up to 5 Message Sending</li>
+          <li class="disabled">No AI-Based Matching Service</li>
+          <li>Ad Removal</li>
+        </ul>
+        <button class="select-btn">Select <span>↗</span></button>
+      </div>
 
-        <!-- Pro+ Plan -->
-        <div class="pricing-card featured">
-          <h3 class="plan-title">Pro+</h3>
-          <p class="plan-price">$0<span>/month</span></p>
-          <p class="plan-description">Boom! You're in the club. Instantly access the full library.</p>
-          <ul class="plan-features">
-            <li>✔️ Premium Components</li>
-            <li>✔️ Premium Wireframes</li>
-            <li>✔️ Premium Illustrations</li>
-            <li>✔️ Advanced Customer Support</li>
-          </ul>
-          <a href="signup.html" class="plan-btn featured-btn">Go Pro</a>
-        </div>
+      <div class="plan-card featured">
+        <img src="styles/img/index/icon-pro.png.svg" alt="Pro Icon" class="plan-icon" />
+        <h3>Pro</h3>
+        <div class="price">$19.99 <span class="billing">/ Month</span></div>
+        <p class="description">Basic listing submission, active for 30 days</p>
+        <ul>
+          <li>Unlimited Profile Viewing</li>
+          <li>Unlimited Message Sending</li>
+          <li>Premium AI-Based Matching Service</li>
+          <li>Ad Removal</li>
+        </ul>
+        <button class="select-btn">Select <span>↗</span></button>
+      </div>
 
-        <!-- Enterprise Plan -->
-        <div class="pricing-card">
-          <h3 class="plan-title">Enterprise</h3>
-          <p class="plan-price">$0<span>/month</span></p>
-          <p class="plan-description">Advanced features for larger teams needing extra flexibility.</p>
-          <ul class="plan-features">
-            <li>✔️ All Pro+ Features</li>
-            <li>✔️ Team Management</li>
-            <li>✔️ Dedicated Support</li>
-            <li>✔️ Custom Integrations</li>
-          </ul>
-          <a href="contact.html" class="plan-btn">Contact Sales</a>
-        </div>
+      <div class="plan-card basic">
+        <img src="styles/img/index/icon-basic.png.svg" alt="Basic Icon" class="plan-icon" />
+        <h3>Basic</h3>
+        <div class="price">Free</div>
+        <p class="description">Basic listing submission, active for 30 days</p>
+        <ul>
+          <li>Up to 3 Free Profile Viewing</li>
+          <li>Up to 2 Free Message Sending</li>
+          <li class="disabled">No AI-Based Matching Service</li>
+          <li class="disabled">No Ad Removal</li>
+        </ul>
+        <button class="select-btn">Select <span>↗</span></button>
       </div>
     </div>
   </section>
+
 
   <!-- Footer -->
   <div id="footer-placeholder"></div>

@@ -138,7 +138,7 @@ hr.solid {
   margin: 48px 0 24px;
   border-bottom: 2px solid #ececec;
   padding-bottom: 8px;
-  color: #4f46e5;
+  color: var(--clr-primary-dark);
 }
 
 .question-card {
@@ -217,8 +217,8 @@ hr.solid {
 
 /* when checked, fill the box & show white ✓ */
 .option input[type="checkbox"]:checked + .option-label::before {
-  background-color: #6366f1;
-  border-color: #6366f1;
+  background-color: var(--clr-primary);
+  border-color: var(--clr-primary);
   background-image: url("data:image/svg+xml,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4 8L11 1' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
@@ -227,7 +227,7 @@ hr.solid {
 /* background of the entire card when checked */
 .option input[type="checkbox"]:checked + .option-label {
   background-color: #f0f2ff;
-  border-color: #6366f1;
+  border-color: var(--clr-primary);
   color: #222;
 }
 
@@ -354,7 +354,7 @@ hr.solid {
 }
 
 .custom-multiselect-box li.selected {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: white;
 }
 
@@ -366,7 +366,7 @@ hr.solid {
 }
 
 .language-tag {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: white;
   padding: 6px 12px;
   border-radius: 16px;
@@ -376,7 +376,7 @@ hr.solid {
 }
 
 .language-tag:hover {
-  background: #4f46e5;
+  background: var(--clr-primary-dark);
 }
 
 /* Scrollable options area */
@@ -410,7 +410,7 @@ hr.solid {
 }
 
 #language-options li.selected {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: white;
 }
 
@@ -429,7 +429,7 @@ hr.solid {
 }
 
 .hobby-tag {
-  background-color: #6366f1;
+  background-color: var(--clr-primary);
   color: white;
   font-size: 14px;
   padding: 10px 14px;
@@ -440,7 +440,7 @@ hr.solid {
 }
 
 .hobby-tag:hover {
-  background-color: #4f46e5;
+  background-color: var(--clr-primary-dark);
 }
 
 #hobby-dropdown {
@@ -480,11 +480,11 @@ hr.solid {
 }
 
 .button--primary {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: #fff;
 }
 .button--primary:hover {
-  background: #4f46e5;
+  background: var(--clr-primary-dark);
 }
 
 .button--primary.loading {
@@ -511,8 +511,8 @@ hr.solid {
 
 .button--secondary {
   background: transparent;
-  color: #6366f1;
-  border: 1px solid #6366f1;
+  color: var(--clr-primary);
+  border: 1px solid var(--clr-primary);
 }
 .button--secondary:hover {
   background: rgba(99,102,241,0.1);
@@ -566,7 +566,7 @@ hr.solid {
 
 .emoji-option input[type="checkbox"]:checked + .emoji,
 .emoji-option input[type="checkbox"]:focus + .emoji {
-  border: 2.5px solid #6366f1;
+  border: 2.5px solid var(--clr-primary);
   background: #f0f2ff;
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.11);
   transform: scale(1.14);
@@ -616,7 +616,7 @@ hr.solid {
 
 .textarea:focus {
   outline: none;
-  border: 1px solid #6366f1;
+  border: 1px solid var(--clr-primary);
   box-shadow: 0 0 0 4px rgba(99,102,241,0.15);
   background: #fff;
 }

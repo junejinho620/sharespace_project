@@ -8,10 +8,11 @@
 
 .hero-content {
   flex: 1 1 520px;
+  margin-left: 50px;
 }
 
 .hero-content h1 {
-  font-size: clamp(44px, 5.8vw, 72px);
+  font-size: clamp(40px, 5.4vw, 68px);
   font-family: "Crimson Text", serif;
   font-weight: 800;
   margin-bottom: 0.6rem;
@@ -63,6 +64,39 @@
   display: flex;
   justify-content: flex-end;
 }
+.hero-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 6rem;
+  position: relative;
+  gap: 3rem;
+  overflow: hidden;
+  flex-wrap: wrap; /* responsive stacking on small screens */
+}
+
+.hero-content {
+  flex: 1 1 480px;
+  min-width: 300px;
+  z-index: 2;
+}
+
+.hero-bg-image {
+  flex: 1 1 600px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+}
+
+.hero-bg-image img {
+  max-width: 100%;
+  width: clamp(280px, 50vw, 550px); /* responsive scaling */
+  height: auto;
+  object-fit: contain;
+  opacity: 0.95;
+}
 
 /* 2. Profiles */
 .profiles {
@@ -74,7 +108,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 32px;
-  margin-top: 32px;
+  /*margin-top: 32px;*/
 }
 
 .profile-card {
@@ -82,8 +116,13 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
   padding: 24px;
-  transition: transform 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 👈 key */
+  height: 100%; /* 👈 ensures equal height across all cards */
+  transition: 0.25s;
 }
+
 
 .profile-card:hover {
   transform: translateY(-6px);
@@ -103,20 +142,62 @@
   border-radius: var(--radius-sm);
   font-weight: 600;
   transition: background 0.25s ease, transform 0.25s ease;
+  visibility: visible;
+  opacity: 1;
 }
 
 .view-btn:hover {
   background: var(--clr-primary-dark);
   transform: translateY(-2px);
 }
+.profiles-header-wrapper {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profiles-header-wrapper h2 {
+  font-family: 'DM Serif Display', serif;
+  font-weight: 700;
+  font-size: 2.5rem;
+  
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.see-more-link {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  padding: 12px 18px;
+  background-color: var(--clr-primary);
+  color: white;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.see-more-link:hover {
+  background-color: var(--clr-primary-dark);
+}
+
 
 /* 3. How It Works */
 .how-it-works {
+  padding-block: 64px;
+}
+
+.how-wrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 48px;
-  padding-block: 64px;
+  
 }
+
+
 
 .how-left {
   flex: 1 1 360px;
@@ -172,8 +253,15 @@
 
 /* 4. Testimonials */
 .testimonials {
+  
   padding-block: 64px;
   text-align: center;
+}
+
+.testimonials-wrapper{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .testimonial-cards {
@@ -181,7 +269,7 @@
   gap: 32px;
   flex-wrap: wrap;
   justify-content: center;
-  margin-top: 32px;
+  /*margin-top: 64px;*/
 }
 
 .testimonial {
@@ -208,11 +296,14 @@
 
 .plans {
   display: flex;
-  gap: 32px;
+  column-gap: clamp(32px, 8vw, 106px); /* was smaller, now can go up to 120px */
+  row-gap: 32px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-top: 32px;
+  /*margin-top: 64px;*/
 }
+
+
 
 .plan-card {
   background: var(--clr-surface);
@@ -337,6 +428,7 @@
   padding: 48px;
   position: relative;
   z-index: 1;
+  text-align: center;
 }
 
 .soulmate-img {
@@ -348,7 +440,7 @@
 
 .soulmate-title {
   font-size: 32px;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 }
 
 .soulmate-subtext {

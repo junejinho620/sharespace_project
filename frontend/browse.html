@@ -1,187 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Browse Roommates - ShareSpace</title>
+    <link rel="stylesheet" href="styles/shared/general.css" />
+    <link rel="stylesheet" href="styles/browse.css" />
+    <link rel="stylesheet" href="styles/browse-cards.css" />
+    <link rel="stylesheet" href="styles/shared/header-footer.css" />
+    <script src="scripts/navbar.js" defer></script>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Browse Roommates - ShareSpace</title>
-  <link rel="stylesheet" href="styles/shared/general.css" />
-  <link rel="stylesheet" href="styles/browse.css" />
-  <link rel="stylesheet" href="styles/browse-cards.css" />
-  <link rel="stylesheet" href="styles/shared/header-footer.css" />
-  <script src="scripts/navbar.js" defer></script>
-</head>
+  <body>
+    <!-- Header -->
+    <div id="header-placeholder"></div>
 
-<body>
-  <!-- Header -->
-  <div id="header-placeholder"></div>
+    <section class="browse-header">
+      <h1 class="browse-title">Meet Your Future Roommate</h1>
+      <p class="browse-subtitle">Browse profiles and find your ideal match</p>
+    </section>
 
-  <section class="browse-header">
-    <h1 class="browse-title">Meet Your Future Roommate</h1>
-    <p class="browse-subtitle">Browse profiles and find your ideal match</p>
-  </section>
-
-  <section class="browse-profiles">
-    <div class="browse-layout">
-
-      <!-- Filter Sidebar (Left) -->
-      <aside class="filters-sidebar">
-        <div class="filters-header">
-          <h3>Filter by:</h3>
-          <button id="clear-filters" class="clear-all">Clear All</button>
-        </div>
-
-        <!-- Budget -->
-        <div class="filter-group budget-group">
-          <label>Budget ($)</label>
-          <div class="dual-slider">
-            <div class="slider-rail"></div>
-            <div class="slider-track"></div>
-            <input type="range" id="budgetRangeMin" min="0" max="5000" step="100" value="500">
-            <input type="range" id="budgetRangeMax" min="0" max="5000" step="100" value="4500">
+    <section class="browse-profiles">
+      <div class="browse-layout">
+        <!-- Filter Sidebar (Left) -->
+        <aside class="filters-sidebar">
+          <div class="filters-header">
+            <h3>Filter by:</h3>
+            <button id="clear-filters" class="clear-all">Clear All</button>
           </div>
-          <div class="range-values">
-            <input type="number" id="budgetInputMin" value="500" min="0" max="5000" step="100">
-            <span>to</span>
-            <input type="number" id="budgetInputMax" value="4500" min="0" max="5000" step="100">
+
+          <!-- Budget -->
+          <div class="filter-group budget-group">
+            <label>Budget ($)</label>
+            <div class="dual-slider">
+              <div class="slider-rail"></div>
+              <div class="slider-track"></div>
+              <input
+                type="range"
+                id="budgetRangeMin"
+                min="0"
+                max="5001"
+                step="100"
+                value="500"
+              />
+              <input
+                type="range"
+                id="budgetRangeMax"
+                min="0"
+                max="5001"
+                step="100"
+                value="4500"
+              />
+            </div>
+            <div class="range-values">
+              <input
+                type="number"
+                id="budgetInputMin"
+                value="500"
+                min="0"
+                max="5001"
+                step="100"
+              />
+              <span>to</span>
+              <input
+                type="number"
+                id="budgetInputMax"
+                value="4500"
+                min="0"
+                max="5001"
+                step="100"
+              />
+            </div>
+            <button class="reset-btn">All budgets</button>
           </div>
-          <button class="reset-btn">All budgets</button>
-        </div>
 
-        <!-- Age -->
-        <div class="filter-group age-group">
-          <label>Age</label>
-          <div class="pill-group age-pills">
-            <button class="pill" data-value="18-20">18 – 20</button>
-            <button class="pill" data-value="21-25">21 – 25</button>
-            <button class="pill" data-value="26-30">26 – 30</button>
-            <button class="pill" data-value="31-35">31 – 35</button>
-            <button class="pill" data-value="36-40">36 – 40</button>
-            <button class="pill" data-value="over-40">Over 40</button>
+          <!-- Age -->
+          <div class="filter-group age-group">
+            <label>Age</label>
+            <div class="pill-group age-pills">
+              <button class="pill" data-value="18-20">18 – 20</button>
+              <button class="pill" data-value="21-25">21 – 25</button>
+              <button class="pill" data-value="26-30">26 – 30</button>
+              <button class="pill" data-value="31-35">31 – 35</button>
+              <button class="pill" data-value="36-40">36 – 40</button>
+              <button class="pill" data-value="over-40">Over 40</button>
+            </div>
+            <button class="reset-btn">All ages</button>
           </div>
-          <button class="reset-btn">All ages</button>
-        </div>
 
-        <!-- City -->
-        <div class="filter-group">
-          <label for="citySelect">City</label>
-          <select id="citySelect">
-            <option value="all">All Cities</option>
-            <option value="Toronto">Toronto</option>
-            <option value="Vancouver">Vancouver</option>
-            <option value="New York">New York</option>
-            <option value="London">London</option>
-          </select>
-        </div>
-
-        <!-- Nationality -->
-        <div class="filter-group">
-          <label for="nationSelect">Nationality</label>
-          <select id="nationSelect">
-            <option value="all">All Nationalities</option>
-            <option value="Korean">Korean</option>
-            <option value="Canadian">Canadian</option>
-            <option value="Indonesian">Indonesian</option>
-            <option value="American">American</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <!-- Gender -->
-        <div class="filter-group gender-group">
-          <label>Gender</label>
-          <div class="pill-group gender-pills">
-            <button class="pill" data-value="male">Male</button>
-            <button class="pill" data-value="female">Female</button>
-            <button class="pill selected" data-value="">Any</button>
+          <!-- City -->
+          <div class="filter-group">
+            <label for="citySelect">City</label>
+            <select id="citySelect">
+              <option value="all">All Cities</option>
+              <option value="Toronto">Toronto</option>
+              <option value="Vancouver">Vancouver</option>
+              <option value="New York">New York</option>
+              <option value="London">London</option>
+            </select>
           </div>
-        </div>
 
-        <!-- FMTI -->
-        <div class="filter-group">
-          <label>Fomi Test</label>
-          <div class="checkbox-grid">
-            <label><input type="checkbox" name="fomi" value="quiet-fomi"> Quiet Fomi</label>
-            <label><input type="checkbox" name="fomi" value="energy-fomi"> Energy Fomi</label>
-            <label><input type="checkbox" name="fomi" value="emotional-fomi"> Emotional Fomi</label>
-            <label><input type="checkbox" name="fomi" value="free-fomi"> Free Fomi</label>
-            <label><input type="checkbox" name="fomi" value="wanderer-fomi"> Wanderer Fomi</label>
-            <label><input type="checkbox" name="fomi" value="noisy-fomi"> Noisy Fomi</label>
-            <label><input type="checkbox" name="fomi" value="moderate-fomi"> Moderate Fomi</label>
-            <label><input type="checkbox" name="fomi" value="sensitive-fomi"> Sensitive Fomi</label>
-            <label><input type="checkbox" name="fomi" value="care-fomi"> Care Fomi</label>
-            <label><input type="checkbox" name="fomi" value="homebody-fomi"> Homebody Fomi</label>
-            <label><input type="checkbox" name="fomi" value="coexist-fomi"> Coexist Fomi</label>
-            <label><input type="checkbox" name="fomi" value="balanced-fomi"> Balanced Fomi</label>
-            <label><input type="checkbox" name="fomi" value="night-owl-fomi"> Night Owl Fomi</label>
-            <label><input type="checkbox" name="fomi" value="independent-fomi"> Independent Fomi</label>
-            <label><input type="checkbox" name="fomi" value="collab-fomi"> Collab Fomi</label>
-            <label><input type="checkbox" name="fomi" value="adaptive-fomi"> Adaptive Fomi</label>
+          <!-- Nationality -->
+          <div class="filter-group">
+            <label for="nationSelect">Nationality</label>
+            <select id="nationSelect">
+              <option value="all">All Nationalities</option>
+              <option value="Korean">Korean</option>
+              <option value="Canadian">Canadian</option>
+              <option value="Indonesian">Indonesian</option>
+              <option value="American">American</option>
+              <option value="Other">Other</option>
+            </select>
           </div>
-        </div>
-      </aside>
 
-      <!-- Browse Results (Right) -->
-      <div class="browse-results">
-        <div class="center">
-          <!-- Dynamic User Cards will be injected here by browse.js -->
+          <!-- Gender -->
+          <div class="filter-group gender-group">
+            <label>Gender</label>
+            <div class="pill-group gender-pills">
+              <button class="pill" data-value="male">Male</button>
+              <button class="pill" data-value="female">Female</button>
+              <button class="pill selected" data-value="">Any</button>
+            </div>
+          </div>
+
+          <!-- FMTI -->
+          <div class="filter-group">
+            <label>Fomi Test</label>
+            <div class="checkbox-grid">
+              <label
+                ><input type="checkbox" name="fomi" value="quiet-fomi" /> Quiet
+                Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="energy-fomi" />
+                Energy Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="emotional-fomi" />
+                Emotional Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="free-fomi" /> Free
+                Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="wanderer-fomi" />
+                Wanderer Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="noisy-fomi" /> Noisy
+                Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="moderate-fomi" />
+                Moderate Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="sensitive-fomi" />
+                Sensitive Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="care-fomi" /> Care
+                Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="homebody-fomi" />
+                Homebody Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="coexist-fomi" />
+                Coexist Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="balanced-fomi" />
+                Balanced Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="night-owl-fomi" />
+                Night Owl Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="independent-fomi" />
+                Independent Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="collab-fomi" />
+                Collab Fomi</label
+              >
+              <label
+                ><input type="checkbox" name="fomi" value="adaptive-fomi" />
+                Adaptive Fomi</label
+              >
+            </div>
+          </div>
+        </aside>
+
+        <!-- Browse Results (Right) -->
+        <div class="browse-results">
+          <div class="center">
+            <!-- Dynamic User Cards will be injected here by browse.js -->
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <!-- Navigation Links -->
-      <div class="footer-section">
-        <h3>Quick Links</h3>
-        <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="about-us.html">About Us</a></li>
-          <li><a href="dashboard.html">Contact</a></li>
-        </ul>
-      </div>
+    <footer class="footer">
+      <div class="footer-content">
+        <!-- Navigation Links -->
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+            <li><a href="dashboard.html">Contact</a></li>
+          </ul>
+        </div>
 
-      <!-- Contact Details -->
-      <div class="footer-section">
-        <h3>Contact Us</h3>
-        <ul>
-          <li>Email: <a href="mailto:info@sharespace.com">info@sharespace.com</a></li>
-          <li>Phone: +82 (010) 6744-5288</li>
-          <li>Address: 123 Roommate St, Suite 456, City, Country</li>
-        </ul>
-      </div>
+        <!-- Contact Details -->
+        <div class="footer-section">
+          <h3>Contact Us</h3>
+          <ul>
+            <li>
+              Email:
+              <a href="mailto:info@sharespace.com">info@sharespace.com</a>
+            </li>
+            <li>Phone: +82 (010) 6744-5288</li>
+            <li>Address: 123 Roommate St, Suite 456, City, Country</li>
+          </ul>
+        </div>
 
-      <!-- Social Media Icons -->
-      <div class="footer-section">
-        <h3>Follow Us</h3>
-        <div class="social-icons">
-          <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
-          <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-          <a href="https://discord.com" target="_blank"><i class="fab fa-discord"></i></a>
-          <a href="https://www.linkedin.com/in/jinho-choi-11ab91228" target="_blank"><i
-              class="fab fa-linkedin-in"></i></a>
+        <!-- Social Media Icons -->
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <div class="social-icons">
+            <a href="https://facebook.com" target="_blank"
+              ><i class="fab fa-facebook-f"></i
+            ></a>
+            <a href="https://instagram.com" target="_blank"
+              ><i class="fab fa-instagram"></i
+            ></a>
+            <a href="https://discord.com" target="_blank"
+              ><i class="fab fa-discord"></i
+            ></a>
+            <a
+              href="https://www.linkedin.com/in/jinho-choi-11ab91228"
+              target="_blank"
+              ><i class="fab fa-linkedin-in"></i
+            ></a>
+          </div>
+        </div>
+
+        <!-- Legal Information -->
+        <div class="footer-section">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms-of-service.html">Terms of Service</a></li>
+          </ul>
         </div>
       </div>
 
-      <!-- Legal Information -->
-      <div class="footer-section">
-        <h3>Legal</h3>
-        <ul>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-          <li><a href="terms-of-service.html">Terms of Service</a></li>
-        </ul>
+      <!-- Copyright Notice -->
+      <div class="footer-bottom">
+        <p>&copy; 2025 ShareSpace. All rights reserved.</p>
       </div>
-    </div>
+    </footer>
 
-    <!-- Copyright Notice -->
-    <div class="footer-bottom">
-      <p>&copy; 2025 ShareSpace. All rights reserved.</p>
-    </div>
-  </footer>
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="scripts/browse.js" defer></script>
-</body>
-
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="scripts/browse.js" defer></script>
+  </body>
 </html>

@@ -202,8 +202,8 @@ hr.solid {
 
 /* when checked, fill the box & show white ✓ */
 .option input[type="checkbox"]:checked + .option-label::before {
-  background-color: #6366f1;
-  border-color: #6366f1;
+  background-color: var(--clr-primary);
+  border-color: var(--clr-primary);
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='10' viewBox='0 0 12 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 5L4 8L11 1' stroke='white' stroke-width='2'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: center;
@@ -212,7 +212,7 @@ hr.solid {
 /* background of the entire card when checked */
 .option input[type="checkbox"]:checked + .option-label {
   background-color: #f0f2ff;   /* a very light tint of your brand color */
-  border-color: #6366f1;
+  border-color: var(--clr-primary);
   color: #222;
 }
 
@@ -303,7 +303,7 @@ hr.solid {
 }
 
 .custom-multiselect-box li.selected {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: white;
 }
 
@@ -315,7 +315,7 @@ hr.solid {
 }
 
 .language-tag {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: white;
   padding: 6px 12px;
   border-radius: 16px;
@@ -325,7 +325,7 @@ hr.solid {
 }
 
 .language-tag:hover {
-  background: #4f46e5;
+  background: var(--clr-primary-dark);
 }
 
 /* Scrollable options area */
@@ -358,7 +358,7 @@ hr.solid {
 }
 
 #language-options li.selected {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: white;
 }
 
@@ -388,11 +388,11 @@ hr.solid {
 
 /* primary CTA */
 .button--primary {
-  background: #6366f1;
+  background: var(--clr-primary);
   color: #fff;
 }
 .button--primary:hover {
-  background: #4f46e5;
+  background: var(--clr-primary-dark);
 }
 
 .button--primary.loading {
@@ -420,8 +420,8 @@ hr.solid {
 /* secondary CTA */
 .button--secondary {
   background: transparent;
-  color: #6366f1;
-  border: 1px solid #6366f1;
+  color: var(--clr-primary);
+  border: 1px solid var(--clr-primary);
 }
 .button--secondary:hover {
   background: rgba(99,102,241,0.1);
