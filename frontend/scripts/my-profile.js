@@ -65,7 +65,6 @@ function populateProfile(user, pref = {}) {
   document.getElementById('profileSmoking').textContent       = pref.smoking ? 'Yes'  : 'No';
   document.getElementById('profilePetFriendly').textContent   = pref.pet_friendly ? 'Yes' : 'No';
   document.getElementById('profilePersonality').textContent   = pref.introvert ? 'Introvert' : 'Extrovert';
-  document.getElementById('profileGenderPref').textContent    = pref.gender_pref || '-';
 }
 
 // Helper: Load hobbies

@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         // Smoothly scroll to the chat user
         targetChatItem.scrollIntoView({
           behavior: "smooth",
-          block: "center"
+          block: "center",
         });
 
         // Then after 0.3 seconds, open that chat

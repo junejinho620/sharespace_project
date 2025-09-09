@@ -10,7 +10,7 @@ body {
   display: grid;
   grid-template-columns: 300px 1fr;
   height: calc(100vh - 70px); /* Adjust height for navbar */
-  margin-top: 70px; /* Push down to start below navbar */
+  margin-right: 6rem;
 }
 
 /* 🧩 Left Sidebar: Chat List Area */

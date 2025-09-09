@@ -135,7 +135,7 @@ body {
   display: block;
   margin: 50px auto 0;
   padding: 16px 160px;
-  background-color: #a48d65;
+  background-color: var(--clr-primary);
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -146,5 +146,5 @@ body {
 }
 
 .btn:hover {
-  background-color: #8a7453;
+  background-color: var(--clr-primary-dark);
 }
