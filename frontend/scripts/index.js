@@ -86,3 +86,31 @@ document.addEventListener('DOMContentLoaded', function () {
   window.addEventListener('load', checkVisibility);
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const section = document.querySelector('.profiles');
+  const grid = document.querySelector('.profile-grid');
+  if (!section || !grid) return;
+
+  const isMultiRow = () => {
+    const cards = Array.from(grid.querySelectorAll('.profile-card'));
+    if (cards.length <= 1) return false;
+    const tops = new Set(cards.map(c => c.offsetTop)); // same row => same offsetTop
+    return tops.size > 1;
+  };
+
+  const apply = () => {
+    const multi = isMultiRow();
+    section.classList.toggle('is-multirow', multi);
+  };
+
+  // run on load, resize, and when the grid size changes
+  window.addEventListener('load', apply);
+  window.addEventListener('resize', apply);
+  new ResizeObserver(apply).observe(grid);
+
+  // handle webfont reflow if any
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(apply); }
+
+  apply();
+});
+
