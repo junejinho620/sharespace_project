@@ -55,25 +55,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     // FOMI SNAPSHOT & TRAITS
     // ———————————————————————————————————————————————————————————
 
-    // 1) Grab matchedFomi from localStorage
-    const matchedFomi = localStorage.getItem('matchedFomi');
-    if (!matchedFomi) {
-      // If not found, you can redirect back to loading or show a message
-      console.warn('No matchedFomi in localStorage.');
-      return;
+    // 1) Grab matchedFomi from localStorage or fetch from server if missing
+    let matchedFomi = localStorage.getItem('matchedFomi');
+    if (!matchedFomi || matchedFomi === 'undefined') {
+      const token = localStorage.getItem('token'); // or however you send auth
+      try {
+        const res2 = await fetch('/api/users/me/fomi', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (res2.ok) {
+          const json2 = await res2.json();
+          matchedFomi = json2.matchedFomi;
+          if (matchedFomi) {
+            // Save to localStorage for future visits
+            localStorage.setItem('matchedFomi', matchedFomi);
+          }
+        } else {
+          console.warn('Failed to fetch user’s Fomi from server');
+        }
+      } catch (e) {
+        console.error('Error fetching Fomi from server', e);
+      }
     }
 
     // 1b) If missing, fall back to asking the server
     if (!matchedFomi) {
-      const token = localStorage.getItem('token'); // or however you send auth
-      const res2 = await fetch('/api/users/me/fomi', {
-        headers: { 'Authorization': `Bearer ${token}` }
-      });
-      if (!res2.ok) throw new Error('Failed to fetch user’s Fomi from server');
-      const json2 = await res2.json();
-      matchedFomi = json2.matchedFomi;
-      // Save to localStorage for future visits
-      localStorage.setItem('matchedFomi', matchedFomi);
+      console.warn('No matchedFomi available.');
+      return;
     }
 
     // 2) Fetch Fomi details from our new endpoint

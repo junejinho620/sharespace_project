@@ -5,10 +5,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       headers: { 'Authorization': `Bearer ${token}` },
     });
     
-    const { matchedFomi } = await res.json();
+    if (!res.ok) throw new Error('Failed to get Fomi');
 
-    // Save to localStorage so dashboard can pick it up
-    localStorage.setItem('matchedFomi', matchedFomi);
+    const { matchedFomi } = await res.json();
+    if (matchedFomi) {
+      // Save to localStorage so dashboard can pick it up
+      localStorage.setItem('matchedFomi', matchedFomi);
+    }
 
     // Redirect to dashboard after 1 second
     setTimeout(() => {

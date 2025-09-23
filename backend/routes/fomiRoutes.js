@@ -96,7 +96,7 @@ router.get('/users/me/fomi', verifyToken, async (req, res) => {
 
     // 3. Call the Flask service
     const flaskRes = await axios.post(
-      'http://127.0.0.1:5001/api/match_fomi',
+      'http://127.0.0.1:5002/api/match_fomi',
       answers
     );
 
