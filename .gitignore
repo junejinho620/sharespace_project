@@ -6,6 +6,10 @@ Thumbs.db
 .env
 **/.env
 .env.local
+backend/.env
+
+#User uploads
+backend/uploads/
 
 # Dependency directories
 node_modules/
