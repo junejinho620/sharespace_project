@@ -320,3 +320,183 @@
   border-top: 1px solid var(--clr-primary);
   padding-top: 40px;
 }
+
+/* =============== NAV: base =============== */
+.site-header { position: sticky; top: 0; z-index: 100; background: #fff; box-shadow: 0 1px 0 rgba(0,0,0,.06); }
+.no-scroll { overflow: hidden; }
+
+.hamburger {
+  display: none; /* mobile-only */
+  width: 40px; height: 40px; border: 1px solid #eee; border-radius: 8px;
+  background: #fff; cursor: pointer; padding: 0;
+  display: none; align-items: center; justify-content: center; gap: 4px; flex-direction: column;
+}
+.hamburger span { width: 18px; height: 2px; background: #333; display: block; }
+
+@media (max-width: 992px) {
+  .hamburger { display: flex; }
+  /* hide desktop link clusters on mobile; hamburger controls mobile panel */
+  #nav-links, #auth-actions > .user-dropdown, #auth-actions > .login-link { display: none; }
+}
+
+/* =============== USER DROPDOWN (desktop) =============== */
+/* Your JS builds: <li id="login-li" class="user-dropdown"><button.user-toggle>…</button><div.dropdown-content>…</div> */
+.user-dropdown { position: relative; list-style: none; }
+.user-toggle {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 6px 10px; border: 1px solid #eee; border-radius: 999px; background:#fff; cursor:pointer;
+}
+.user-toggle .avatar { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; }
+.user-toggle .username { font-weight: 600; color:#222; }
+.user-dropdown .dropdown-content {
+  position: absolute; right: 0; top: calc(100% + 6px);
+  min-width: 200px; padding: 8px; border: 1px solid #eee; border-radius: 12px; background:#fff;
+  box-shadow: 0 12px 24px rgba(0,0,0,.08);
+  display: none; z-index: 200;
+}
+.user-dropdown.open .dropdown-content { display: block; }
+.dropdown-content a, .dropdown-content button {
+  display:block; width:100%; padding:10px 12px; text-align:left; border:0; background:transparent; border-radius:8px;
+  color:#222; text-decoration:none; font-weight:500; cursor:pointer;
+}
+.dropdown-content a:hover, .dropdown-content button:hover { background:#f7f7f8; }
+
+/* =============== MOBILE MENU (dropdown under header) =============== */
+.mobile-menu {
+  display: none; /* JS toggles [hidden] */
+  border-bottom: 1px solid #eee; background: #fff;
+  padding: 12px 16px; box-shadow: 0 8px 16px rgba(0,0,0,.04);
+}
+.mobile-menu:not([hidden]) { display: block; }
+
+.mobile-links, .mobile-user-actions {
+  list-style: none; padding: 0; margin: 0; display: grid; gap: 8px;
+}
+.mobile-links a, .mobile-user-actions a, .mobile-user-actions button {
+  display:block; padding: 12px; border-radius:10px; text-decoration:none; color:#222; background:transparent; border:0; text-align:left;
+}
+.mobile-links a:hover, .mobile-user-actions a:hover, .mobile-user-actions button:hover { background:#f7f7f8; }
+.mobile-divider { height: 1px; background: #eee; margin: 10px 0; }
+
+/* ===== 1) Unify dropdown hover (anchors + the Logout <button>) ===== */
+:root{
+  /* fallback if not defined */
+  --_primary: var(--clr-primary, #5865F2);
+}
+
+/* normalize anchor vs button so hover looks identical */
+.dropdown-content a,
+.dropdown-content button,
+.user-dropdown .dropdown-content a,
+.user-dropdown .dropdown-content button {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  background: transparent;
+  color: #222;
+  text-align: left;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* same hover for both, using key color */
+.dropdown-content a:hover,
+.dropdown-content button:hover,
+.user-dropdown .dropdown-content a:hover,
+.user-dropdown .dropdown-content button:hover {
+  color: var(--_primary);
+  /* light tint of primary; supported in modern browsers */
+  background: color-mix(in srgb, var(--_primary) 12%, transparent);
+}
+
+/* Fallback tint if color-mix isn't supported */
+@supports not (background: color-mix(in srgb, black 10%, white)) {
+  .dropdown-content a:hover,
+  .dropdown-content button:hover,
+  .user-dropdown .dropdown-content a:hover,
+  .user-dropdown .dropdown-content button:hover {
+    background: rgba(88, 101, 242, 0.12); /* approximates 12% of #5865F2 */
+  }
+}
+
+
+
+/* Auth actions cluster spacing (username dropdown + hamburger) */
+#auth-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;           /* keeps Messages ↔ Username from crowding */
+}
+
+/* Slightly tighten on medium widths so it doesn’t feel cramped */
+@media (max-width: 1200px) {
+  #nav-links { gap: 16px; }
+  #auth-actions { gap: 12px; }
+}
+
+/* ===== 3) Keep username pill from hugging the links ===== */
+.user-dropdown,
+.login-link {
+  margin-left: 4px;     /* micro-breathing room */
+}
+
+/* Username pill visuals remain tidy */
+.user-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 1px solid #eee;
+  border-radius: 999px;
+  background: #fff;
+}
+
+/* ===== Mobile menu items hover also use key color ===== */
+.mobile-links a:hover,
+.mobile-user-actions a:hover,
+.mobile-user-actions button:hover {
+  color: var(--_primary);
+  background: color-mix(in srgb, var(--_primary) 12%, transparent);
+}
+@supports not (background: color-mix(in srgb, black 10%, white)) {
+  .mobile-links a:hover,
+  .mobile-user-actions a:hover,
+  .mobile-user-actions button:hover {
+    background: rgba(88, 101, 242, 0.12);
+  }
+}
+/* ===== NAV link spacing compresses with width; no wrapping ===== */
+
+/* The link row never wraps; gaps shrink responsively */
+#nav-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;                  /* don't drop to a new line */
+  gap: clamp(12px, 2.2vw, 24px);      /* shrink gap as viewport narrows */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  min-width: 0;                       /* allow flex sizing to actually shrink */
+}
+
+/* Links won’t break into two lines (esp. "Browse Matches") */
+#nav-links a {
+  white-space: nowrap;                /* critical: prevent 2-line wrap */
+  word-break: keep-all;
+  -webkit-hyphens: none;
+  hyphens: none;
+  font-size: clamp(14px, 1.1vw, 16px);/* gently scales down on narrower screens */
+  line-height: 1.2;
+}
+
+/* Keep consistent breathing room before the username/auth cluster */
+#nav-links { margin-right: auto; }
+#auth-actions {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.5vw, 16px);      /* also compresses so things don't collide */
+}
+

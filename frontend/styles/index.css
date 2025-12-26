@@ -580,3 +580,311 @@
 .search-wrapper input {
   min-width: 0;           /* ← allow it to shrink below its flex basis */
 }
+/* --- Hero: responsive hide house image when space is tight --- */
+
+/* 1) Enable container queries on the hero wrapper */
+.hero-section {
+  container-type: inline-size; /* lets us query the hero's own width */
+}
+
+/* 2) When the hero gets narrower than ~860px, hide the image */
+@container (max-width: 860px) {
+  .hero-bg-image {
+    display: none;
+  }
+  .hero-content {
+    margin: 0 auto;
+    text-align: center;      /* center the copy + search */
+  }
+  .search-wrapper {
+    max-width: 560px;        /* feel free to tweak */
+    margin-inline: auto;
+  }
+}
+
+/* 3) Fallback for browsers without container queries */
+@media (max-width: 860px) {
+  .hero-bg-image {
+    display: none;
+  }
+}
+/* Hide house image instead of letting it wrap */
+@media (max-width: 992px) {
+  .hero-section {
+    flex-wrap: nowrap; /* prevent wrapping */
+  }
+  .hero-bg-image {
+    display: none;     /* hide the house image */
+  }
+  .hero-content {
+    margin: 0 auto;
+    text-align: center;
+  }
+  .search-wrapper {
+    max-width: 560px;
+    margin-inline: auto;
+  }
+}
+/* --- HERO: never wrap; hide house before it would drop --- */
+
+/* 1) Default: don't let hero items wrap */
+.hero-section {
+  flex-wrap: nowrap; /* prevent the image from jumping below */
+}
+
+/* 2) Before the combined widths would force a wrap (~>1120px), just hide the image */
+@media (max-width: 1200px) {
+  /* override any earlier "column" layout rules */
+  .hero-section {
+    flex-direction: row !important;  /* keep it side-by-side */
+    flex-wrap: nowrap !important;    /* belt + suspenders */
+  }
+
+  .hero-bg-image {
+    display: none !important;        /* disappear instead of dropping */
+  }
+
+  .hero-content {
+    margin: 0 auto;
+    text-align: center;
+  }
+}
+/* ========== Profiles: responsive See More placement ========== */
+
+/* Desktop/tablet: keep the existing absolute button in header */
+.profiles-header-wrapper {
+  position: relative;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.profiles-header-wrapper .see-more-link {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+/* ——— Profiles: move "See more" below last card only in 1-column mode ——— */
+
+/* ——— Profiles: See More placement tuned for each layout ——— */
+
+/* ================= Profiles: Single-source See More placement =================
+   Default (one-row): header button stays; below-grid duplicate hidden.
+   Multi-row (JS adds .is-multirow): header button hides; below-grid shows (right-aligned).
+   ============================================================================ */
+
+/* Below-grid duplicate is hidden by default */
+.see-more-mobile { 
+  display: none; 
+}
+
+/* Multi-row state — applied by JS on .profiles when cards wrap */
+.profiles.is-multirow .profiles-header-wrapper .see-more-link {
+  display: none !important;                 /* hide header button */
+}
+.profiles.is-multirow .see-more-mobile {
+  display: inline-block !important;         /* show below the grid */
+  position: static !important;
+  margin: 16px 0 0 auto;                    /* right-align under the cards */
+  width: fit-content;
+  transform: none;
+}
+
+/* Explicit desktop/one-row state (no .is-multirow) */
+.profiles:not(.is-multirow) .profiles-header-wrapper .see-more-link {
+  display: inline-block !important;         /* keep header button */
+  /* your existing absolute placement can remain elsewhere;
+     if needed, uncomment the next lines: */
+  /* position: absolute; right: 0; top: 50%; transform: translateY(-50%); */
+}
+.profiles:not(.is-multirow) .see-more-mobile {
+  display: none !important;                 /* keep duplicate hidden */
+}
+/* ========== HOW IT WORKS — stable 2×2 → 1×4, no weird 3+1 ========== */
+
+/* 0) Make the section respond to its own width (optional but better) */
+.how-it-works { container-type: inline-size; }
+
+/* 1) Base: always 2 columns when there is reasonable space */
+.how-right {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(260px, 1fr)); /* lock 2×2 */
+  gap: 32px;
+  align-items: stretch;                                  /* equal height feel */
+}
+
+/* 2) Only when it’s truly narrow, stack to 1 column */
+@container (max-width: 640px) {
+  .how-right {
+    grid-template-columns: 1fr;                          /* 1×4 at phone widths */
+  }
+  .how-step { 
+    max-width: 560px; 
+    margin-inline: auto;                                  /* nicer centering */
+  }
+}
+
+/* Fallback if container queries aren’t supported */
+@media (max-width: 640px) {
+  .how-right { grid-template-columns: 1fr; }
+  .how-step { max-width: 560px; margin-inline: auto; }
+}
+
+/* 3) Keep the illustration column behaving nicely */
+.how-wrapper {
+  align-items: center;                                    /* image aligns vertically */
+}
+.how-left img,
+.how-it-works-img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* 4) Tighten visual rhythm on small screens */
+@media (max-width: 640px) {
+  .how-it-works { padding-block: 48px; }
+  .how-step { padding: 20px; }
+  .how-step img { width: 36px; height: 36px; top: 20px; right: 20px; }
+}
+/* ===================== TESTIMONIALS — 3→2→1, stable ===================== */
+.testimonials { container-type: inline-size; }
+
+.testimonial-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr)); /* lock to 3 on wide */
+  gap: 32px;
+  justify-items: stretch;
+}
+
+/* narrower: 2 columns */
+@container (max-width: 960px) {
+  .testimonial-cards { grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+}
+
+/* phones: 1 column */
+@container (max-width: 600px) {
+  .testimonial-cards { grid-template-columns: 1fr; }
+  .testimonial { max-width: 560px; margin-inline: auto; } /* nice centering */
+}
+
+/* Fallback if container queries aren’t supported */
+@media (max-width: 960px)  { .testimonial-cards { grid-template-columns: repeat(2, minmax(260px,1fr)); } }
+@media (max-width: 600px)  { .testimonial-cards { grid-template-columns: 1fr; } }
+
+/* Optional: tighten small-screen rhythm */
+@media (max-width: 600px) {
+  .testimonials { padding-block: 48px; }
+  .testimonial { padding: 24px; }
+}
+
+/* ===================== PLANS — 3→2→1, stable ===================== */
+.pricing { container-type: inline-size; }
+
+/* Use grid to prevent the awkward 3-on-top + 1-below flex wrap */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(280px, 1fr)); /* 3 across on wide */
+  gap: clamp(24px, 4vw, 40px);
+  justify-items: stretch;
+}
+
+/* 2 columns on tablets */
+@container (max-width: 1100px) {
+  .plans { grid-template-columns: repeat(2, minmax(280px, 1fr)); }
+}
+
+/* 1 column on phones */
+@container (max-width: 640px) {
+  .plans { grid-template-columns: 1fr; }
+  .plan-card { max-width: 560px; margin-inline: auto; } /* balanced look */
+}
+
+/* Fallback media queries */
+@media (max-width: 1100px) { .plans { grid-template-columns: repeat(2, minmax(280px,1fr)); } }
+@media (max-width: 640px)  { .plans { grid-template-columns: 1fr; } }
+
+/* Optional niceties: keep featured card visually “special” on all sizes */
+.plan-card.featured { border: 2px solid var(--clr-primary); }
+@media (max-width: 640px) {
+  .plan-card.featured { order: 0; } /* ensure it doesn’t get stranded mid-stack */
+}
+/* ================== FIND YOUR SOUL MATE — stable 2→1 layout ================== */
+
+/* Make the section respond to its own width */
+.soulmate-section {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;        /* text : image */
+  align-items: center;
+  gap: clamp(24px, 5vw, 64px);
+  padding: clamp(48px, 8vw, 96px) clamp(16px, 5vw, 64px);
+  container-type: inline-size;
+}
+
+/* Reset earlier offsets so spacing stays even */
+.soulmate-box {
+  flex: none;
+  margin-left: 0 !important;
+  padding: 0 !important;
+  max-width: 560px;
+  justify-self: start;
+  z-index: 1;
+  text-align: left;
+}
+
+.soulmate-img {
+  flex: none;
+  width: 100%;
+  max-width: 560px;
+  height: auto;
+  object-fit: contain;
+  padding-right: 0 !important;
+  justify-self: end;
+  z-index: 1;
+}
+
+/* Decorative background stays behind */
+.soulmate-bg-layer {
+  position: absolute;
+  inset: 0;
+  background: #fdf3f0;
+  border-radius: 24px;
+  z-index: 0;
+}
+
+/* Tidy CTA */
+.soulmate-btn {
+  display: center;
+  gap: 6px;
+  margin-top: 16px;
+  
+}
+
+/* —— Collapse to single column only when the section is truly narrow —— */
+@container (max-width: 780px) {
+  .soulmate-section {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  .soulmate-img {
+    order: -1;                 /* image above text */
+    justify-self: center;
+    max-width: 440px;
+    margin-bottom: 8px;
+  }
+  .soulmate-box {
+    justify-self: center;
+  }
+  .soulmate-btn {
+    margin-inline: auto;       /* center CTA on phones */
+  }
+}
+
+/* Fallback for older browsers without container queries */
+@media (max-width: 780px) {
+  .soulmate-section { grid-template-columns: 1fr; text-align: center; }
+  .soulmate-img { order: -1; justify-self: center; max-width: 440px; margin-bottom: 8px; }
+  .soulmate-box { justify-self: center; }
+  .soulmate-btn { margin-inline: auto; }
+}
