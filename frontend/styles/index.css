@@ -9,9 +9,11 @@
 .hero-content {
   flex: 1 1 520px;
   margin-left: 50px;
+  margin-left: 50px;
 }
 
 .hero-content h1 {
+  font-size: clamp(40px, 5.4vw, 68px);
   font-size: clamp(40px, 5.4vw, 68px);
   font-family: "Crimson Text", serif;
   font-weight: 800;
@@ -64,7 +66,6 @@
   display: flex;
   justify-content: flex-end;
 }
-
 .hero-section {
   display: flex;
   justify-content: space-between;
@@ -123,6 +124,7 @@
   transition: 0.25s;
 }
 
+
 .profile-card:hover {
   transform: translateY(-6px);
 }
@@ -143,6 +145,8 @@
   transition: background 0.25s ease, transform 0.25s ease;
   visibility: visible;
   opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .view-btn:hover {
@@ -160,7 +164,6 @@
   font-family: 'DM Serif Display', serif;
   font-weight: 700;
   font-size: 2.5rem;
-
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -186,6 +189,10 @@
 
 /* 3. How It Works */
 .how-it-works {
+  padding-block: 64px;
+}
+
+.how-wrapper {
   padding-block: 64px;
 }
 
@@ -251,6 +258,12 @@
 .testimonials {
   padding-block: 64px;
   text-align: center;
+}
+
+.testimonials-wrapper{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .testimonials-wrapper{

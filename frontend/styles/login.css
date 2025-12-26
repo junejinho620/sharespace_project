@@ -9,20 +9,11 @@ body {
   height: 100vh;
 }
 
-.logo {
-  position: absolute;
-  top: 40px;
-  left: 80px;
-  font-family: 'Playfair Display', serif;
-  font-size: 26px;
-  color: #bda98b;
-  cursor: pointer;
-}
 
 /* PANEL WIDTHS */
 .left-panel {
   width: 40%;
-  background-color: #f5e8d6;
+  background-color:var(--clr-surface); /*#FDF5F6;*/
   padding: 80px 80px;
   box-sizing: border-box;
   position: relative;
@@ -160,7 +151,7 @@ body {
   width: 100%;
   margin-bottom: 24px;
   padding: 16px 160px;
-  background-color: #a48d65;
+  background-color:var( --clr-primary);
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -171,7 +162,7 @@ body {
 }
 
 .btn:hover {
-  background-color: #8a7453;
+  background-color: var( --clr-primary-dark);
 }
 
 /* Social buttons */
@@ -209,7 +200,7 @@ body {
 
 .signup-link a {
   font-weight: 500;
-  color: #a48d65;
+  color:var( --clr-primary);
   text-decoration: none;
 }
 

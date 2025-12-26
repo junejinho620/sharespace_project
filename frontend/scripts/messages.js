@@ -28,7 +28,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     toast.addEventListener("click", async () => {
       console.log("🔗 Toast clicked. Jumping to chat with user:", senderId);
 
-      const targetChatItem = document.querySelector(`.chat-item[data-userid="${senderId}"]`);
+      const targetChatItem = document.querySelector(
+        `.chat-item[data-userid="${senderId}"]`
+      );
 
       if (targetChatItem) {
         // Smoothly scroll to the chat user
@@ -74,20 +76,30 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.log("🔥 Received real-time message:", message);
 
     const isOwnMessage = message.sender_id === userId;
-    const isChatWithSenderActive = parseInt(activeUserId, 10) === parseInt(message.sender_id, 10);
-    const isChatWithReceiverActive = parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) && isOwnMessage;
-    const isCurrentChatOpen = isChatWithSenderActive || isChatWithReceiverActive;
+    const isChatWithSenderActive =
+      parseInt(activeUserId, 10) === parseInt(message.sender_id, 10);
+    const isChatWithReceiverActive =
+      parseInt(activeUserId, 10) === parseInt(message.receiver_id, 10) &&
+      isOwnMessage;
+    const isCurrentChatOpen =
+      isChatWithSenderActive || isChatWithReceiverActive;
 
     const targetUserId = isOwnMessage ? message.receiver_id : message.sender_id;
-    const targetChatItem = document.querySelector(`.chat-item[data-userid="${targetUserId}"]`);
+    const targetChatItem = document.querySelector(
+      `.chat-item[data-userid="${targetUserId}"]`
+    );
 
-    const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    const currentTime = new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
 
     // If chatting with the user, display the new message
     if (isCurrentChatOpen) {
       const bubble = document.createElement("div");
       const isFromUser = message.sender_id === userId;
-      bubble.className = "message-bubble " + (isFromUser ? "from-user" : "from-other");
+      bubble.className =
+        "message-bubble " + (isFromUser ? "from-user" : "from-other");
       bubble.innerHTML = `
         <div>${message.message_text}</div>
         <div class="message-time">${currentTime}</div>
@@ -100,7 +112,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // Update sidebar preview in real-time
     if (targetChatItem) {
       // Update preview text
-      const preview = targetChatItem.querySelector('.chat-preview');
+      const preview = targetChatItem.querySelector(".chat-preview");
       if (preview) {
         preview.innerText = message.message_text;
       }
@@ -110,11 +122,16 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     if (!isOwnMessage && !isCurrentChatOpen) {
-      const senderUser = matchedUsers.find(u => u.id === message.sender_id);
-      const senderName = senderUser ? senderUser.name : `User ${message.sender_id}`;
+      const senderUser = matchedUsers.find((u) => u.id === message.sender_id);
+      const senderName = senderUser
+        ? senderUser.name
+        : `User ${message.sender_id}`;
 
       // If user is NOT chatting with the sender, show a toast popup
-      showToast(`📬 New message from user ${senderName}. Click their chat to reply.`, message.sender_id);
+      showToast(
+        `📬 New message from user ${senderName}. Click their chat to reply.`,
+        message.sender_id
+      );
     }
   });
 
@@ -130,20 +147,23 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     if (!matches || matches.length === 0) {
       chatList.innerHTML = "<p>No matched users yet.</p>";
-      chatMessages.innerHTML = "<p class='placeholder'>No conversations available. Start matching!</p>";
+      chatMessages.innerHTML =
+        "<p class='placeholder'>No conversations available. Start matching!</p>";
       return;
     }
 
     chatList.innerHTML = ""; // Clear default content
 
     // ✅ Render matched users into sidebar
-    matches.forEach(user => {
+    matches.forEach((user) => {
       const item = document.createElement("div");
       item.className = "chat-item";
       item.dataset.userid = user.id;
       item.dataset.username = user.username;
 
-      const previewText = user.last_message ? user.last_message : "Click to start chat";
+      const previewText = user.last_message
+        ? user.last_message
+        : "Click to start chat";
 
       item.innerHTML = `
         <img src="${user.profile_picture_url || 'styles/img/default.jpg'}" alt="${user.username}" class="avatar" />
@@ -158,9 +178,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     // ✅ Add click events for each user
-    document.querySelectorAll(".chat-item").forEach(item => {
+    document.querySelectorAll(".chat-item").forEach((item) => {
       item.addEventListener("click", async () => {
-        document.querySelectorAll(".chat-item").forEach(i => i.classList.remove("active"));
+        document
+          .querySelectorAll(".chat-item")
+          .forEach((i) => i.classList.remove("active"));
         item.classList.add("active");
 
         activeUserId = parseInt(item.dataset.userid, 10);
@@ -177,7 +199,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           chatMessages.innerHTML = "";
           let previousDate = null; // Track last rendered message date
 
-          messages.forEach(msg => {
+          messages.forEach((msg) => {
             const messageDate = new Date(msg.sent_at);
             const currentDateString = messageDate.toDateString(); // "Tue Apr 30 2025"
 
@@ -197,12 +219,15 @@ document.addEventListener("DOMContentLoaded", async () => {
                 dateSeparator.innerText = "Yesterday";
               } else {
                 // Format full date nicely
-                dateSeparator.innerText = messageDate.toLocaleDateString(undefined, {
-                  weekday: 'long',
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric'
-                });
+                dateSeparator.innerText = messageDate.toLocaleDateString(
+                  undefined,
+                  {
+                    weekday: "long",
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  }
+                );
               }
 
               chatMessages.appendChild(dateSeparator);
@@ -213,10 +238,14 @@ document.addEventListener("DOMContentLoaded", async () => {
             const bubble = document.createElement("div");
             const isFromUser = msg.sender_id === userId;
 
-            bubble.className = "message-bubble " + (isFromUser ? "from-user" : "from-other");
+            bubble.className =
+              "message-bubble " + (isFromUser ? "from-user" : "from-other");
 
             // Format time (e.g., 11:34 AM)
-            const timeString = messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const timeString = messageDate.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            });
 
             // Bubble content includes message text + small time under it
             bubble.innerHTML = `
@@ -233,7 +262,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         }
       });
     });
-
   } catch (err) {
     console.error("❌ Error fetching matches:", err);
     chatList.innerHTML = "<p>Failed to load chat list.</p>";
@@ -253,7 +281,10 @@ document.addEventListener("DOMContentLoaded", async () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ receiver_id: activeUserId, message_text: message }),
+        body: JSON.stringify({
+          receiver_id: activeUserId,
+          message_text: message,
+        }),
       });
 
       const data = await res.json();
@@ -275,9 +306,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           sender_id: userId,
           receiver_id: receiverId,
           message_text: sentMessageText,
-        }
+        },
       });
-
     } catch (err) {
       console.error("❌ Error sending message:", err);
     }

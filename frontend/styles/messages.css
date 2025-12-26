@@ -10,6 +10,7 @@ body {
   display: grid;
   grid-template-columns: 300px 1fr;
   height: calc(100vh - 70px); /* Adjust height for navbar */
+  margin-left: 6rem;
   margin-right: 6rem;
 }
 
@@ -100,6 +101,7 @@ body {
   gap: 14px;
   padding: 20px;
   scroll-behavior: smooth;
+  
 }
 
 /* 💬 Each Message Bubble */

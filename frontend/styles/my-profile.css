@@ -1,27 +1,16 @@
-:root {
-  --primary: var(--clr-primary, #2563eb);
-  /* fallback: blue-600 */
-  --bg: #f5f7fb;
-  /* page background */
-  --card: #ffffff;
-  /* card background */
-  --text: #111827;
-  /* main text */
-  --muted: #6b7280;
-  /* secondary text */
-  --border: #e5e7eb;
-  /* light border */
+:root{
+  --primary: var(--clr-primary, #2563eb); /* fallback: blue-600 */
+  --bg: #f5f7fb;            /* page background */
+  --card: #ffffff;          /* card background */
+  --text: #111827;          /* main text */
+  --muted: #6b7280;         /* secondary text */
+  --border: #e5e7eb;        /* light border */
   --radius-lg: 16px;
   --radius-md: 12px;
   --shadow: 0 6px 20px rgba(17, 24, 39, 0.06);
 }
 
-/* Page container */
-body {
-  background: var(--bg);
-  color: var(--text);
-}
-
+body { background: var(--bg); color: var(--text); }
 .profile-container {
   max-width: 1080px;
   margin: 32px auto;
@@ -30,8 +19,7 @@ body {
   gap: 20px;
 }
 
-/* Top header block → soft card */
-.profile-header {
+.profile-header{
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -43,213 +31,113 @@ body {
   align-items: center;
 }
 
-/* Avatar like the mock: circular, clear edge */
-.profile-image-wrapper {
-  width: 84px;
-  height: 84px;
-  border-radius: 999px;
-  overflow: hidden;
-  flex: 0 0 auto;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .06);
+.profile-image-wrapper{
+  width: 84px; height: 84px; border-radius: 999px; overflow: hidden; flex: 0 0 auto;
+  border: 3px solid #fff; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.profile-img{ width: 100%; height: 100%; object-fit: cover; }
+
+.profile-info h2{
+  margin: 0 0 6px; font-size: 1.4rem; line-height: 1.2; font-weight: 700;
+}
+.profile-info p{
+  margin: 0; color: var(--muted); font-size: .96rem;
 }
 
-.profile-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* Name + meta */
-.profile-info h3 {
-  margin: 0 0 6px;
-  font-size: 1.4rem;
-  line-height: 1.2;
-  font-weight: 700;
-}
-
-.profile-info p {
-  margin: 0;
-  color: var(--muted);
-  font-size: .96rem;
-}
-
-/* Primary button (Edit) like the sample) */
-.edit-profile-btn {
+.edit-profile-btn{
   margin-left: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 14px;
-  background: var(--primary);
-  color: #fff;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  font-weight: 600;
-  cursor: pointer;
+  background: var(--primary); color: #fff;
+  border: 1px solid transparent; border-radius: 10px;
+  font-weight: 600; cursor: pointer;
   box-shadow: 0 6px 14px rgba(37, 99, 235, .18);
   transition: transform .12s ease, filter .12s ease;
 }
+.edit-profile-btn:hover{ filter: brightness(.98); transform: translateY(-1px); }
+.edit-profile-btn:active{ transform: translateY(0); }
 
-.edit-profile-btn:hover {
-  filter: brightness(.98);
-  transform: translateY(-1px);
-}
-
-.edit-profile-btn:active {
-  transform: translateY(0);
-}
-
-/* Section blocks → cards with rounded edges like the mock */
-.profile-section {
+.profile-section{
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow);
-  padding: 23px 18px 30px;
+  padding: 18px 18px 20px;
+}
+.profile-section + .profile-section{ margin-top: 2px; } /* tight stack */
+
+.profile-section h2{
+  margin: 0 0 12px;
+  font-size: 1.05rem; font-weight: 700;
 }
 
-.profile-section+.profile-section {
-  margin-top: 2px;
-}
-
-.profile-section h2 {
-  margin: 0 0 18px;
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-/* “Personal Info” rows look like simple fields */
-.info-grid {
+.info-grid{
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0,1fr));
   gap: 12px 16px;
 }
-
-.info-grid>div {
+.info-grid > div{
   background: #fafafb;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 10px 12px;
 }
-
-.info-grid strong {
-  display: block;
-  font-size: .86rem;
-  color: #374151;
-  margin-bottom: 4px;
-}
-
-.info-grid span {
-  color: #1f2937;
-}
+.info-grid strong{ display:block; font-size:.86rem; color:#374151; margin-bottom:4px; }
+.info-grid span{ color:#1f2937; }
 
 /* Tags / Hobbies → clean chips with primary outline */
-.tag-container,
-#profileHobbies {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 6px;
+.tag-container, #profileHobbies{
+  display:flex; flex-wrap:wrap; gap:8px; margin-top: 6px;
+}
+.tag-container .tag, #profileHobbies .tag{
+  display:inline-flex; align-items:center;
+  padding:6px 10px; border-radius:999px;
+  border:1px solid var(--primary); color: var(--primary); background:#fff;
+  font-size:.92rem; line-height:1;
 }
 
-.tag-container .tag,
-#profileHobbies .tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--primary);
-  color: var(--primary);
-  background: #fff;
-  font-size: .92rem;
-  line-height: 1;
-}
-
-/* Inputs inside your sections (location, bio, etc.) */
 .profile-section input[type="text"],
 .profile-section input[type="email"],
 .profile-section textarea,
-.profile-section select {
-  width: 100%;
-  background: #fff;
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 12px;
-  font: inherit;
-  color: var(--text);
+.profile-section select{
+  width:100%;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:10px 12px;
+  font: inherit; color: var(--text);
   outline: none;
   transition: border-color .15s ease, box-shadow .15s ease;
 }
-
-.profile-section textarea {
-  min-height: 120px;
-  resize: vertical;
-}
-
+.profile-section textarea{ min-height: 120px; resize: vertical; }
 .profile-section input:focus,
 .profile-section textarea:focus,
-.profile-section select:focus {
+.profile-section select:focus{
   border-color: color-mix(in oklab, var(--primary) 65%, var(--border) 35%);
   box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 12%, transparent 88%);
 }
 
-/* Secondary actions (Save/Cancel) */
 .profile-section .btn,
-.profile-section button:not(.edit-profile-btn) {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  border-radius: 10px;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: #111827;
-  font-weight: 600;
-  cursor: pointer;
+.profile-section button:not(.edit-profile-btn){
+  display:inline-flex; align-items:center; gap:8px;
+  padding:10px 14px; border-radius:10px; border:1px solid var(--border);
+  background:#fff; color:#111827; font-weight:600; cursor:pointer;
   transition: border-color .12s ease, box-shadow .12s ease, transform .12s ease;
 }
+.profile-section .btn.primary{ background: var(--primary); color:#fff; border-color: transparent; box-shadow: 0 4px 12px rgba(37,99,235,.16); }
+.profile-section .btn:hover{ transform: translateY(-1px); }
+.profile-section .btn:active{ transform: translateY(0); }
 
-.profile-section .btn.primary {
-  background: var(--primary);
-  color: #fff;
-  border-color: transparent;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, .16);
-}
-
-.profile-section .btn:hover {
-  transform: translateY(-1px);
-}
-
-.profile-section .btn:active {
-  transform: translateY(0);
-}
-
-/* Small text utility */
-.muted {
-  color: var(--muted);
-}
+.muted{ color: var(--muted); }
 
 /* Responsive similar to the mock */
-@media (max-width: 960px) {
-  .info-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+@media (max-width: 960px){
+  .info-grid{ grid-template-columns: repeat(2, minmax(0,1fr)); }
 }
-
-@media (max-width: 600px) {
-  .profile-header {
-    grid-template-columns: 1fr;
-    text-align: center;
-    gap: 12px;
+@media (max-width: 600px){
+  .profile-header{
+    grid-template-columns: 1fr; text-align: center; gap: 12px;
   }
-
-  .edit-profile-btn {
-    justify-self: center;
-    width: 100%;
-  }
-
-  .info-grid {
-    grid-template-columns: 1fr;
-  }
+  .edit-profile-btn{ justify-self: center; width: 100%; }
+  .info-grid{ grid-template-columns: 1fr; }
 }
