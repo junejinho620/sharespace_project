@@ -5,7 +5,7 @@ const { Server } = require("socket.io"); // Allow real-time messaging
 const cors = require("cors"); // Middleware to allow cross-origin requests
 const dotenv = require("dotenv"); // Loads environment variables from .env file
 const morgan = require("morgan"); // Logs HTTP requests for debugging
-const { sequelize } = require("./models");
+const { sequelize } = require('./models');
 const path = require("path");
 
 // Load environment variables from .env file

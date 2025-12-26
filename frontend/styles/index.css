@@ -9,9 +9,11 @@
 .hero-content {
   flex: 1 1 520px;
   margin-left: 50px;
+  margin-left: 50px;
 }
 
 .hero-content h1 {
+  font-size: clamp(40px, 5.4vw, 68px);
   font-size: clamp(40px, 5.4vw, 68px);
   font-family: "Crimson Text", serif;
   font-weight: 800;
@@ -108,7 +110,6 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 32px;
-  /*margin-top: 32px;*/
 }
 
 .profile-card {
@@ -118,8 +119,8 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 👈 key */
-  height: 100%; /* 👈 ensures equal height across all cards */
+  justify-content: space-between;
+  height: 100%; 
   transition: 0.25s;
 }
 
@@ -144,12 +145,15 @@
   transition: background 0.25s ease, transform 0.25s ease;
   visibility: visible;
   opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
 
 .view-btn:hover {
   background: var(--clr-primary-dark);
   transform: translateY(-2px);
 }
+
 .profiles-header-wrapper {
   position: relative;
   text-align: center;
@@ -160,7 +164,6 @@
   font-family: 'DM Serif Display', serif;
   font-weight: 700;
   font-size: 2.5rem;
-  
   text-align: center;
   margin-bottom: 2rem;
 }
@@ -184,9 +187,12 @@
   background-color: var(--clr-primary-dark);
 }
 
-
 /* 3. How It Works */
 .how-it-works {
+  padding-block: 64px;
+}
+
+.how-wrapper {
   padding-block: 64px;
 }
 
@@ -194,10 +200,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 48px;
-  
 }
-
-
 
 .how-left {
   flex: 1 1 360px;
@@ -253,9 +256,14 @@
 
 /* 4. Testimonials */
 .testimonials {
-  
   padding-block: 64px;
   text-align: center;
+}
+
+.testimonials-wrapper{
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 .testimonials-wrapper{
@@ -269,7 +277,6 @@
   gap: 32px;
   flex-wrap: wrap;
   justify-content: center;
-  /*margin-top: 64px;*/
 }
 
 .testimonial {
@@ -296,14 +303,11 @@
 
 .plans {
   display: flex;
-  column-gap: clamp(32px, 8vw, 106px); /* was smaller, now can go up to 120px */
+  column-gap: clamp(32px, 8vw, 106px);
   row-gap: 32px;
   justify-content: center;
   flex-wrap: wrap;
-  /*margin-top: 64px;*/
 }
-
-
 
 .plan-card {
   background: var(--clr-surface);
